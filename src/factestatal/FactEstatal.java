@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package factestatal;
+
+import myclass.SQLite_conexion;
 
 /**
  *
- * @author comercial.gvca
+ * @author carlos860920
  */
 public class FactEstatal {
 
@@ -19,6 +20,8 @@ public class FactEstatal {
         // LLamada al formulario principal
         Autenticar autenticar = new Autenticar();
         autenticar.setVisible(true);
+
+        SQLite_conexion c = new SQLite_conexion();
+        System.out.println(c.seleccionarString("usuario"));
     }
-    
 }
