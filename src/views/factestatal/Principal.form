@@ -31,9 +31,8 @@
                   <KeyStroke key="Shift+Ctrl+I"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\importar.png"/>
+                  <Image iconType="3" name="/images/iconos/importar.png"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="111"/>
                 <Property name="text" type="java.lang.String" value="Importar"/>
               </Properties>
             </MenuItem>
@@ -43,9 +42,8 @@
                   <KeyStroke key="Shift+Ctrl+E"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\exportar.png"/>
+                  <Image iconType="3" name="/images/iconos/exportar.png"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="115"/>
                 <Property name="text" type="java.lang.String" value="Exportar"/>
               </Properties>
             </MenuItem>
@@ -54,7 +52,6 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Alt+F4"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="120"/>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
               <Events>
@@ -74,7 +71,7 @@
                   <KeyStroke key="Ctrl+Alt+E"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\datos_empresa.png"/>
+                  <Image iconType="3" name="/images/iconos/datos_empresa.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Datos de la Empresa"/>
               </Properties>
@@ -112,7 +109,7 @@
                   <KeyStroke key="Shift+Ctrl+T"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\titulares.png"/>
+                  <Image iconType="3" name="/images/iconos/titulares.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Titulares"/>
               </Properties>
@@ -126,7 +123,7 @@
                   <KeyStroke key="Shift+Ctrl+C"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\clientes.png"/>
+                  <Image iconType="3" name="/images/iconos/clientes.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Clientes"/>
               </Properties>
@@ -142,7 +139,7 @@
                   <KeyStroke key="Ctrl+Alt+D"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\detalles_control.png"/>
+                  <Image iconType="3" name="/images/iconos/detalles_control.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Detalles de Control"/>
               </Properties>
@@ -160,7 +157,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="relacionSMMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\relacion_servicio_sobreconsumo.png"/>
+                  <Image iconType="3" name="/images/iconos/relacion_servicio_sobreconsumo.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Relaci&#xf3;n de Servicio Metrado - Sobreconsumo"/>
               </Properties>
@@ -168,7 +165,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="servicioInclAlcMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\servicios_alcantarillado.png"/>
+                  <Image iconType="3" name="/images/iconos/servicios_alcantarillado.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Servicios que incluyen Alcantatrillado"/>
               </Properties>
@@ -176,7 +173,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="servicioXclienteMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\serviciosXcliantes.png"/>
+                  <Image iconType="3" name="/images/iconos/serviciosXcliantes.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Servicios por clientes"/>
               </Properties>
@@ -186,7 +183,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="facturacionMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\facturar.png"/>
+                  <Image iconType="3" name="/images/iconos/facturar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Facturar"/>
               </Properties>
@@ -194,7 +191,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="consultasAfacturasMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\consultar_facturas.png"/>
+                  <Image iconType="3" name="/images/iconos/consultar_facturas.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Consultas a Facturas"/>
               </Properties>
@@ -214,7 +211,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\facturas.png"/>
+                  <Image iconType="3" name="/images/iconos/facturas.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Facturas"/>
               </Properties>
@@ -330,7 +327,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem24">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\fichero_a_banco.png"/>
+                  <Image iconType="3" name="/images/iconos/fichero_a_banco.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Crear fichero que va al Banco"/>
               </Properties>
@@ -362,7 +359,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem29">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\cierre_mes.png"/>
+                  <Image iconType="3" name="/images/iconos/cierre_mes.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cierre de Mes"/>
               </Properties>
@@ -377,7 +374,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem30">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\capturar_facturas_cobros.png"/>
+                  <Image iconType="3" name="/images/iconos/capturar_facturas_cobros.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Captar Facturas x Cobro"/>
               </Properties>
@@ -422,7 +419,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="usersMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\usuarios.png"/>
+                  <Image iconType="3" name="/images/iconos/usuarios.png"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="100"/>
                 <Property name="text" type="java.lang.String" value="Usuarios"/>
@@ -434,7 +431,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem36">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\password.png"/>
+                  <Image iconType="3" name="/images/iconos/password.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cambiar Contrase&#xf1;a"/>
               </Properties>
@@ -509,7 +506,7 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="contenedorToolBar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="desktopPane" pref="512" max="32767" attributes="0"/>
+              <Component id="desktopPane" pref="488" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="usuarioToolBar" min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
@@ -536,7 +533,7 @@
             <Component class="javax.swing.JButton" name="importarButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\importar.png"/>
+                  <Image iconType="3" name="/images/iconos/importar.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Importar"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -547,7 +544,7 @@
             <Component class="javax.swing.JButton" name="exportarButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\exportar.png"/>
+                  <Image iconType="3" name="/images/iconos/exportar.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Exportar"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -568,7 +565,7 @@
             <Component class="javax.swing.JButton" name="clientesButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\clientes.png"/>
+                  <Image iconType="3" name="/images/iconos/clientes.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Clientes"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -579,7 +576,7 @@
             <Component class="javax.swing.JButton" name="serviciosXClientesButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\serviciosXcliantes.png"/>
+                  <Image iconType="3" name="/images/iconos/serviciosXcliantes.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Servicios por Clientes"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -590,7 +587,7 @@
             <Component class="javax.swing.JButton" name="facturarButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\facturar.png"/>
+                  <Image iconType="3" name="/images/iconos/facturar.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Facturar"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -601,7 +598,7 @@
             <Component class="javax.swing.JButton" name="consultasAFacturasButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\consultar_facturas.png"/>
+                  <Image iconType="3" name="/images/iconos/consultar_facturas.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Consultas a Facturas"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -621,7 +618,7 @@
             <Component class="javax.swing.JButton" name="FacturasButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\facturas.png"/>
+                  <Image iconType="3" name="/images/iconos/facturas.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Facturas"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -641,7 +638,7 @@
             <Component class="javax.swing.JButton" name="ficheroABancoButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\fichero_a_banco.png"/>
+                  <Image iconType="3" name="/images/iconos/fichero_a_banco.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Fichero que va al Banco"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -652,7 +649,7 @@
             <Component class="javax.swing.JButton" name="cierreMesButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\cierre_mes.png"/>
+                  <Image iconType="3" name="/images/iconos/cierre_mes.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Cerrar Mes"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -672,7 +669,7 @@
             <Component class="javax.swing.JButton" name="captarCobroButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\capturar_facturas_cobros.png"/>
+                  <Image iconType="3" name="/images/iconos/capturar_facturas_cobros.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Captar Factura x Cobro"/>
                 <Property name="focusable" type="boolean" value="false"/>

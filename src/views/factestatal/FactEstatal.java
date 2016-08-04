@@ -5,7 +5,7 @@
  */
 package factestatal;
 
-import myclass.SQLite_conexion;
+import models.SQLite_conexion;
 
 /**
  *

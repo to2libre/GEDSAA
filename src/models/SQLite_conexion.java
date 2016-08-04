@@ -3,7 +3,7 @@
  * @author carlos860920
  * @version 2016.07.25
  */
-package myclass;
+package models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

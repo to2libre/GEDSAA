@@ -170,14 +170,14 @@ public class Principal extends javax.swing.JFrame {
         importarExportarToolBar.setRollover(true);
         importarExportarToolBar.setName("Imporar - Exportar"); // NOI18N
 
-        importarButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\importar.png")); // NOI18N
+        importarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/importar.png"))); // NOI18N
         importarButton.setToolTipText("Importar");
         importarButton.setFocusable(false);
         importarButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         importarButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         importarExportarToolBar.add(importarButton);
 
-        exportarButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\exportar.png")); // NOI18N
+        exportarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/exportar.png"))); // NOI18N
         exportarButton.setToolTipText("Exportar");
         exportarButton.setFocusable(false);
         exportarButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -189,28 +189,28 @@ public class Principal extends javax.swing.JFrame {
         accionesToolBar.setRollover(true);
         accionesToolBar.setName("Acciones"); // NOI18N
 
-        clientesButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\clientes.png")); // NOI18N
+        clientesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/clientes.png"))); // NOI18N
         clientesButton.setToolTipText("Clientes");
         clientesButton.setFocusable(false);
         clientesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         clientesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         accionesToolBar.add(clientesButton);
 
-        serviciosXClientesButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\serviciosXcliantes.png")); // NOI18N
+        serviciosXClientesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/serviciosXcliantes.png"))); // NOI18N
         serviciosXClientesButton.setToolTipText("Servicios por Clientes");
         serviciosXClientesButton.setFocusable(false);
         serviciosXClientesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         serviciosXClientesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         accionesToolBar.add(serviciosXClientesButton);
 
-        facturarButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\facturar.png")); // NOI18N
+        facturarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/facturar.png"))); // NOI18N
         facturarButton.setToolTipText("Facturar");
         facturarButton.setFocusable(false);
         facturarButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         facturarButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         accionesToolBar.add(facturarButton);
 
-        consultasAFacturasButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\consultar_facturas.png")); // NOI18N
+        consultasAFacturasButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/consultar_facturas.png"))); // NOI18N
         consultasAFacturasButton.setToolTipText("Consultas a Facturas");
         consultasAFacturasButton.setFocusable(false);
         consultasAFacturasButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -221,7 +221,7 @@ public class Principal extends javax.swing.JFrame {
 
         informesToolBar.setRollover(true);
 
-        FacturasButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\facturas.png")); // NOI18N
+        FacturasButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/facturas.png"))); // NOI18N
         FacturasButton.setToolTipText("Facturas");
         FacturasButton.setFocusable(false);
         FacturasButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -232,14 +232,14 @@ public class Principal extends javax.swing.JFrame {
 
         cierreToolBar.setRollover(true);
 
-        ficheroABancoButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\fichero_a_banco.png")); // NOI18N
+        ficheroABancoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/fichero_a_banco.png"))); // NOI18N
         ficheroABancoButton.setToolTipText("Fichero que va al Banco");
         ficheroABancoButton.setFocusable(false);
         ficheroABancoButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ficheroABancoButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         cierreToolBar.add(ficheroABancoButton);
 
-        cierreMesButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\cierre_mes.png")); // NOI18N
+        cierreMesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/cierre_mes.png"))); // NOI18N
         cierreMesButton.setToolTipText("Cerrar Mes");
         cierreMesButton.setFocusable(false);
         cierreMesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -250,7 +250,7 @@ public class Principal extends javax.swing.JFrame {
 
         cobrosToolBar.setRollover(true);
 
-        captarCobroButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\capturar_facturas_cobros.png")); // NOI18N
+        captarCobroButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/capturar_facturas_cobros.png"))); // NOI18N
         captarCobroButton.setToolTipText("Captar Factura x Cobro");
         captarCobroButton.setFocusable(false);
         captarCobroButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -272,19 +272,16 @@ public class Principal extends javax.swing.JFrame {
         fileMenu.setText("Archivo");
 
         importMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        importMenuItem.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\importar.png")); // NOI18N
-        importMenuItem.setMnemonic('o');
+        importMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/importar.png"))); // NOI18N
         importMenuItem.setText("Importar");
         fileMenu.add(importMenuItem);
 
         exportMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        exportMenuItem.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\exportar.png")); // NOI18N
-        exportMenuItem.setMnemonic('s');
+        exportMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/exportar.png"))); // NOI18N
         exportMenuItem.setText("Exportar");
         fileMenu.add(exportMenuItem);
 
         exitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Salir");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -298,7 +295,7 @@ public class Principal extends javax.swing.JFrame {
         ficherosMenu.setText("Ficheros");
 
         datosEmpresaMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        datosEmpresaMenuItem.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\datos_empresa.png")); // NOI18N
+        datosEmpresaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/datos_empresa.png"))); // NOI18N
         datosEmpresaMenuItem.setText("Datos de la Empresa");
         datosEmpresaMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -327,7 +324,7 @@ public class Principal extends javax.swing.JFrame {
         ficherosMenu.add(jSeparator1);
 
         titularesMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        titularesMenuItem.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\titulares.png")); // NOI18N
+        titularesMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/titulares.png"))); // NOI18N
         titularesMenuItem.setText("Titulares");
         titularesMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -337,7 +334,7 @@ public class Principal extends javax.swing.JFrame {
         ficherosMenu.add(titularesMenuItem);
 
         clientesMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        clientesMenuItem.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\clientes.png")); // NOI18N
+        clientesMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/clientes.png"))); // NOI18N
         clientesMenuItem.setText("Clientes");
         clientesMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,7 +345,7 @@ public class Principal extends javax.swing.JFrame {
         ficherosMenu.add(jSeparator2);
 
         detallesControlMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        detallesControlMenuItem.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\detalles_control.png")); // NOI18N
+        detallesControlMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/detalles_control.png"))); // NOI18N
         detallesControlMenuItem.setText("Detalles de Control");
         detallesControlMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -361,24 +358,24 @@ public class Principal extends javax.swing.JFrame {
 
         produccionMenu.setText("Producción");
 
-        relacionSMMenuItem.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\relacion_servicio_sobreconsumo.png")); // NOI18N
+        relacionSMMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/relacion_servicio_sobreconsumo.png"))); // NOI18N
         relacionSMMenuItem.setText("Relación de Servicio Metrado - Sobreconsumo");
         produccionMenu.add(relacionSMMenuItem);
 
-        servicioInclAlcMenuItem.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\servicios_alcantarillado.png")); // NOI18N
+        servicioInclAlcMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/servicios_alcantarillado.png"))); // NOI18N
         servicioInclAlcMenuItem.setText("Servicios que incluyen Alcantatrillado");
         produccionMenu.add(servicioInclAlcMenuItem);
 
-        servicioXclienteMenuItem.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\serviciosXcliantes.png")); // NOI18N
+        servicioXclienteMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/serviciosXcliantes.png"))); // NOI18N
         servicioXclienteMenuItem.setText("Servicios por clientes");
         produccionMenu.add(servicioXclienteMenuItem);
         produccionMenu.add(jSeparator3);
 
-        facturacionMenuItem.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\facturar.png")); // NOI18N
+        facturacionMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/facturar.png"))); // NOI18N
         facturacionMenuItem.setText("Facturar");
         produccionMenu.add(facturacionMenuItem);
 
-        consultasAfacturasMenuItem.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\consultar_facturas.png")); // NOI18N
+        consultasAfacturasMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/consultar_facturas.png"))); // NOI18N
         consultasAfacturasMenuItem.setText("Consultas a Facturas");
         produccionMenu.add(consultasAfacturasMenuItem);
 
@@ -389,7 +386,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem8.setText("Listado de Facturas");
         informesMenu.add(jMenuItem8);
 
-        jMenuItem9.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\facturas.png")); // NOI18N
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/facturas.png"))); // NOI18N
         jMenuItem9.setText("Facturas");
         informesMenu.add(jMenuItem9);
 
@@ -456,7 +453,7 @@ public class Principal extends javax.swing.JFrame {
 
         datosCierreMenu.setText("Datos de Cierre");
 
-        jMenuItem24.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\fichero_a_banco.png")); // NOI18N
+        jMenuItem24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/fichero_a_banco.png"))); // NOI18N
         jMenuItem24.setText("Crear fichero que va al Banco");
         datosCierreMenu.add(jMenuItem24);
 
@@ -474,7 +471,7 @@ public class Principal extends javax.swing.JFrame {
         datosCierreMenu.add(jMenuItem28);
         datosCierreMenu.add(jSeparator9);
 
-        jMenuItem29.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\cierre_mes.png")); // NOI18N
+        jMenuItem29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/cierre_mes.png"))); // NOI18N
         jMenuItem29.setText("Cierre de Mes");
         datosCierreMenu.add(jMenuItem29);
 
@@ -482,7 +479,7 @@ public class Principal extends javax.swing.JFrame {
 
         cobrosMenu.setText("Cobros");
 
-        jMenuItem30.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\capturar_facturas_cobros.png")); // NOI18N
+        jMenuItem30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/capturar_facturas_cobros.png"))); // NOI18N
         jMenuItem30.setText("Captar Facturas x Cobro");
         cobrosMenu.add(jMenuItem30);
 
@@ -508,7 +505,7 @@ public class Principal extends javax.swing.JFrame {
         herramientasMenu.setMnemonic('e');
         herramientasMenu.setText("Herramientas");
 
-        usersMenuItem.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\usuarios.png")); // NOI18N
+        usersMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/usuarios.png"))); // NOI18N
         usersMenuItem.setMnemonic('d');
         usersMenuItem.setText("Usuarios");
         usersMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -518,7 +515,7 @@ public class Principal extends javax.swing.JFrame {
         });
         herramientasMenu.add(usersMenuItem);
 
-        jMenuItem36.setIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\password.png")); // NOI18N
+        jMenuItem36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/password.png"))); // NOI18N
         jMenuItem36.setText("Cambiar Contraseña");
         herramientasMenu.add(jMenuItem36);
 
@@ -560,7 +557,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(contenedorToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(usuarioToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
