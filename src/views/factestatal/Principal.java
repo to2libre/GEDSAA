@@ -73,7 +73,7 @@ public class Principal extends javax.swing.JFrame {
         facturarButton = new javax.swing.JButton();
         consultasAFacturasButton = new javax.swing.JButton();
         informesToolBar = new javax.swing.JToolBar();
-        FacturasButton = new javax.swing.JButton();
+        facturasButton = new javax.swing.JButton();
         cierreToolBar = new javax.swing.JToolBar();
         ficheroABancoButton = new javax.swing.JButton();
         cierreMesButton = new javax.swing.JButton();
@@ -82,7 +82,7 @@ public class Principal extends javax.swing.JFrame {
         desktopPane = new myclass.JDescktopPaneImage();
         usuarioToolBar = new javax.swing.JToolBar();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        usuarioAutenticadoLabel = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         importMenuItem = new javax.swing.JMenuItem();
@@ -105,50 +105,50 @@ public class Principal extends javax.swing.JFrame {
         facturacionMenuItem = new javax.swing.JMenuItem();
         consultasAfacturasMenuItem = new javax.swing.JMenuItem();
         informesMenu = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
+        listadoFacturasMenuItem = new javax.swing.JMenuItem();
+        facturasMenuItem = new javax.swing.JMenuItem();
+        facturasRechazadasMenuItem = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
-        jMenuItem16 = new javax.swing.JMenuItem();
-        jMenuItem17 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem18 = new javax.swing.JMenuItem();
-        jMenuItem19 = new javax.swing.JMenuItem();
+        listadoTitularesClientesMenuItem = new javax.swing.JMenuItem();
+        mesYAcomuladoFacturasMenu = new javax.swing.JMenu();
+        enCUPMenuItem = new javax.swing.JMenuItem();
+        enCUCMenuItem = new javax.swing.JMenuItem();
+        totalFacturadoPresupuestadoMenuItem = new javax.swing.JMenuItem();
+        listadoGrandesConsumidoresMenuItem = new javax.swing.JMenuItem();
+        listadoPorSectoresMenuItem = new javax.swing.JMenuItem();
+        informeMetrosMenu = new javax.swing.JMenu();
+        informeMetrosCUPMenuItem = new javax.swing.JMenuItem();
+        informeMetrosCUCMenuItem = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem20 = new javax.swing.JMenuItem();
+        comprobanteOperacionnesMenuItem = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
-        jMenu9 = new javax.swing.JMenu();
-        jMenuItem21 = new javax.swing.JMenuItem();
-        jMenuItem22 = new javax.swing.JMenuItem();
+        clientesSinFacturarMenu = new javax.swing.JMenu();
+        clientesSinFacturarCUPMenuItem = new javax.swing.JMenuItem();
+        clientesSinFacturarCUCMenuItem = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
-        jMenu8 = new javax.swing.JMenu();
-        jMenuItem23 = new javax.swing.JMenuItem();
+        historicoMenu = new javax.swing.JMenu();
+        historicoDeFacturasMenuItem = new javax.swing.JMenuItem();
         datosCierreMenu = new javax.swing.JMenu();
-        jMenuItem24 = new javax.swing.JMenuItem();
-        jMenuItem25 = new javax.swing.JMenuItem();
-        jMenuItem26 = new javax.swing.JMenuItem();
+        crearFicheroBancoMenuItem = new javax.swing.JMenuItem();
+        consultarFcheroBancoMenuItem = new javax.swing.JMenuItem();
+        copiarDispositivoSalidaMenuItem = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem27 = new javax.swing.JMenuItem();
-        jMenuItem28 = new javax.swing.JMenuItem();
+        copiarFicheroVieneBancoMenuItem = new javax.swing.JMenuItem();
+        consultarFicheroVieneBancoMenuItem = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem29 = new javax.swing.JMenuItem();
+        CierreMesMenuItem = new javax.swing.JMenuItem();
         cobrosMenu = new javax.swing.JMenu();
-        jMenuItem30 = new javax.swing.JMenuItem();
-        jMenuItem31 = new javax.swing.JMenuItem();
+        capturarFacturasXCobroMenuItem = new javax.swing.JMenuItem();
+        consultaFacturasXCobroMenuItem = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem32 = new javax.swing.JMenuItem();
-        jMenuItem33 = new javax.swing.JMenuItem();
+        cobrosAFacturasMenuItem = new javax.swing.JMenuItem();
+        consultasACobrosFacturasMenuItem = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem34 = new javax.swing.JMenuItem();
-        jMenuItem35 = new javax.swing.JMenuItem();
+        registroCobrosMenuItem = new javax.swing.JMenuItem();
+        reporteEdadesMenuItem = new javax.swing.JMenuItem();
         herramientasMenu = new javax.swing.JMenu();
         usersMenuItem = new javax.swing.JMenuItem();
-        jMenuItem36 = new javax.swing.JMenuItem();
+        cambiarContrasennaMenuItem = new javax.swing.JMenuItem();
         prodMenu = new javax.swing.JMenu();
         ayudaMunu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
@@ -222,12 +222,12 @@ public class Principal extends javax.swing.JFrame {
         informesToolBar.setRollover(true);
         informesToolBar.setName("Informes"); // NOI18N
 
-        FacturasButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/facturas.png"))); // NOI18N
-        FacturasButton.setToolTipText("Facturas");
-        FacturasButton.setFocusable(false);
-        FacturasButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        FacturasButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        informesToolBar.add(FacturasButton);
+        facturasButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/facturas.png"))); // NOI18N
+        facturasButton.setToolTipText("Facturas");
+        facturasButton.setFocusable(false);
+        facturasButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        facturasButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        informesToolBar.add(facturasButton);
 
         contenedorToolBar.add(informesToolBar);
 
@@ -268,8 +268,8 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setText("Usuario Autenticado:");
         usuarioToolBar.add(jLabel1);
 
-        jLabel2.setText(" User Name");
-        usuarioToolBar.add(jLabel2);
+        usuarioAutenticadoLabel.setText(" User Name");
+        usuarioToolBar.add(usuarioAutenticadoLabel);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("Archivo");
@@ -351,122 +351,122 @@ public class Principal extends javax.swing.JFrame {
 
         informesMenu.setText("Informes");
 
-        jMenuItem8.setText("Listado de Facturas");
-        informesMenu.add(jMenuItem8);
+        listadoFacturasMenuItem.setText("Listado de Facturas");
+        informesMenu.add(listadoFacturasMenuItem);
 
-        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/facturas.png"))); // NOI18N
-        jMenuItem9.setText("Facturas");
-        informesMenu.add(jMenuItem9);
+        facturasMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/facturas.png"))); // NOI18N
+        facturasMenuItem.setText("Facturas");
+        informesMenu.add(facturasMenuItem);
 
-        jMenuItem11.setText("Facturas Rechazadas");
-        informesMenu.add(jMenuItem11);
+        facturasRechazadasMenuItem.setText("Facturas Rechazadas");
+        informesMenu.add(facturasRechazadasMenuItem);
         informesMenu.add(jSeparator4);
 
-        jMenuItem12.setText("Listado de Titulares y Clientes");
-        informesMenu.add(jMenuItem12);
+        listadoTitularesClientesMenuItem.setText("Listado de Titulares y Clientes");
+        informesMenu.add(listadoTitularesClientesMenuItem);
 
-        jMenu6.setText("Mes y Acomulado de Facturas");
+        mesYAcomuladoFacturasMenu.setText("Mes y Acomulado de Facturas");
 
-        jMenuItem13.setText("En CUP");
-        jMenu6.add(jMenuItem13);
+        enCUPMenuItem.setText("En CUP");
+        mesYAcomuladoFacturasMenu.add(enCUPMenuItem);
 
-        jMenuItem14.setText("En CUC");
-        jMenu6.add(jMenuItem14);
+        enCUCMenuItem.setText("En CUC");
+        mesYAcomuladoFacturasMenu.add(enCUCMenuItem);
 
-        informesMenu.add(jMenu6);
+        informesMenu.add(mesYAcomuladoFacturasMenu);
 
-        jMenuItem15.setText("Total Facturado Presupuestado");
-        informesMenu.add(jMenuItem15);
+        totalFacturadoPresupuestadoMenuItem.setText("Total Facturado Presupuestado");
+        informesMenu.add(totalFacturadoPresupuestadoMenuItem);
 
-        jMenuItem16.setText("Listado de Grandes Consumidores");
-        informesMenu.add(jMenuItem16);
+        listadoGrandesConsumidoresMenuItem.setText("Listado de Grandes Consumidores");
+        informesMenu.add(listadoGrandesConsumidoresMenuItem);
 
-        jMenuItem17.setText("Listado por Sector");
-        informesMenu.add(jMenuItem17);
+        listadoPorSectoresMenuItem.setText("Listado por Sector");
+        informesMenu.add(listadoPorSectoresMenuItem);
 
-        jMenu7.setText("Informe Metros");
+        informeMetrosMenu.setText("Informe Metros");
 
-        jMenuItem18.setText("Informe de Metros en CUP");
-        jMenu7.add(jMenuItem18);
+        informeMetrosCUPMenuItem.setText("Informe de Metros en CUP");
+        informeMetrosMenu.add(informeMetrosCUPMenuItem);
 
-        jMenuItem19.setText("Informe de Metros en CUC");
-        jMenu7.add(jMenuItem19);
+        informeMetrosCUCMenuItem.setText("Informe de Metros en CUC");
+        informeMetrosMenu.add(informeMetrosCUCMenuItem);
 
-        informesMenu.add(jMenu7);
+        informesMenu.add(informeMetrosMenu);
         informesMenu.add(jSeparator5);
 
-        jMenuItem20.setText("Comprobantes de Operaciones");
-        informesMenu.add(jMenuItem20);
+        comprobanteOperacionnesMenuItem.setText("Comprobantes de Operaciones");
+        informesMenu.add(comprobanteOperacionnesMenuItem);
         informesMenu.add(jSeparator6);
 
-        jMenu9.setText("Clientes sin Facturar");
+        clientesSinFacturarMenu.setText("Clientes sin Facturar");
 
-        jMenuItem21.setText("Clientes sin Facturar en CUP");
-        jMenu9.add(jMenuItem21);
+        clientesSinFacturarCUPMenuItem.setText("Clientes sin Facturar en CUP");
+        clientesSinFacturarMenu.add(clientesSinFacturarCUPMenuItem);
 
-        jMenuItem22.setText("Clientes sin Facturar en CUC");
-        jMenu9.add(jMenuItem22);
+        clientesSinFacturarCUCMenuItem.setText("Clientes sin Facturar en CUC");
+        clientesSinFacturarMenu.add(clientesSinFacturarCUCMenuItem);
 
-        informesMenu.add(jMenu9);
+        informesMenu.add(clientesSinFacturarMenu);
         informesMenu.add(jSeparator7);
 
-        jMenu8.setText("Historico");
+        historicoMenu.setText("Historico");
 
-        jMenuItem23.setText("Historicos de las Facturas");
-        jMenu8.add(jMenuItem23);
+        historicoDeFacturasMenuItem.setText("Historicos de las Facturas");
+        historicoMenu.add(historicoDeFacturasMenuItem);
 
-        informesMenu.add(jMenu8);
+        informesMenu.add(historicoMenu);
 
         menuBar.add(informesMenu);
 
         datosCierreMenu.setText("Datos de Cierre");
 
-        jMenuItem24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/fichero_a_banco.png"))); // NOI18N
-        jMenuItem24.setText("Crear fichero que va al Banco");
-        datosCierreMenu.add(jMenuItem24);
+        crearFicheroBancoMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/fichero_a_banco.png"))); // NOI18N
+        crearFicheroBancoMenuItem.setText("Crear fichero que va al Banco");
+        datosCierreMenu.add(crearFicheroBancoMenuItem);
 
-        jMenuItem25.setText("Consultar el fichero que va al Banco");
-        datosCierreMenu.add(jMenuItem25);
+        consultarFcheroBancoMenuItem.setText("Consultar el fichero que va al Banco");
+        datosCierreMenu.add(consultarFcheroBancoMenuItem);
 
-        jMenuItem26.setText("Copiar al dispositivo de salida para enviar al Banco");
-        datosCierreMenu.add(jMenuItem26);
+        copiarDispositivoSalidaMenuItem.setText("Copiar al dispositivo de salida para enviar al Banco");
+        datosCierreMenu.add(copiarDispositivoSalidaMenuItem);
         datosCierreMenu.add(jSeparator8);
 
-        jMenuItem27.setText("Copiar fichero que viene del Banco");
-        datosCierreMenu.add(jMenuItem27);
+        copiarFicheroVieneBancoMenuItem.setText("Copiar fichero que viene del Banco");
+        datosCierreMenu.add(copiarFicheroVieneBancoMenuItem);
 
-        jMenuItem28.setText("Consultar fichero que viene del Banco");
-        datosCierreMenu.add(jMenuItem28);
+        consultarFicheroVieneBancoMenuItem.setText("Consultar fichero que viene del Banco");
+        datosCierreMenu.add(consultarFicheroVieneBancoMenuItem);
         datosCierreMenu.add(jSeparator9);
 
-        jMenuItem29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/cierre_mes.png"))); // NOI18N
-        jMenuItem29.setText("Cierre de Mes");
-        datosCierreMenu.add(jMenuItem29);
+        CierreMesMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/cierre_mes.png"))); // NOI18N
+        CierreMesMenuItem.setText("Cierre de Mes");
+        datosCierreMenu.add(CierreMesMenuItem);
 
         menuBar.add(datosCierreMenu);
 
         cobrosMenu.setText("Cobros");
 
-        jMenuItem30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/capturar_facturas_cobros.png"))); // NOI18N
-        jMenuItem30.setText("Captar Facturas x Cobro");
-        cobrosMenu.add(jMenuItem30);
+        capturarFacturasXCobroMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/capturar_facturas_cobros.png"))); // NOI18N
+        capturarFacturasXCobroMenuItem.setText("Captar Facturas x Cobro");
+        cobrosMenu.add(capturarFacturasXCobroMenuItem);
 
-        jMenuItem31.setText("Consulta de Facturas x Cobro");
-        cobrosMenu.add(jMenuItem31);
+        consultaFacturasXCobroMenuItem.setText("Consulta de Facturas x Cobro");
+        cobrosMenu.add(consultaFacturasXCobroMenuItem);
         cobrosMenu.add(jSeparator11);
 
-        jMenuItem32.setText("Cobros a Facturas");
-        cobrosMenu.add(jMenuItem32);
+        cobrosAFacturasMenuItem.setText("Cobros a Facturas");
+        cobrosMenu.add(cobrosAFacturasMenuItem);
 
-        jMenuItem33.setText("Consultas a Cobros de Facturas");
-        cobrosMenu.add(jMenuItem33);
+        consultasACobrosFacturasMenuItem.setText("Consultas a Cobros de Facturas");
+        cobrosMenu.add(consultasACobrosFacturasMenuItem);
         cobrosMenu.add(jSeparator10);
 
-        jMenuItem34.setText("Registro de Cobros");
-        cobrosMenu.add(jMenuItem34);
+        registroCobrosMenuItem.setText("Registro de Cobros");
+        cobrosMenu.add(registroCobrosMenuItem);
 
-        jMenuItem35.setText("Reporte de Edades");
-        cobrosMenu.add(jMenuItem35);
+        reporteEdadesMenuItem.setText("Reporte de Edades");
+        cobrosMenu.add(reporteEdadesMenuItem);
 
         menuBar.add(cobrosMenu);
 
@@ -478,9 +478,9 @@ public class Principal extends javax.swing.JFrame {
         usersMenuItem.setText("Usuarios");
         herramientasMenu.add(usersMenuItem);
 
-        jMenuItem36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/password.png"))); // NOI18N
-        jMenuItem36.setText("Cambiar Contraseña");
-        herramientasMenu.add(jMenuItem36);
+        cambiarContrasennaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/password.png"))); // NOI18N
+        cambiarContrasennaMenuItem.setText("Cambiar Contraseña");
+        herramientasMenu.add(cambiarContrasennaMenuItem);
 
         menuBar.add(herramientasMenu);
 
@@ -559,76 +559,67 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton FacturasButton;
+    private javax.swing.JMenuItem CierreMesMenuItem;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JToolBar accionesToolBar;
     private javax.swing.JMenu ayudaMunu;
+    private javax.swing.JMenuItem cambiarContrasennaMenuItem;
     private javax.swing.JButton captarCobroButton;
+    private javax.swing.JMenuItem capturarFacturasXCobroMenuItem;
     private javax.swing.JButton cierreMesButton;
     private javax.swing.JToolBar cierreToolBar;
     private javax.swing.JButton clientesButton;
     private javax.swing.JMenuItem clientesMenuItem;
+    private javax.swing.JMenuItem clientesSinFacturarCUCMenuItem;
+    private javax.swing.JMenuItem clientesSinFacturarCUPMenuItem;
+    private javax.swing.JMenu clientesSinFacturarMenu;
+    private javax.swing.JMenuItem cobrosAFacturasMenuItem;
     private javax.swing.JMenu cobrosMenu;
     private javax.swing.JToolBar cobrosToolBar;
+    private javax.swing.JMenuItem comprobanteOperacionnesMenuItem;
+    private javax.swing.JMenuItem consultaFacturasXCobroMenuItem;
+    private javax.swing.JMenuItem consultarFcheroBancoMenuItem;
+    private javax.swing.JMenuItem consultarFicheroVieneBancoMenuItem;
+    private javax.swing.JMenuItem consultasACobrosFacturasMenuItem;
     private javax.swing.JButton consultasAFacturasButton;
     private javax.swing.JMenuItem consultasAfacturasMenuItem;
     private javax.swing.JToolBar contenedorToolBar;
     private javax.swing.JMenuItem contentMenuItem;
+    private javax.swing.JMenuItem copiarDispositivoSalidaMenuItem;
+    private javax.swing.JMenuItem copiarFicheroVieneBancoMenuItem;
+    private javax.swing.JMenuItem crearFicheroBancoMenuItem;
     private javax.swing.JMenu datosCierreMenu;
     private javax.swing.JMenuItem datosEmpresaMenuItem;
     private myclass.JDescktopPaneImage desktopPane;
     private javax.swing.JMenuItem detallesControlMenuItem;
+    private javax.swing.JMenuItem enCUCMenuItem;
+    private javax.swing.JMenuItem enCUPMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenuItem exportMenuItem;
     private javax.swing.JButton exportarButton;
     private javax.swing.JMenuItem facturacionMenuItem;
     private javax.swing.JButton facturarButton;
+    private javax.swing.JButton facturasButton;
+    private javax.swing.JMenuItem facturasMenuItem;
+    private javax.swing.JMenuItem facturasRechazadasMenuItem;
     private javax.swing.JButton ficheroABancoButton;
     private javax.swing.JMenu ficherosMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu herramientasMenu;
+    private javax.swing.JMenuItem historicoDeFacturasMenuItem;
+    private javax.swing.JMenu historicoMenu;
     private javax.swing.JMenuItem importMenuItem;
     private javax.swing.JButton importarButton;
     private javax.swing.JToolBar importarExportarToolBar;
+    private javax.swing.JMenuItem informeMetrosCUCMenuItem;
+    private javax.swing.JMenuItem informeMetrosCUPMenuItem;
+    private javax.swing.JMenu informeMetrosMenu;
     private javax.swing.JMenu informesMenu;
     private javax.swing.JToolBar informesToolBar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem16;
-    private javax.swing.JMenuItem jMenuItem17;
-    private javax.swing.JMenuItem jMenuItem18;
-    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem20;
-    private javax.swing.JMenuItem jMenuItem21;
-    private javax.swing.JMenuItem jMenuItem22;
-    private javax.swing.JMenuItem jMenuItem23;
-    private javax.swing.JMenuItem jMenuItem24;
-    private javax.swing.JMenuItem jMenuItem25;
-    private javax.swing.JMenuItem jMenuItem26;
-    private javax.swing.JMenuItem jMenuItem27;
-    private javax.swing.JMenuItem jMenuItem28;
-    private javax.swing.JMenuItem jMenuItem29;
-    private javax.swing.JMenuItem jMenuItem30;
-    private javax.swing.JMenuItem jMenuItem31;
-    private javax.swing.JMenuItem jMenuItem32;
-    private javax.swing.JMenuItem jMenuItem33;
-    private javax.swing.JMenuItem jMenuItem34;
-    private javax.swing.JMenuItem jMenuItem35;
-    private javax.swing.JMenuItem jMenuItem36;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
@@ -640,17 +631,26 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
+    private javax.swing.JMenuItem listadoFacturasMenuItem;
+    private javax.swing.JMenuItem listadoGrandesConsumidoresMenuItem;
+    private javax.swing.JMenuItem listadoPorSectoresMenuItem;
+    private javax.swing.JMenuItem listadoTitularesClientesMenuItem;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu mesYAcomuladoFacturasMenu;
     private javax.swing.JMenu prodMenu;
     private javax.swing.JMenu produccionMenu;
+    private javax.swing.JMenuItem registroCobrosMenuItem;
     private javax.swing.JMenuItem relacionSMMenuItem;
+    private javax.swing.JMenuItem reporteEdadesMenuItem;
     private javax.swing.JMenuItem servicioInclAlcMenuItem;
     private javax.swing.JMenuItem servicioXclienteMenuItem;
     private javax.swing.JMenuItem serviciosMenuItem;
     private javax.swing.JButton serviciosXClientesButton;
     private javax.swing.JMenuItem tipoServiciosMenuItem;
     private javax.swing.JMenuItem titularesMenuItem;
+    private javax.swing.JMenuItem totalFacturadoPresupuestadoMenuItem;
     private javax.swing.JMenuItem usersMenuItem;
+    private javax.swing.JLabel usuarioAutenticadoLabel;
     private javax.swing.JToolBar usuarioToolBar;
     // End of variables declaration//GEN-END:variables
 

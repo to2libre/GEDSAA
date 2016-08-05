@@ -182,12 +182,12 @@
             <Property name="text" type="java.lang.String" value="Informes"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
+            <MenuItem class="javax.swing.JMenuItem" name="listadoFacturasMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Listado de Facturas"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
+            <MenuItem class="javax.swing.JMenuItem" name="facturasMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/iconos/facturas.png"/>
@@ -195,61 +195,61 @@
                 <Property name="text" type="java.lang.String" value="Facturas"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem11">
+            <MenuItem class="javax.swing.JMenuItem" name="facturasRechazadasMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Facturas Rechazadas"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator4">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem12">
+            <MenuItem class="javax.swing.JMenuItem" name="listadoTitularesClientesMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Listado de Titulares y Clientes"/>
               </Properties>
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="jMenu6">
+            <Menu class="javax.swing.JMenu" name="mesYAcomuladoFacturasMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Mes y Acomulado de Facturas"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem13">
+                <MenuItem class="javax.swing.JMenuItem" name="enCUPMenuItem">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="En CUP"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem14">
+                <MenuItem class="javax.swing.JMenuItem" name="enCUCMenuItem">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="En CUC"/>
                   </Properties>
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem15">
+            <MenuItem class="javax.swing.JMenuItem" name="totalFacturadoPresupuestadoMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Total Facturado Presupuestado"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem16">
+            <MenuItem class="javax.swing.JMenuItem" name="listadoGrandesConsumidoresMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Listado de Grandes Consumidores"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem17">
+            <MenuItem class="javax.swing.JMenuItem" name="listadoPorSectoresMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Listado por Sector"/>
               </Properties>
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="jMenu7">
+            <Menu class="javax.swing.JMenu" name="informeMetrosMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Informe Metros"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem18">
+                <MenuItem class="javax.swing.JMenuItem" name="informeMetrosCUPMenuItem">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Informe de Metros en CUP"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem19">
+                <MenuItem class="javax.swing.JMenuItem" name="informeMetrosCUCMenuItem">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Informe de Metros en CUC"/>
                   </Properties>
@@ -258,24 +258,24 @@
             </Menu>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator5">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem20">
+            <MenuItem class="javax.swing.JMenuItem" name="comprobanteOperacionnesMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Comprobantes de Operaciones"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator6">
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="jMenu9">
+            <Menu class="javax.swing.JMenu" name="clientesSinFacturarMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Clientes sin Facturar"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem21">
+                <MenuItem class="javax.swing.JMenuItem" name="clientesSinFacturarCUPMenuItem">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Clientes sin Facturar en CUP"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem22">
+                <MenuItem class="javax.swing.JMenuItem" name="clientesSinFacturarCUCMenuItem">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Clientes sin Facturar en CUC"/>
                   </Properties>
@@ -284,12 +284,12 @@
             </Menu>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator7">
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="jMenu8">
+            <Menu class="javax.swing.JMenu" name="historicoMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Historico"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem23">
+                <MenuItem class="javax.swing.JMenuItem" name="historicoDeFacturasMenuItem">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Historicos de las Facturas"/>
                   </Properties>
@@ -303,7 +303,7 @@
             <Property name="text" type="java.lang.String" value="Datos de Cierre"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem24">
+            <MenuItem class="javax.swing.JMenuItem" name="crearFicheroBancoMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/iconos/fichero_a_banco.png"/>
@@ -311,31 +311,31 @@
                 <Property name="text" type="java.lang.String" value="Crear fichero que va al Banco"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem25">
+            <MenuItem class="javax.swing.JMenuItem" name="consultarFcheroBancoMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consultar el fichero que va al Banco"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem26">
+            <MenuItem class="javax.swing.JMenuItem" name="copiarDispositivoSalidaMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Copiar al dispositivo de salida para enviar al Banco"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator8">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem27">
+            <MenuItem class="javax.swing.JMenuItem" name="copiarFicheroVieneBancoMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Copiar fichero que viene del Banco"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem28">
+            <MenuItem class="javax.swing.JMenuItem" name="consultarFicheroVieneBancoMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consultar fichero que viene del Banco"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator9">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem29">
+            <MenuItem class="javax.swing.JMenuItem" name="CierreMesMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/iconos/cierre_mes.png"/>
@@ -350,7 +350,7 @@
             <Property name="text" type="java.lang.String" value="Cobros"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem30">
+            <MenuItem class="javax.swing.JMenuItem" name="capturarFacturasXCobroMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/iconos/capturar_facturas_cobros.png"/>
@@ -358,31 +358,31 @@
                 <Property name="text" type="java.lang.String" value="Captar Facturas x Cobro"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem31">
+            <MenuItem class="javax.swing.JMenuItem" name="consultaFacturasXCobroMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consulta de Facturas x Cobro"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator11">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem32">
+            <MenuItem class="javax.swing.JMenuItem" name="cobrosAFacturasMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cobros a Facturas"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem33">
+            <MenuItem class="javax.swing.JMenuItem" name="consultasACobrosFacturasMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consultas a Cobros de Facturas"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator10">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem34">
+            <MenuItem class="javax.swing.JMenuItem" name="registroCobrosMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Registro de Cobros"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem35">
+            <MenuItem class="javax.swing.JMenuItem" name="reporteEdadesMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reporte de Edades"/>
               </Properties>
@@ -404,7 +404,7 @@
                 <Property name="text" type="java.lang.String" value="Usuarios"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem36">
+            <MenuItem class="javax.swing.JMenuItem" name="cambiarContrasennaMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/iconos/password.png"/>
@@ -589,7 +589,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="FacturasButton">
+            <Component class="javax.swing.JButton" name="facturasButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/iconos/facturas.png"/>
@@ -676,7 +676,7 @@
             <Property name="text" type="java.lang.String" value="Usuario Autenticado:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="usuarioAutenticadoLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value=" User Name"/>
           </Properties>
