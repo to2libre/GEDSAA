@@ -220,6 +220,7 @@ public class Principal extends javax.swing.JFrame {
         contenedorToolBar.add(accionesToolBar);
 
         informesToolBar.setRollover(true);
+        informesToolBar.setName("Informes"); // NOI18N
 
         FacturasButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/facturas.png"))); // NOI18N
         FacturasButton.setToolTipText("Facturas");
@@ -231,6 +232,7 @@ public class Principal extends javax.swing.JFrame {
         contenedorToolBar.add(informesToolBar);
 
         cierreToolBar.setRollover(true);
+        cierreToolBar.setName("Cierre de mes"); // NOI18N
 
         ficheroABancoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/fichero_a_banco.png"))); // NOI18N
         ficheroABancoButton.setToolTipText("Fichero que va al Banco");
@@ -249,6 +251,7 @@ public class Principal extends javax.swing.JFrame {
         contenedorToolBar.add(cierreToolBar);
 
         cobrosToolBar.setRollover(true);
+        cobrosToolBar.setName("Cobros"); // NOI18N
 
         captarCobroButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/capturar_facturas_cobros.png"))); // NOI18N
         captarCobroButton.setToolTipText("Captar Factura x Cobro");
@@ -283,11 +286,6 @@ public class Principal extends javax.swing.JFrame {
 
         exitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         exitMenuItem.setText("Salir");
-        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitMenuItemActionPerformed(evt);
-            }
-        });
         fileMenu.add(exitMenuItem);
 
         menuBar.add(fileMenu);
@@ -297,61 +295,31 @@ public class Principal extends javax.swing.JFrame {
         datosEmpresaMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         datosEmpresaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/datos_empresa.png"))); // NOI18N
         datosEmpresaMenuItem.setText("Datos de la Empresa");
-        datosEmpresaMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                datosEmpresaMenuItemActionPerformed(evt);
-            }
-        });
         ficherosMenu.add(datosEmpresaMenuItem);
 
         tipoServiciosMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         tipoServiciosMenuItem.setText("Tipos de Servicios");
-        tipoServiciosMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tipoServiciosMenuItemActionPerformed(evt);
-            }
-        });
         ficherosMenu.add(tipoServiciosMenuItem);
 
         serviciosMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         serviciosMenuItem.setText("Servicios");
-        serviciosMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                serviciosMenuItemActionPerformed(evt);
-            }
-        });
         ficherosMenu.add(serviciosMenuItem);
         ficherosMenu.add(jSeparator1);
 
         titularesMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         titularesMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/titulares.png"))); // NOI18N
         titularesMenuItem.setText("Titulares");
-        titularesMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                titularesMenuItemActionPerformed(evt);
-            }
-        });
         ficherosMenu.add(titularesMenuItem);
 
         clientesMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         clientesMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/clientes.png"))); // NOI18N
         clientesMenuItem.setText("Clientes");
-        clientesMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clientesMenuItemActionPerformed(evt);
-            }
-        });
         ficherosMenu.add(clientesMenuItem);
         ficherosMenu.add(jSeparator2);
 
         detallesControlMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         detallesControlMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/detalles_control.png"))); // NOI18N
         detallesControlMenuItem.setText("Detalles de Control");
-        detallesControlMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                detallesControlMenuItemActionPerformed(evt);
-            }
-        });
         ficherosMenu.add(detallesControlMenuItem);
 
         menuBar.add(ficherosMenu);
@@ -508,11 +476,6 @@ public class Principal extends javax.swing.JFrame {
         usersMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/usuarios.png"))); // NOI18N
         usersMenuItem.setMnemonic('d');
         usersMenuItem.setText("Usuarios");
-        usersMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usersMenuItemActionPerformed(evt);
-            }
-        });
         herramientasMenu.add(usersMenuItem);
 
         jMenuItem36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/password.png"))); // NOI18N
@@ -533,11 +496,6 @@ public class Principal extends javax.swing.JFrame {
 
         aboutMenuItem.setMnemonic('a');
         aboutMenuItem.setText("Sobre Nosotros");
-        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aboutMenuItemActionPerformed(evt);
-            }
-        });
         ayudaMunu.add(aboutMenuItem);
 
         menuBar.add(ayudaMunu);
@@ -564,68 +522,6 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_exitMenuItemActionPerformed
-
-    private void usersMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersMenuItemActionPerformed
-        // Agregar al desktopPanel el formmilario Users
-        if (!users.isVisible()) {
-            desktopPane.add(users);
-            users.setVisible(rootPaneCheckingEnabled);
-        }
-    }//GEN-LAST:event_usersMenuItemActionPerformed
-
-    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
-        // Agregar al desktopPanel el formmilario About
-        if (!about.isVisible()) {
-            desktopPane.add(about);
-            about.setVisible(rootPaneCheckingEnabled);
-        }
-    }//GEN-LAST:event_aboutMenuItemActionPerformed
-
-    private void datosEmpresaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datosEmpresaMenuItemActionPerformed
-        if (!datosempresa.isVisible()) {
-            desktopPane.add(datosempresa);
-            datosempresa.setVisible(rootPaneCheckingEnabled);
-        }
-    }//GEN-LAST:event_datosEmpresaMenuItemActionPerformed
-
-    private void tipoServiciosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoServiciosMenuItemActionPerformed
-        if (!tiposervicios.isVisible()) {
-            desktopPane.add(tiposervicios);
-            tiposervicios.setVisible(rootPaneCheckingEnabled);
-        }
-    }//GEN-LAST:event_tipoServiciosMenuItemActionPerformed
-
-    private void serviciosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serviciosMenuItemActionPerformed
-        if (!servicios.isVisible()) {
-            desktopPane.add(servicios);
-            servicios.setVisible(rootPaneCheckingEnabled);
-        }
-    }//GEN-LAST:event_serviciosMenuItemActionPerformed
-
-    private void titularesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titularesMenuItemActionPerformed
-        if (!titulares.isVisible()) {
-            desktopPane.add(titulares);
-            titulares.setVisible(rootPaneCheckingEnabled);
-        }
-    }//GEN-LAST:event_titularesMenuItemActionPerformed
-
-    private void clientesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesMenuItemActionPerformed
-        if (!clientes.isVisible()) {
-            desktopPane.add(clientes);
-            clientes.setVisible(rootPaneCheckingEnabled);            
-        }
-    }//GEN-LAST:event_clientesMenuItemActionPerformed
-
-    private void detallesControlMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detallesControlMenuItemActionPerformed
-        if (!detallesDeControl.isVisible()) {
-            desktopPane.add(detallesDeControl);
-            detallesDeControl.setVisible(rootPaneCheckingEnabled);            
-        }
-    }//GEN-LAST:event_detallesControlMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
