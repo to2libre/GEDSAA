@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package factestatal;
+package views.factestatal;
 
 import factestatal.ficheros.Users;
 import factestatal.ficheros.About;
@@ -136,7 +136,7 @@ public class Principal extends javax.swing.JFrame {
         copiarFicheroVieneBancoMenuItem = new javax.swing.JMenuItem();
         consultarFicheroVieneBancoMenuItem = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
-        CierreMesMenuItem = new javax.swing.JMenuItem();
+        cierreMesMenuItem = new javax.swing.JMenuItem();
         cobrosMenu = new javax.swing.JMenu();
         capturarFacturasXCobroMenuItem = new javax.swing.JMenuItem();
         consultaFacturasXCobroMenuItem = new javax.swing.JMenuItem();
@@ -439,9 +439,9 @@ public class Principal extends javax.swing.JFrame {
         datosCierreMenu.add(consultarFicheroVieneBancoMenuItem);
         datosCierreMenu.add(jSeparator9);
 
-        CierreMesMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/cierre_mes.png"))); // NOI18N
-        CierreMesMenuItem.setText("Cierre de Mes");
-        datosCierreMenu.add(CierreMesMenuItem);
+        cierreMesMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/cierre_mes.png"))); // NOI18N
+        cierreMesMenuItem.setText("Cierre de Mes");
+        datosCierreMenu.add(cierreMesMenuItem);
 
         menuBar.add(datosCierreMenu);
 
@@ -559,60 +559,60 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem CierreMesMenuItem;
-    private javax.swing.JMenuItem aboutMenuItem;
+    public javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JToolBar accionesToolBar;
     private javax.swing.JMenu ayudaMunu;
-    private javax.swing.JMenuItem cambiarContrasennaMenuItem;
-    private javax.swing.JButton captarCobroButton;
-    private javax.swing.JMenuItem capturarFacturasXCobroMenuItem;
-    private javax.swing.JButton cierreMesButton;
+    public javax.swing.JMenuItem cambiarContrasennaMenuItem;
+    public javax.swing.JButton captarCobroButton;
+    public javax.swing.JMenuItem capturarFacturasXCobroMenuItem;
+    public javax.swing.JButton cierreMesButton;
+    public javax.swing.JMenuItem cierreMesMenuItem;
     private javax.swing.JToolBar cierreToolBar;
-    private javax.swing.JButton clientesButton;
-    private javax.swing.JMenuItem clientesMenuItem;
-    private javax.swing.JMenuItem clientesSinFacturarCUCMenuItem;
-    private javax.swing.JMenuItem clientesSinFacturarCUPMenuItem;
+    public javax.swing.JButton clientesButton;
+    public javax.swing.JMenuItem clientesMenuItem;
+    public javax.swing.JMenuItem clientesSinFacturarCUCMenuItem;
+    public javax.swing.JMenuItem clientesSinFacturarCUPMenuItem;
     private javax.swing.JMenu clientesSinFacturarMenu;
-    private javax.swing.JMenuItem cobrosAFacturasMenuItem;
+    public javax.swing.JMenuItem cobrosAFacturasMenuItem;
     private javax.swing.JMenu cobrosMenu;
     private javax.swing.JToolBar cobrosToolBar;
-    private javax.swing.JMenuItem comprobanteOperacionnesMenuItem;
-    private javax.swing.JMenuItem consultaFacturasXCobroMenuItem;
-    private javax.swing.JMenuItem consultarFcheroBancoMenuItem;
-    private javax.swing.JMenuItem consultarFicheroVieneBancoMenuItem;
-    private javax.swing.JMenuItem consultasACobrosFacturasMenuItem;
-    private javax.swing.JButton consultasAFacturasButton;
-    private javax.swing.JMenuItem consultasAfacturasMenuItem;
+    public javax.swing.JMenuItem comprobanteOperacionnesMenuItem;
+    public javax.swing.JMenuItem consultaFacturasXCobroMenuItem;
+    public javax.swing.JMenuItem consultarFcheroBancoMenuItem;
+    public javax.swing.JMenuItem consultarFicheroVieneBancoMenuItem;
+    public javax.swing.JMenuItem consultasACobrosFacturasMenuItem;
+    public javax.swing.JButton consultasAFacturasButton;
+    public javax.swing.JMenuItem consultasAfacturasMenuItem;
     private javax.swing.JToolBar contenedorToolBar;
-    private javax.swing.JMenuItem contentMenuItem;
-    private javax.swing.JMenuItem copiarDispositivoSalidaMenuItem;
-    private javax.swing.JMenuItem copiarFicheroVieneBancoMenuItem;
-    private javax.swing.JMenuItem crearFicheroBancoMenuItem;
+    public javax.swing.JMenuItem contentMenuItem;
+    public javax.swing.JMenuItem copiarDispositivoSalidaMenuItem;
+    public javax.swing.JMenuItem copiarFicheroVieneBancoMenuItem;
+    public javax.swing.JMenuItem crearFicheroBancoMenuItem;
     private javax.swing.JMenu datosCierreMenu;
-    private javax.swing.JMenuItem datosEmpresaMenuItem;
-    private myclass.JDescktopPaneImage desktopPane;
-    private javax.swing.JMenuItem detallesControlMenuItem;
-    private javax.swing.JMenuItem enCUCMenuItem;
-    private javax.swing.JMenuItem enCUPMenuItem;
-    private javax.swing.JMenuItem exitMenuItem;
-    private javax.swing.JMenuItem exportMenuItem;
-    private javax.swing.JButton exportarButton;
-    private javax.swing.JMenuItem facturacionMenuItem;
-    private javax.swing.JButton facturarButton;
-    private javax.swing.JButton facturasButton;
-    private javax.swing.JMenuItem facturasMenuItem;
-    private javax.swing.JMenuItem facturasRechazadasMenuItem;
-    private javax.swing.JButton ficheroABancoButton;
+    public javax.swing.JMenuItem datosEmpresaMenuItem;
+    public myclass.JDescktopPaneImage desktopPane;
+    public javax.swing.JMenuItem detallesControlMenuItem;
+    public javax.swing.JMenuItem enCUCMenuItem;
+    public javax.swing.JMenuItem enCUPMenuItem;
+    public javax.swing.JMenuItem exitMenuItem;
+    public javax.swing.JMenuItem exportMenuItem;
+    public javax.swing.JButton exportarButton;
+    public javax.swing.JMenuItem facturacionMenuItem;
+    public javax.swing.JButton facturarButton;
+    public javax.swing.JButton facturasButton;
+    public javax.swing.JMenuItem facturasMenuItem;
+    public javax.swing.JMenuItem facturasRechazadasMenuItem;
+    public javax.swing.JButton ficheroABancoButton;
     private javax.swing.JMenu ficherosMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu herramientasMenu;
-    private javax.swing.JMenuItem historicoDeFacturasMenuItem;
+    public javax.swing.JMenuItem historicoDeFacturasMenuItem;
     private javax.swing.JMenu historicoMenu;
-    private javax.swing.JMenuItem importMenuItem;
-    private javax.swing.JButton importarButton;
+    public javax.swing.JMenuItem importMenuItem;
+    public javax.swing.JButton importarButton;
     private javax.swing.JToolBar importarExportarToolBar;
-    private javax.swing.JMenuItem informeMetrosCUCMenuItem;
-    private javax.swing.JMenuItem informeMetrosCUPMenuItem;
+    public javax.swing.JMenuItem informeMetrosCUCMenuItem;
+    public javax.swing.JMenuItem informeMetrosCUPMenuItem;
     private javax.swing.JMenu informeMetrosMenu;
     private javax.swing.JMenu informesMenu;
     private javax.swing.JToolBar informesToolBar;
@@ -631,26 +631,26 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
-    private javax.swing.JMenuItem listadoFacturasMenuItem;
-    private javax.swing.JMenuItem listadoGrandesConsumidoresMenuItem;
-    private javax.swing.JMenuItem listadoPorSectoresMenuItem;
-    private javax.swing.JMenuItem listadoTitularesClientesMenuItem;
+    public javax.swing.JMenuItem listadoFacturasMenuItem;
+    public javax.swing.JMenuItem listadoGrandesConsumidoresMenuItem;
+    public javax.swing.JMenuItem listadoPorSectoresMenuItem;
+    public javax.swing.JMenuItem listadoTitularesClientesMenuItem;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu mesYAcomuladoFacturasMenu;
     private javax.swing.JMenu prodMenu;
     private javax.swing.JMenu produccionMenu;
-    private javax.swing.JMenuItem registroCobrosMenuItem;
-    private javax.swing.JMenuItem relacionSMMenuItem;
-    private javax.swing.JMenuItem reporteEdadesMenuItem;
-    private javax.swing.JMenuItem servicioInclAlcMenuItem;
-    private javax.swing.JMenuItem servicioXclienteMenuItem;
-    private javax.swing.JMenuItem serviciosMenuItem;
-    private javax.swing.JButton serviciosXClientesButton;
-    private javax.swing.JMenuItem tipoServiciosMenuItem;
-    private javax.swing.JMenuItem titularesMenuItem;
-    private javax.swing.JMenuItem totalFacturadoPresupuestadoMenuItem;
-    private javax.swing.JMenuItem usersMenuItem;
-    private javax.swing.JLabel usuarioAutenticadoLabel;
+    public javax.swing.JMenuItem registroCobrosMenuItem;
+    public javax.swing.JMenuItem relacionSMMenuItem;
+    public javax.swing.JMenuItem reporteEdadesMenuItem;
+    public javax.swing.JMenuItem servicioInclAlcMenuItem;
+    public javax.swing.JMenuItem servicioXclienteMenuItem;
+    public javax.swing.JMenuItem serviciosMenuItem;
+    public javax.swing.JButton serviciosXClientesButton;
+    public javax.swing.JMenuItem tipoServiciosMenuItem;
+    public javax.swing.JMenuItem titularesMenuItem;
+    public javax.swing.JMenuItem totalFacturadoPresupuestadoMenuItem;
+    public javax.swing.JMenuItem usersMenuItem;
+    public javax.swing.JLabel usuarioAutenticadoLabel;
     private javax.swing.JToolBar usuarioToolBar;
     // End of variables declaration//GEN-END:variables
 

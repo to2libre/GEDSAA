@@ -17,9 +17,9 @@ import java.util.logging.Logger;
 
 public class SQLite_conexion {
 
-    private Connection connection = null;
-    private ResultSet resultSet = null;
-    private Statement statement = null;
+    Connection connection = null;
+    ResultSet resultSet = null;
+    Statement statement = null;
     private final String db;
 
     /**
