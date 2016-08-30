@@ -14,7 +14,7 @@ import models.modelo;
  * @author carlos860920
  */
 public class controlador implements ActionListener {
-
+    
     private Principal view;
     private Autenticar viewA;
     private modelo model;
@@ -40,9 +40,13 @@ public class controlador implements ActionListener {
         //Se agrega las acciones al formulario de Autenticación
         this.viewA.aceptarButton.setActionCommand("Autenticar");
         this.viewA.cancelarButton.setActionCommand("Cancelar");
+        this.viewA.usuarioTextField.setActionCommand("Autenticar");
+        this.viewA.passwordTextField.setActionCommand("Autenticar");
         //Se pone a la escucha de las acciones del Usuario
         viewA.aceptarButton.addActionListener(this);
         viewA.cancelarButton.addActionListener(this);
+        viewA.usuarioTextField.addActionListener(this);
+        viewA.passwordTextField.addActionListener(this);
     }
 
     /**
@@ -61,8 +65,24 @@ public class controlador implements ActionListener {
         if (passwd.isEmpty()) {
             this.msg += "Contraseña: Campo Nula \n";
         }
-        
+        if (msg.isEmpty()) {
+            if (!this.model.Autenticar(usuario, passwd)) {
+                this.msg += "Usuario o Contraseña incorrecta \n";
+            }
+        }
         return this.msg.isEmpty();
+    }
+
+    /**
+     * Método para la creación de usuario
+     *
+     * @param usuario Nombre del usuario a crear
+     * @param passwd Password del usuario a crear
+     * @return 1 si el usuario ya existe, 2 si la contraseña no cumple con los
+     * parametros establesidos, 3 si se creo el usuario
+     */
+    public boolean crearUsuario(String usuario, String passwd, int idRol) {        
+        return this.model.crearUsuario(usuario, passwd, idRol);        
     }
 
     /**
@@ -78,15 +98,16 @@ public class controlador implements ActionListener {
         //Se pone a escuchar las acciones del usuario
         view.exitMenuItem.addActionListener(this);
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         //Captura en String el comando accionado por el usuario
         String comando = e.getActionCommand();
 
         //Controlar acciones del usuario en las condiciones a continuación
-        if (comando.equals("Autenticar")) {
-            if (this.validarUsuario(this.viewA.usuarioTextField.getText(), this.viewA.passwordTextField.getText())) {
+        if (comando.equals("Autenticar")) {            
+            if (this.validarUsuario(this.viewA.usuarioTextField.getText(), this.viewA.passwordTextField.getText())) {                
+                this.view.usuarioAutenticadoLabel.setText(" "+this.viewA.usuarioTextField.getText());
                 this.iniciar();
             } else {
                 JOptionPane.showMessageDialog(this.view, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
@@ -107,7 +128,7 @@ public class controlador implements ActionListener {
             cerrar_todo();
         }
     }
-
+    
     private void cerrar_sistema() {
         System.exit(0);
     }

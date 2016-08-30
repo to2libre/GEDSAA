@@ -1,5 +1,5 @@
 /**
- * //Clase para el trbajo con Bases de datos SQLite//
+ * //Clase para el trabajo con Bases de datos SQLite//
  * @author carlos860920
  * @version 2016.07.25
  */
@@ -43,7 +43,7 @@ public class SQLite_conexion {
      * @param values String con el valor de la columna
      * @return Boolean en falso si no insertó o en verdadero si insertó
      */
-    public boolean insertar(String table, String fields, String values) /*     */ {
+    public boolean insertar(String table, String fields, String values) {
         boolean res = false;
 
         String q = " INSERT INTO " + table + " ( " + fields + " ) VALUES ( " + values + " ) ";
