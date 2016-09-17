@@ -57,6 +57,27 @@ public class SQLite_conexion {
         }
         return res;
     }
+    
+     /**
+     * Método para la actualizar de contenido en la DB
+     * @param table String con el nombre de la tabla
+     * @param fieldsValues String con el nombre de la fila y el valor, en el formato nombre = carlos
+     * @param donde criterio para la actualizacion
+     * @return Boolean en falso si no insertó o en verdadero si insertó
+     */
+    public boolean actualizar(String table, String fieldsValues, String donde) {
+        boolean res = false;
+        String q = "UPDATE " + table + " SET " + fieldsValues + " WHERE " + donde + ";";        
+        try {
+            try (PreparedStatement pstm = this.connection.prepareStatement(q)) {
+                pstm.execute();                  
+            }
+            res = true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return res;
+    }
 
     /**
      * Método para la seleccion de contenido

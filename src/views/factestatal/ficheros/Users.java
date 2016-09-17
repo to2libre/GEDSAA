@@ -35,6 +35,7 @@ public class Users extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Users");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/usuarios.png"))); // NOI18N
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);

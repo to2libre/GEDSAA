@@ -37,19 +37,16 @@ public class cambiarPassword extends javax.swing.JInternalFrame {
         cambiarContrasennaButton = new javax.swing.JButton();
         cancelarButton = new javax.swing.JButton();
 
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Cambiar contraseña");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/password.png"))); // NOI18N
 
         contrasennaActualLabel.setText("Constraseña actual:");
 
         nuevaContrasennaLabel.setText("Nueva contraseña:");
 
         repetirContrasennaNuevaLabel.setText("Repetir nueva contraseña:");
-
-        contrasennaActualPasswordField.setText("jPasswordField1");
-
-        nuevaContrasennaPasswordField.setText("jPasswordField2");
-
-        repetirContrasennaNuevaPasswordField.setText("jPasswordField3");
 
         cambiarContrasennaButton.setText("Cambiar contraseña");
 
@@ -60,25 +57,26 @@ public class cambiarPassword extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cambiarContrasennaButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cancelarButton))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(repetirContrasennaNuevaLabel)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(repetirContrasennaNuevaPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
+                            .addComponent(repetirContrasennaNuevaPasswordField))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(contrasennaActualLabel)
                                 .addComponent(nuevaContrasennaLabel))
                             .addGap(36, 36, 36)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(contrasennaActualPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                                .addComponent(nuevaContrasennaPasswordField))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cambiarContrasennaButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelarButton))))
+                                .addComponent(contrasennaActualPasswordField)
+                                .addComponent(nuevaContrasennaPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,13 +105,13 @@ public class cambiarPassword extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cambiarContrasennaButton;
-    private javax.swing.JButton cancelarButton;
+    public javax.swing.JButton cambiarContrasennaButton;
+    public javax.swing.JButton cancelarButton;
     private javax.swing.JLabel contrasennaActualLabel;
-    private javax.swing.JPasswordField contrasennaActualPasswordField;
+    public javax.swing.JPasswordField contrasennaActualPasswordField;
     private javax.swing.JLabel nuevaContrasennaLabel;
-    private javax.swing.JPasswordField nuevaContrasennaPasswordField;
+    public javax.swing.JPasswordField nuevaContrasennaPasswordField;
     private javax.swing.JLabel repetirContrasennaNuevaLabel;
-    private javax.swing.JPasswordField repetirContrasennaNuevaPasswordField;
+    public javax.swing.JPasswordField repetirContrasennaNuevaPasswordField;
     // End of variables declaration//GEN-END:variables
 }

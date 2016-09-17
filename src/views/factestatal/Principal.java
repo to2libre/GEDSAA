@@ -605,7 +605,7 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JButton ficheroABancoButton;
     private javax.swing.JMenu ficherosMenu;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JMenu herramientasMenu;
+    public javax.swing.JMenu herramientasMenu;
     public javax.swing.JMenuItem historicoDeFacturasMenuItem;
     private javax.swing.JMenu historicoMenu;
     public javax.swing.JMenuItem importMenuItem;
