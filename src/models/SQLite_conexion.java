@@ -1,5 +1,6 @@
 /**
  * //Clase para el trabajo con Bases de datos SQLite//
+ *
  * @author carlos860920
  * @version 2016.07.25
  */
@@ -29,15 +30,15 @@ public class SQLite_conexion {
         this.db = "db/gedsaa.sqlite";
         try {
             Class.forName("org.sqlite.JDBC");
-            this.connection = DriverManager.getConnection("jdbc:sqlite:" + this.db);
-            System.out.println("Conectado a la base de datos SQLite [ " + this.db + "]");
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println(e);
+            this.connection = DriverManager.getConnection("jdbc:sqlite:" + this.db);            
+        } catch (ClassNotFoundException | SQLException e) {            
+            System.err.println(e);
         }
     }
 
     /**
      * Método para la insercion de contenido en la DB
+     *
      * @param table String con el nombre de la tabla
      * @param fields String con el nombre de la columna
      * @param values String con el valor de la columna
@@ -53,35 +54,38 @@ public class SQLite_conexion {
             }
             res = true;
         } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return res;
-    }
-    
-     /**
-     * Método para la actualizar de contenido en la DB
-     * @param table String con el nombre de la tabla
-     * @param fieldsValues String con el nombre de la fila y el valor, en el formato nombre = carlos
-     * @param donde criterio para la actualizacion
-     * @return Boolean en falso si no insertó o en verdadero si insertó
-     */
-    public boolean actualizar(String table, String fieldsValues, String donde) {
-        boolean res = false;
-        String q = "UPDATE " + table + " SET " + fieldsValues + " WHERE " + donde + ";";        
-        try {
-            try (PreparedStatement pstm = this.connection.prepareStatement(q)) {
-                pstm.execute();                  
-            }
-            res = true;
-        } catch (SQLException e) {
-            System.out.println(e);
+            System.err.println(e);
         }
         return res;
     }
 
     /**
-     * Método para la seleccion de contenido
-     * Este lo estoy arreglando ya que estaba peronalizado para el trabajo con otra DB
+     * Método para la actualizar de contenido en la DB
+     *
+     * @param table String con el nombre de la tabla
+     * @param fieldsValues String con el nombre de la fila y el valor, en el
+     * formato nombre = carlos
+     * @param donde criterio para la actualizacion
+     * @return Boolean en falso si no insertó o en verdadero si insertó
+     */
+    public boolean actualizar(String table, String fieldsValues, String donde) {
+        boolean res = false;
+        String q = "UPDATE " + table + " SET " + fieldsValues + " WHERE " + donde + ";";
+        try {
+            try (PreparedStatement pstm = this.connection.prepareStatement(q)) {
+                pstm.execute();
+            }
+            res = true;
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return res;
+    }
+
+    /**
+     * Método para la seleccion de contenido Este lo estoy arreglando ya que
+     * estaba peronalizado para el trabajo con otra DB
+     *
      * @param tabla String con el nombre de la tabla
      * @return String
      */
@@ -94,20 +98,21 @@ public class SQLite_conexion {
             // Conocer el nombre de las columnas
             while (this.resultSet.next()) {
                 columName.add(this.resultSet.getCursorName());
-                res += this.resultSet.getCursorName()+ " | ";
+                res += this.resultSet.getCursorName() + " | ";
             }
-            res += "\n";            
-            while (this.resultSet.next()) {                
+            res += "\n";
+            while (this.resultSet.next()) {
                 res = res + this.resultSet.getString("id_modelo") + " | " + this.resultSet.getString("nombre") + " \n ";
             }
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.err.println(ex);
         }
         return res;
     }
 
     /**
      * Método para la seleccion de contenido
+     *
      * @param tabla String con la tabla
      * @return <b>ResultSet</b> con los valores de la table
      */
@@ -116,15 +121,18 @@ public class SQLite_conexion {
             this.statement = this.connection.createStatement();
             this.resultSet = this.statement.executeQuery("SELECT * FROM " + tabla + "; ");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.err.println(ex);
         }
+        //desconectar();
         return this.resultSet;
     }
 
     /**
      * Método para la seleccion de contenido
+     *
      * @param tabla String con la tabla
-     * @param Consuta String con el <b>WHERE</b> de la consulta. Ejemplo "nombre = 'Pancho' AND apellidos = 'Perez' "
+     * @param Consuta String con el <b>WHERE</b> de la consulta. Ejemplo "nombre
+     * = 'Pancho' AND apellidos = 'Perez' "
      * @return <b>ResultSet</b> con los valores de la table
      */
     public ResultSet seleccionarResultSet(String tabla, String Consuta) {
@@ -132,15 +140,17 @@ public class SQLite_conexion {
             this.statement = this.connection.createStatement();
             this.resultSet = this.statement.executeQuery("SELECT * FROM " + tabla + " WHERE " + Consuta + ";");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.err.println(ex);
         }
         return this.resultSet;
     }
 
     /**
      * Método para eliminar el registro de una tabla
+     *
      * @param tabla String con la tabla
-     * @param Donde String con el <b>WHERE</b> de la consulta. Ejemplo "nombre = 'Pancho' AND apellidos = 'Perez' "
+     * @param Donde String con el <b>WHERE</b> de la consulta. Ejemplo "nombre =
+     * 'Pancho' AND apellidos = 'Perez' "
      * @return <b>Boolean</b>
      */
     public boolean eliminarRegistro(String tabla, String Donde) {
@@ -165,7 +175,7 @@ public class SQLite_conexion {
             this.connection.close();
             System.out.println("Desconectado de la base de datos [ " + this.db + "]");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.err.println(ex);
         }
     }
 }

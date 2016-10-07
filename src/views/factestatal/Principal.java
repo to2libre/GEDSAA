@@ -5,9 +5,6 @@
  */
 package views.factestatal;
 
-import factestatal.ficheros.Users;
-import factestatal.ficheros.About;
-import factestatal.ficheros.*;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -17,28 +14,10 @@ import java.awt.Toolkit;
  */
 public class Principal extends javax.swing.JFrame {
 
-    Users users;
-    About about;
-    DatosEmpresa datosempresa;
-    TipoServicios tiposervicios;
-    Servicios servicios;
-    Titulares titulares;
-    Clientes clientes;
-    DetallesDeControl detallesDeControl;
-
     public Principal() {
         initComponents();
         
-        this.setLocationRelativeTo(null);// Centrar la ventana
-        
-        this.users = new Users();
-        this.about = new About();
-        this.datosempresa = new DatosEmpresa();
-        this.tiposervicios = new TipoServicios();
-        this.servicios = new Servicios();
-        this.titulares = new Titulares();
-        this.clientes = new Clientes();
-        this.detallesDeControl = new DetallesDeControl();
+        this.setLocationRelativeTo(null);// Centrar la ventana        
         
         // Cambiar por la direccion donde se tiene la imagen de fondo que se quiera en el software
         Image img = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images/fondo.jpg"));

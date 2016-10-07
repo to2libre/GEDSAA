@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package factestatal.ficheros;
+package views.factestatal.ficheros;
 
 /**
  *
@@ -28,7 +28,27 @@ public class Users extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jInternalFrame1 = new javax.swing.JInternalFrame();
+        contenedorTabbedPane = new javax.swing.JTabbedPane();
+        visualizarPanel = new javax.swing.JPanel();
+        usuariosScrollPane = new javax.swing.JScrollPane();
+        usuariosTable = new javax.swing.JTable();
+        modificarButton = new javax.swing.JButton();
+        eliminarButton = new javax.swing.JButton();
+        crearPanel = new javax.swing.JPanel();
+        conteCrearUsuarioPanel = new javax.swing.JPanel();
+        usuarioTextField = new javax.swing.JTextField();
+        PasswordPasswordField = new javax.swing.JPasswordField();
+        rePasswordPasswordField = new javax.swing.JPasswordField();
+        rolComboBox = new javax.swing.JComboBox();
+        usuarioLabel = new javax.swing.JLabel();
+        passwordLabel = new javax.swing.JLabel();
+        rePasswordLabe = new javax.swing.JLabel();
+        rolLabel = new javax.swing.JLabel();
+        usuarioRequeridoLabel = new javax.swing.JLabel();
+        passwordRequeridoLabel = new javax.swing.JLabel();
+        rePasswordRequeridoLabel = new javax.swing.JLabel();
+        CrearButton = new javax.swing.JButton();
+        cancelarButton = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -37,36 +57,181 @@ public class Users extends javax.swing.JInternalFrame {
         setTitle("Users");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/usuarios.png"))); // NOI18N
 
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        usuariosTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Usuario", "Rol"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        usuariosScrollPane.setViewportView(usuariosTable);
+
+        modificarButton.setText("Modificar");
+
+        eliminarButton.setText("Eliminar");
+
+        javax.swing.GroupLayout visualizarPanelLayout = new javax.swing.GroupLayout(visualizarPanel);
+        visualizarPanel.setLayout(visualizarPanelLayout);
+        visualizarPanelLayout.setHorizontalGroup(
+            visualizarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(visualizarPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(usuariosScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(visualizarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(modificarButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(eliminarButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        jInternalFrame1Layout.setVerticalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        visualizarPanelLayout.setVerticalGroup(
+            visualizarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(visualizarPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(visualizarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(visualizarPanelLayout.createSequentialGroup()
+                        .addComponent(modificarButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(eliminarButton)
+                        .addGap(0, 244, Short.MAX_VALUE))
+                    .addComponent(usuariosScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        contenedorTabbedPane.addTab("Visualizar Usuario", visualizarPanel);
+
+        conteCrearUsuarioPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        rolComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        usuarioLabel.setText("Usuario:");
+
+        passwordLabel.setText("Contraseña:");
+
+        rePasswordLabe.setText("Repetir Contraseña:");
+
+        rolLabel.setText("Rol:");
+
+        usuarioRequeridoLabel.setForeground(new java.awt.Color(255, 0, 0));
+        usuarioRequeridoLabel.setText("*");
+
+        passwordRequeridoLabel.setForeground(new java.awt.Color(255, 0, 0));
+        passwordRequeridoLabel.setText("*");
+
+        rePasswordRequeridoLabel.setForeground(new java.awt.Color(255, 0, 0));
+        rePasswordRequeridoLabel.setText("*");
+
+        CrearButton.setText("Crear");
+
+        cancelarButton.setText("Cancelar");
+
+        javax.swing.GroupLayout conteCrearUsuarioPanelLayout = new javax.swing.GroupLayout(conteCrearUsuarioPanel);
+        conteCrearUsuarioPanel.setLayout(conteCrearUsuarioPanelLayout);
+        conteCrearUsuarioPanelLayout.setHorizontalGroup(
+            conteCrearUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conteCrearUsuarioPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(conteCrearUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(conteCrearUsuarioPanelLayout.createSequentialGroup()
+                        .addGroup(conteCrearUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rePasswordLabe)
+                            .addComponent(passwordLabel)
+                            .addComponent(usuarioLabel)
+                            .addComponent(rolLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(conteCrearUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(rePasswordPasswordField)
+                            .addComponent(PasswordPasswordField)
+                            .addComponent(usuarioTextField)
+                            .addComponent(rolComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(conteCrearUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(usuarioRequeridoLabel)
+                            .addComponent(passwordRequeridoLabel)
+                            .addComponent(rePasswordRequeridoLabel))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(conteCrearUsuarioPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(CrearButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cancelarButton)))
+                .addContainerGap())
+        );
+        conteCrearUsuarioPanelLayout.setVerticalGroup(
+            conteCrearUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conteCrearUsuarioPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(conteCrearUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(usuarioLabel)
+                    .addComponent(usuarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usuarioRequeridoLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(conteCrearUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passwordLabel)
+                    .addComponent(PasswordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordRequeridoLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(conteCrearUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rePasswordLabe)
+                    .addComponent(rePasswordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rePasswordRequeridoLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(conteCrearUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rolLabel)
+                    .addComponent(rolComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(conteCrearUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CrearButton)
+                    .addComponent(cancelarButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout crearPanelLayout = new javax.swing.GroupLayout(crearPanel);
+        crearPanel.setLayout(crearPanelLayout);
+        crearPanelLayout.setHorizontalGroup(
+            crearPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(crearPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(conteCrearUsuarioPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(168, Short.MAX_VALUE))
+        );
+        crearPanelLayout.setVerticalGroup(
+            crearPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(crearPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(conteCrearUsuarioPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(154, Short.MAX_VALUE))
+        );
+
+        contenedorTabbedPane.addTab("Crear Usuario", crearPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(contenedorTabbedPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(contenedorTabbedPane)
         );
 
         pack();
@@ -74,6 +239,26 @@ public class Users extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JInternalFrame jInternalFrame1;
+    public javax.swing.JButton CrearButton;
+    public javax.swing.JPasswordField PasswordPasswordField;
+    public javax.swing.JButton cancelarButton;
+    private javax.swing.JPanel conteCrearUsuarioPanel;
+    public javax.swing.JTabbedPane contenedorTabbedPane;
+    public javax.swing.JPanel crearPanel;
+    public javax.swing.JButton eliminarButton;
+    public javax.swing.JButton modificarButton;
+    private javax.swing.JLabel passwordLabel;
+    private javax.swing.JLabel passwordRequeridoLabel;
+    private javax.swing.JLabel rePasswordLabe;
+    public javax.swing.JPasswordField rePasswordPasswordField;
+    private javax.swing.JLabel rePasswordRequeridoLabel;
+    public javax.swing.JComboBox rolComboBox;
+    private javax.swing.JLabel rolLabel;
+    private javax.swing.JLabel usuarioLabel;
+    private javax.swing.JLabel usuarioRequeridoLabel;
+    public javax.swing.JTextField usuarioTextField;
+    private javax.swing.JScrollPane usuariosScrollPane;
+    public javax.swing.JTable usuariosTable;
+    public javax.swing.JPanel visualizarPanel;
     // End of variables declaration//GEN-END:variables
 }

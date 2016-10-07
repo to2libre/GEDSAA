@@ -1,6 +1,7 @@
 package controllers;
 
-import factestatal.ficheros.Users;
+import factestatal.ficheros.About;
+import views.factestatal.ficheros.Users;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -31,6 +32,7 @@ public class controlador implements ActionListener {
     cambiarPassword cP;
     public Usuario usuario;
     private Users users;
+    private About about;
 
     /**
      * Método Constructor de la clase controldora
@@ -64,16 +66,19 @@ public class controlador implements ActionListener {
             case "Cancelar":
                 this.cerrar_sistema(); // Si el usuario escogio cancelar se cierra el sistema.
                 break;
+            case "about":
+                this.formAcerca(); // mostrar jInternalFrame Acerca
+                break;
             case "Salir del Sistema":
                 this.cerrar_sistema(); // Si el usuario escogio cancelar se cierra el sistema.
                 break;
-            case "Cambiar password": // Mostrar el jinternalform de cambio de contraseña                
+            case "Cambiar password": // Mostrar el jInternalFrame de cambio de contraseña                
                 this.formCambiarPassword();
                 break;
             case "cambiarPasswordAccion": // Accion del boton de combio de contraseña
                 this.cambiarPasswordAccion();
                 break;
-            case "Usuario": // Mostrar el jinternalform de usuario
+            case "Usuario": // Mostrar el jInternalFrame de usuario
                 this.formUsuario();
                 break;
             case "Cancelar Accion":
@@ -104,10 +109,12 @@ public class controlador implements ActionListener {
         this.view.usersMenuItem.setActionCommand("Usuario"); //Cambiar contraseña
         this.view.cambiarContrasennaMenuItem.setActionCommand("Cambiar password"); //Cambiar contraseña        
         this.view.exitMenuItem.setActionCommand("Salir del Sistema"); //Salir del sistema        
+        this.view.aboutMenuItem.setActionCommand("about"); // Acerca de nosotros
         //Se pone a escuchar las acciones del usuario
-        this.view.usersMenuItem.addActionListener(this);
+        view.usersMenuItem.addActionListener(this);
         view.cambiarContrasennaMenuItem.addActionListener(this); //Cambiar contraseñas
         view.exitMenuItem.addActionListener(this); //Salir del sistema        
+        view.aboutMenuItem.addActionListener(this); // Acerca de nosotros
     }
 
     /**
@@ -155,9 +162,17 @@ public class controlador implements ActionListener {
         users.setLocation(centradoXY(users));
         users.setTitle("Gestion de Usuarios...");
         users.setVisible(true);
+        usuarioAcction("Visualizar");
         //Se agrega las acciones al formulario de Autenticación
         
         //Se pone a la escucha de las acciones del Usuario        
+    }
+    
+    public void formAcerca(){
+        about = new About();
+        this.view.desktopPane.add(about);
+        about.setLocation(centradoXY(about));
+        about.setVisible(true);
     }
 
     //-----------------------------------------------------------------------------------
@@ -247,8 +262,20 @@ public class controlador implements ActionListener {
     
     /**
      * Método para el trabajo con el formulario de Usuario
+     * @param accion String con la accion a realizar
      */
-    private void usuarioAcction() {
+    private void usuarioAcction(String accion) {
+        switch(accion){
+            case "crear":
+                break;
+            case "modificar":
+                break;
+            case "eliminar":
+                break;
+            default:
+                users.usuariosTable.setModel(this.model.mostrarUsuarios());
+                break;
+        }
     }
 
     /**

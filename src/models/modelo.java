@@ -5,11 +5,18 @@
  */
 package models;
 
+import java.awt.List;
+import java.awt.PopupMenu;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -51,6 +58,30 @@ public class modelo extends SQLite_conexion {
         return this.getUsuario();
     }
 
+    public TableModel mostrarUsuarios() {
+        resultSet = seleccionarResultSet("v_usuario_all");
+
+        ArrayList<Usuario> arreglo = new ArrayList<>();
+
+        try {
+            while (resultSet.next()) {
+                arreglo.add(new Usuario(resultSet.getInt("id_usuario"), resultSet.getString("usuario"), resultSet.getString("password"), resultSet.getInt("id_rol"), resultSet.getString("rol")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String nombreColumna[] = {"Usuario", "Rol"};
+        TableModel tm = new DefaultTableModel(nombreColumna, arreglo.size());
+        int conuntRow = 0;
+        for (int i = 0; i < arreglo.size(); i++) {
+            tm.setValueAt(arreglo.get(i).getUsuario(), conuntRow, 0);
+            tm.setValueAt(arreglo.get(i).getRol(), conuntRow, 1);
+            conuntRow++;
+        }
+        return tm;
+    }
+
     /**
      * Método para la creación de usuario
      *
@@ -60,7 +91,7 @@ public class modelo extends SQLite_conexion {
      * @return boolean, verdadero si se creo el usuario, falso si no pudo
      * crearse.
      */
-    public boolean crearUsuario(String usuario, String password, int idRol) {        
+    public boolean crearUsuario(String usuario, String password, int idRol) {
         String pssSHA512 = getStringMessageDigest(password, "SHA-512");
         return insertar("t_usuario", "usuario, password, id_rol", "'" + usuario + "','" + pssSHA512 + "'," + idRol);
     }
