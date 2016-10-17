@@ -25,14 +25,18 @@ import views.factestatal.ficheros.cambiarPassword;
  */
 public class controlador implements ActionListener {
 
-    private Principal view;
-    private Autenticar viewA;
-    private modelo model;
+    // Si da error quitar el tipo final del atributo view, viewA y model
+    private final Principal view;
+    private final Autenticar viewA;
+    private final modelo model;
     public String msg;
     cambiarPassword cP;
     public Usuario usuario;
     private Users users;
     private About about;
+
+    //Variables de ambito global para el trabajo con los formularios interiores
+    public int idUsuario; // id del usuario que se desea modificar en getionar usuario
 
     /**
      * Método Constructor de la clase controldora
@@ -46,6 +50,7 @@ public class controlador implements ActionListener {
         this.viewA = vistaA;
         this.model = modelo;
         form_autenticar();
+        idUsuario = -1;
     }
 
     @Override
@@ -81,6 +86,18 @@ public class controlador implements ActionListener {
             case "Usuario": // Mostrar el jInternalFrame de usuario
                 this.formUsuario();
                 break;
+            case "crearUsuario": // Accion del boton crear usuario en el formulario Users
+                this.usuarioAcction("crear");
+                break;
+            case "cancelarUsuario": // Accion del boton cancelar en el formulario Usuario
+                this.usuarioAcction("cancelar");
+                break;
+            case "modificarUsuario": // Accion del boton modificar usuario en el formulario Users
+                this.usuarioAcction("modificar");
+                break;
+            case "eliminarUsuario": // Accion del boton eliminar usuario en el formulario Users
+                this.usuarioAcction("eliminar");
+                break;
             case "Cancelar Accion":
                 try {
                     cerrar(this.view.desktopPane.getSelectedFrame());
@@ -96,9 +113,10 @@ public class controlador implements ActionListener {
 
     //-----------------------------------------------------------------------------------
     //Metodos para gestionar coportamiento de las vistas y capturar eventos de los formularios
+    //Capturar eventos de los formularios (FORM)
     //-----------------------------------------------------------------------------------
     /**
-     * Método para inicializar el formulario principal del sistema
+     * Método para controlar el formulario <b>Principal</b>
      */
     private void iniciar() {
         this.viewA.setVisible(false);
@@ -118,7 +136,7 @@ public class controlador implements ActionListener {
     }
 
     /**
-     * Método para controlar el formulario de Autenticación
+     * Método para controlar el formulario <b>Autenticar</b>
      */
     private void form_autenticar() {
         this.viewA.setTitle("GEDSAA - Autenticar");//Poniendo título al formulario
@@ -136,6 +154,9 @@ public class controlador implements ActionListener {
         viewA.passwordTextField.addActionListener(this);
     }
 
+    /**
+     * Método para controlar el formulario <b>cambiarPsasword</b>
+     */
     private void formCambiarPassword() {
         cP = new cambiarPassword();
         this.view.desktopPane.add(cP);
@@ -155,20 +176,33 @@ public class controlador implements ActionListener {
         this.cP.cancelarButton.addActionListener(this);
         this.cP.cambiarContrasennaButton.addActionListener(this);
     }
-    
+
+    /**
+     * Método para controlar el formulario <b>Users</b>
+     */
     private void formUsuario() {
         users = new Users();
         this.view.desktopPane.add(users);
         users.setLocation(centradoXY(users));
         users.setTitle("Gestion de Usuarios...");
         users.setVisible(true);
-        usuarioAcction("Visualizar");
-        //Se agrega las acciones al formulario de Autenticación
-        
-        //Se pone a la escucha de las acciones del Usuario        
+        usuarioAcction("visualizar");
+        //Se agrega las acciones al formulario de Usuario
+        this.users.CrearButton.setActionCommand("crearUsuario");
+        this.users.cancelarButton.setActionCommand("cancelarUsuario");
+        this.users.modificarButton.setActionCommand("modificarUsuario");
+        this.users.eliminarButton.setActionCommand("eliminarUsuario");
+        //Se pone a la escucha de las acciones del Usuario   
+        this.users.CrearButton.addActionListener(this);
+        this.users.cancelarButton.addActionListener(this);
+        this.users.modificarButton.addActionListener(this);
+        this.users.eliminarButton.addActionListener(this);
     }
-    
-    public void formAcerca(){
+
+    /**
+     * Método para controlar el formulario <b>About</b>
+     */
+    public void formAcerca() {
         about = new About();
         this.view.desktopPane.add(about);
         about.setLocation(centradoXY(about));
@@ -207,12 +241,77 @@ public class controlador implements ActionListener {
      *
      * @param usuario Nombre del usuario a crear
      * @param passwd Password del usuario a crear
+     * @param rePassword Password nuevamente del usuario a crear
      * @param idRol Id del rol del usuario a crear
-     * @return boolean, verdadero si se creo el usuario con exito, falso si no
-     * se creo.
      */
-    public boolean crearUsuario(String usuario, String passwd, int idRol) {
-        return this.model.crearUsuario(usuario, passwd, idRol);
+    public void crearUsuario(String usuario, String passwd, String rePassword, int idRol) {
+        this.msg = "";
+        if (usuario.isEmpty()) {
+            this.msg += "Usuario: Campo Nulo \n";
+        }
+        if (passwd.isEmpty()) {
+            this.msg += "Contraseña: Campo Nula \n";
+        }
+        if (rePassword.isEmpty()) {
+            this.msg += "Repetir Contraseña: Campo Nula \n";
+        }
+        if (idRol == 0) {
+            this.msg += "Rol: Seleccionar un rol \n";
+        }
+        if (msg.isEmpty()) {
+            if (!passwd.equals(rePassword)) {
+                msg += "Las Contraseña no coinciden \n";
+            }
+        }
+        if (!msg.isEmpty()) {
+            JOptionPane.showMessageDialog(this.users, msg, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (this.model.crearUsuario(usuario, passwd, idRol)) {
+                JOptionPane.showMessageDialog(this.users, "Se ha creado el usuario correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                this.msg = "El usuario ya está en el sistema";
+                JOptionPane.showMessageDialog(this.users, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    /**
+     * Método para la modificación de usuario
+     *
+     * @param usuario Nombre del usuario a crear
+     * @param passwd Password del usuario a crear
+     * @param rePassword Password nuevamente del usuario a crear
+     * @param idRol Id del rol del usuario a crear
+     */
+    public void modificarUsuario(String usuario, String passwd, String rePassword, int idRol) {
+        this.msg = "";
+        if (usuario.isEmpty()) {
+            this.msg += "Usuario: Campo Nulo \n";
+        }
+        if (passwd.isEmpty()) {
+            this.msg += "Contraseña: Campo Nula \n";
+        }
+        if (rePassword.isEmpty()) {
+            this.msg += "Repetir Contraseña: Campo Nula \n";
+        }
+        if (idRol == 0) {
+            this.msg += "Rol: Seleccionar un rol \n";
+        }
+        if (msg.isEmpty()) {
+            if (!passwd.equals(rePassword)) {
+                msg += "Las Contraseña no coinciden \n";
+            }
+        }
+        if (!msg.isEmpty()) {
+            JOptionPane.showMessageDialog(this.users, msg, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (this.model.actualizarUsuario(idUsuario, usuario, passwd, idRol)) {
+                JOptionPane.showMessageDialog(this.users, "Se ha actualizado el usuario correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                this.msg = "El usuario ya está en el sistema";
+                JOptionPane.showMessageDialog(this.users, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     /**
@@ -229,7 +328,9 @@ public class controlador implements ActionListener {
         jif.setClosed(true);
     }
 
-    // CIERRA TODOS LOS JInternalFrame QUE ESTEN ABIERTOS
+    /**
+     * Método para cerrar todos los </>jInternalFrame</b> que esten abiertos
+     */
     private void cerrar_todo() {
         JInternalFrame[] activos = this.view.desktopPane.getAllFrames();
         int i = 0;
@@ -244,7 +345,7 @@ public class controlador implements ActionListener {
     }
 
     /**
-     * Método que dado un JInternalFrame calcula la posicion de centrado
+     * Método que dado un <b>JInternalFrame</b> calcula la posicion de centrado
      * respecto a su contenedor, retorna las coordenadas en una variable de tipo
      * POINT
      */
@@ -259,20 +360,76 @@ public class controlador implements ActionListener {
         p.y = (pantalla.height - ventana.height) / 2;
         return p;
     }
-    
+
     /**
      * Método para el trabajo con el formulario de Usuario
+     *
      * @param accion String con la accion a realizar
      */
     private void usuarioAcction(String accion) {
-        switch(accion){
+        int row = -1;
+        switch (accion) {
             case "crear":
+                // Capturar datos del formulario
+                String Usuario = this.users.usuarioTextField.getText();
+                String Password = this.users.PasswordPasswordField.getText();
+                String rePassword = this.users.rePasswordPasswordField.getText();
+                int idRol = this.users.rolComboBox.getSelectedIndex();
+                // idUsuario es igual a -1 para crearlo o es igual al id del usario para modificarlo o eliminarlo
+                if (idUsuario == -1) {
+                    this.crearUsuario(Usuario, Password, rePassword, idRol);
+                }
+                else {
+                    this.modificarUsuario(Usuario, Password, rePassword, idRol);
+                }
+                // Si se crea o se ctualiza el usuario entra
+                if (this.msg.isEmpty()) {
+                    // Limpiar todos los escaques del formulario
+                    this.users.usuarioTextField.setText("");
+                    this.users.PasswordPasswordField.setText("");
+                    this.users.rePasswordPasswordField.setText("");
+                    this.users.rolComboBox.setSelectedIndex(0);
+                    this.users.CrearButton.setText("Crear");
+                    // Refrescar los datos a mostrar en el formulario de visualización
+                    usuarioAcction("visualizar");
+                }
                 break;
             case "modificar":
+                row = this.users.usuariosTable.getSelectedRow();
+                if (row != -1) {
+                    idUsuario = this.model.arreglo.get(row).getIdUsuario();
+                    this.users.usuarioTextField.setText(this.model.arreglo.get(row).getUsuario());
+                    this.users.rolComboBox.setSelectedIndex(this.model.arreglo.get(row).getIdRol());
+                    this.users.contenedorTabbedPane.setSelectedIndex(1);
+                    this.users.CrearButton.setText("Modificar");
+                }
                 break;
             case "eliminar":
+                row = this.users.usuariosTable.getSelectedRow();
+                if (row != -1) {
+                    idUsuario = this.model.arreglo.get(row).getIdUsuario();
+                    if (this.model.eliminarUsuario(idUsuario)) {
+                        JOptionPane.showMessageDialog(this.cP, "Se ha eliminado el usuario correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this.cP, "Error al intentar eliminar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this.cP, "Seleccione un usuario para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                idUsuario = -1;
+                usuarioAcction("visualizar");
+                break;
+            case "cancelar":
+                this.users.usuarioTextField.setText("");
+                this.users.PasswordPasswordField.setText("");
+                this.users.rePasswordPasswordField.setText("");
+                this.users.rolComboBox.setSelectedIndex(0);
+                // Refrescar los datos a mostrar en el formulario de visualización
+                usuarioAcction("visualizar");
                 break;
             default:
+                this.users.contenedorTabbedPane.setSelectedIndex(0);
+                users.rolComboBox.setModel(this.model.rolCombobox("t_rol"));
                 users.usuariosTable.setModel(this.model.mostrarUsuarios());
                 break;
         }
@@ -291,12 +448,12 @@ public class controlador implements ActionListener {
         passNewRep = this.cP.repetirContrasennaNuevaPasswordField.getText();
         msg = ""; //Guarda el cuerpo del mensaje a mostrar
         if (passAct.isEmpty()) {
-            msg += "Contraseña Actual: Campo Nulo \n";            
+            msg += "Contraseña Actual: Campo Nulo \n";
         } else {
             passActEncr = modelo.getStringMessageDigest(passAct, "SHA-512");
         }
         if (passNew.isEmpty()) {
-            msg += "Nueva Contraseña: Campo Nulo \n";            
+            msg += "Nueva Contraseña: Campo Nulo \n";
         }
         if (passNewRep.isEmpty()) {
             msg += "Repetir nueva contraseña : Campo Nulo \n";

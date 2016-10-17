@@ -5,26 +5,25 @@
  */
 package models;
 
-import java.awt.List;
-import java.awt.PopupMenu;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
  *
- * @author Carlos
+ * @author carlos860920
  */
 public class modelo extends SQLite_conexion {
 
     public Usuario usuario;
+    public ArrayList<Usuario> arreglo;
 
     /**
      * Constructor de la clase <b>modelo</b>
@@ -58,10 +57,15 @@ public class modelo extends SQLite_conexion {
         return this.getUsuario();
     }
 
+    /**
+     * Método para mostrar los usuarios del sistema
+     *
+     * @return TableModel modelo con los datos de la tabla
+     */
     public TableModel mostrarUsuarios() {
         resultSet = seleccionarResultSet("v_usuario_all");
 
-        ArrayList<Usuario> arreglo = new ArrayList<>();
+        arreglo = new ArrayList<>();
 
         try {
             while (resultSet.next()) {
@@ -80,6 +84,33 @@ public class modelo extends SQLite_conexion {
             conuntRow++;
         }
         return tm;
+    }
+
+    /**
+     * Método que debuelve el model de un <b>jCombobox</b>
+     *
+     * @param tabla String con el nombre de la tabla que tiene los datos
+     * necesatios
+     * @param campos Strign en el formato campo1, campo2, campon, ... con los
+     * campos necesarios
+     */
+    public ComboBoxModel rolCombobox(String tabla) {
+        ComboBoxModel cbm;
+
+        resultSet = seleccionarResultSet(tabla);
+        ArrayList arreglo = new ArrayList();
+        arreglo.add("Seleccionar");
+
+        try {
+            while (resultSet.next()) {
+                arreglo.add(resultSet.getString("rol"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cbm = new DefaultComboBoxModel(arreglo.toArray());
+
+        return cbm;
     }
 
     /**
@@ -106,6 +137,15 @@ public class modelo extends SQLite_conexion {
     public boolean actualizarUsuario(int idUsuario, String usuario, String password, int idRol) {
         String pssSHA512 = getStringMessageDigest(password, "SHA-512");
         return this.actualizar("t_usuario", "usuario = '" + usuario + "',password = '" + pssSHA512 + "', id_rol = " + idRol, "id_usuario = " + idUsuario);
+    }
+
+    public boolean eliminarUsuario(int id_usuario) {
+        String donde = "id_usuario = " + id_usuario;
+        if (id_usuario == 1) {
+            return false;
+        } else {
+            return this.eliminarRegistro("t_usuario", donde);
+        }
     }
 
     public Usuario getUsuario() {

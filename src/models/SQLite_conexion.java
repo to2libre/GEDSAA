@@ -53,8 +53,12 @@ public class SQLite_conexion {
                 pstm.execute();
             }
             res = true;
-        } catch (SQLException e) {
-            System.err.println(e);
+        } catch (SQLException e) {            
+            if (e.getErrorCode() == 19){
+                return false;
+            }
+            else
+                System.err.println(e.getMessage());
         }
         return res;
     }
@@ -159,7 +163,7 @@ public class SQLite_conexion {
             this.statement = this.connection.createStatement();
             eliminado = this.statement.executeUpdate("DELETE FROM " + tabla + " WHERE " + Donde);
         } catch (SQLException ex) {
-            Logger.getLogger(SQLite_conexion.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex.getMessage());
         }
 
         return eliminado == 1;

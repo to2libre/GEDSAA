@@ -469,6 +469,7 @@ public class Principal extends javax.swing.JFrame {
         ayudaMunu.setMnemonic('h');
         ayudaMunu.setText("Ayuda");
 
+        contentMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         contentMenuItem.setMnemonic('c');
         contentMenuItem.setText("Contenido");
         ayudaMunu.add(contentMenuItem);
