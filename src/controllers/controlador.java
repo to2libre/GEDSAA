@@ -1,6 +1,7 @@
 package controllers;
 
 import factestatal.ficheros.About;
+import factestatal.ficheros.DatosEmpresa;
 import views.factestatal.ficheros.Users;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -29,13 +30,18 @@ public class controlador implements ActionListener {
     private final Principal view;
     private final Autenticar viewA;
     private final modelo model;
-    public String msg;
-    cambiarPassword cP;
-    public Usuario usuario;
+    
+    //Variables para lis jInternalFrame
+    public cambiarPassword cP;    
     private Users users;
     private About about;
+    public DatosEmpresa datosEmpresa;
+    
+    //Variables de modelos
+    public Usuario usuario;
 
     //Variables de ambito global para el trabajo con los formularios interiores
+    public String msg;
     public int idUsuario; // id del usuario que se desea modificar en getionar usuario
 
     /**
@@ -98,6 +104,9 @@ public class controlador implements ActionListener {
             case "eliminarUsuario": // Accion del boton eliminar usuario en el formulario Users
                 this.usuarioAcction("eliminar");
                 break;
+            case "datosEmpresaForm":
+                this.formDatosEmpresa(); // Mostrar el jInternalFrame de Datos de la Empresa
+                break;
             case "Cancelar Accion":
                 try {
                     cerrar(this.view.desktopPane.getSelectedFrame());
@@ -124,11 +133,13 @@ public class controlador implements ActionListener {
         view.setTitle("GEDSAA");
         view.setLocationRelativeTo(null);//centrado en pantalla        
         //Se añade las acciones a los controles del formulario padre        
-        this.view.usersMenuItem.setActionCommand("Usuario"); //Cambiar contraseña
+        this.view.datosEmpresaMenuItem.setActionCommand("datosEmpresaForm"); //Datos de Empresa
+        this.view.usersMenuItem.setActionCommand("Usuario"); //Gestionar Usuario
         this.view.cambiarContrasennaMenuItem.setActionCommand("Cambiar password"); //Cambiar contraseña        
         this.view.exitMenuItem.setActionCommand("Salir del Sistema"); //Salir del sistema        
         this.view.aboutMenuItem.setActionCommand("about"); // Acerca de nosotros
         //Se pone a escuchar las acciones del usuario
+        view.datosEmpresaMenuItem.addActionListener(this);
         view.usersMenuItem.addActionListener(this);
         view.cambiarContrasennaMenuItem.addActionListener(this); //Cambiar contraseñas
         view.exitMenuItem.addActionListener(this); //Salir del sistema        
@@ -187,16 +198,38 @@ public class controlador implements ActionListener {
         users.setTitle("Gestion de Usuarios...");
         users.setVisible(true);
         usuarioAcction("visualizar");
-        //Se agrega las acciones al formulario de Usuario
+        //Se agrega las acciones al formulario de Usuario        
         this.users.CrearButton.setActionCommand("crearUsuario");
+        this.users.usuarioTextField.setActionCommand("crearUsuario");
+        this.users.PasswordPasswordField.setActionCommand("crearUsuario");
+        this.users.rePasswordPasswordField.setActionCommand("crearUsuario");
         this.users.cancelarButton.setActionCommand("cancelarUsuario");
         this.users.modificarButton.setActionCommand("modificarUsuario");
         this.users.eliminarButton.setActionCommand("eliminarUsuario");
         //Se pone a la escucha de las acciones del Usuario   
         this.users.CrearButton.addActionListener(this);
+        this.users.usuarioTextField.addActionListener(this);
+        this.users.PasswordPasswordField.addActionListener(this);
+        this.users.rePasswordPasswordField.addActionListener(this);
         this.users.cancelarButton.addActionListener(this);
         this.users.modificarButton.addActionListener(this);
         this.users.eliminarButton.addActionListener(this);
+    }
+    
+    /**
+     * Método para controlar el formulario <b>DatosEmpresa</b>
+     */
+    private void formDatosEmpresa() {
+        datosEmpresa = new DatosEmpresa();
+        this.view.desktopPane.add(datosEmpresa);
+        datosEmpresa.setLocation(centradoXY(datosEmpresa));
+        datosEmpresa.setTitle("Gestion de Usuarios...");
+        datosEmpresa.setVisible(true);
+        datosEmpresaAcction("visualizar");
+        //Se agrega las acciones al formulario de Usuario        
+        this.datosEmpresa.agregarModificarButton.setActionCommand("agregarModificarButton");
+        //Se pone a la escucha de las acciones del Usuario   
+        this.datosEmpresa.agregarModificarButton.addActionListener(this);        
     }
 
     /**
@@ -274,7 +307,7 @@ public class controlador implements ActionListener {
             }
         }
     }
-    
+
     /**
      * Método para la modificación de usuario
      *
@@ -360,6 +393,31 @@ public class controlador implements ActionListener {
         p.y = (pantalla.height - ventana.height) / 2;
         return p;
     }
+    
+    /**
+     * Método para el trabajo con el formulario de <b>Datos Empresa</b>
+     *
+     * @param accion String con la accion a realizar
+     */
+    private void datosEmpresaAcction(String accion) {        
+        switch (accion) {
+            case "crear":
+                // Poner código de accion crear
+                break;
+            case "modificar":
+                // Poner código de accion modificar
+                break;
+            case "eliminar":
+                // Poner código de accion eliminar
+                break;
+            case "cancelar":
+                // Poner código de accion cancelar
+                break;
+            default:
+                // Poner codigo para visualizar los datos de la empresa
+                break;
+        }
+    }
 
     /**
      * Método para el trabajo con el formulario de Usuario
@@ -378,8 +436,7 @@ public class controlador implements ActionListener {
                 // idUsuario es igual a -1 para crearlo o es igual al id del usario para modificarlo o eliminarlo
                 if (idUsuario == -1) {
                     this.crearUsuario(Usuario, Password, rePassword, idRol);
-                }
-                else {
+                } else {
                     this.modificarUsuario(Usuario, Password, rePassword, idRol);
                 }
                 // Si se crea o se ctualiza el usuario entra
@@ -390,6 +447,7 @@ public class controlador implements ActionListener {
                     this.users.rePasswordPasswordField.setText("");
                     this.users.rolComboBox.setSelectedIndex(0);
                     this.users.CrearButton.setText("Crear");
+                    this.users.contenedorTabbedPane.setEnabledAt(0, true);
                     // Refrescar los datos a mostrar en el formulario de visualización
                     usuarioAcction("visualizar");
                 }
@@ -402,19 +460,25 @@ public class controlador implements ActionListener {
                     this.users.rolComboBox.setSelectedIndex(this.model.arreglo.get(row).getIdRol());
                     this.users.contenedorTabbedPane.setSelectedIndex(1);
                     this.users.CrearButton.setText("Modificar");
+                    this.users.contenedorTabbedPane.setEnabledAt(0, false);
                 }
                 break;
             case "eliminar":
+
                 row = this.users.usuariosTable.getSelectedRow();
                 if (row != -1) {
                     idUsuario = this.model.arreglo.get(row).getIdUsuario();
-                    if (this.model.eliminarUsuario(idUsuario)) {
-                        JOptionPane.showMessageDialog(this.cP, "Se ha eliminado el usuario correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(this.cP, "Error al intentar eliminar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
+                    String us = this.model.arreglo.get(row).getUsuario();
+                    int acc = JOptionPane.showConfirmDialog(this.users, "Estas seguro de eliminar a " + us, "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (acc == 0) {
+                        if (this.model.eliminarUsuario(idUsuario)) {
+                            JOptionPane.showMessageDialog(this.users, "Se ha eliminado el usuario correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this.users, "Error al intentar eliminar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this.cP, "Seleccione un usuario para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this.users, "Seleccione un usuario para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 idUsuario = -1;
                 usuarioAcction("visualizar");
@@ -424,6 +488,7 @@ public class controlador implements ActionListener {
                 this.users.PasswordPasswordField.setText("");
                 this.users.rePasswordPasswordField.setText("");
                 this.users.rolComboBox.setSelectedIndex(0);
+                this.users.contenedorTabbedPane.setEnabledAt(0, true);
                 // Refrescar los datos a mostrar en el formulario de visualización
                 usuarioAcction("visualizar");
                 break;

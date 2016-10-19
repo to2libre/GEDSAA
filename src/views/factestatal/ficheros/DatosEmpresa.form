@@ -12,7 +12,7 @@
     <Property name="title" type="java.lang.String" value="Datos de la Empresa"/>
     <Property name="toolTipText" type="java.lang.String" value="Datos necesarios para la configuraci&#xf3;n del sistema"/>
     <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-      <Image iconType="2" name="C:\Users\comercial.gvca\Documents\NetBeansProjects\FactEstatal\images\datos_empresa.png"/>
+      <Image iconType="0" name="null"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -36,12 +36,12 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="contenedorTabbedPane" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="agregarModificarButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="cancelarButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -52,12 +52,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+              <Component id="contenedorTabbedPane" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="cancelarButton" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="agregarModificarButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -66,11 +66,14 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="contenedorTabbedPane">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanel1">
+        <Container class="javax.swing.JPanel" name="datosTrabajoPanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Datos de Trabajo">
@@ -84,14 +87,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="codigoReupLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jFormattedTextField1" min="-2" pref="214" max="-2" attributes="0"/>
+                      <Component id="codigoReupFormattedTextField" min="-2" pref="214" max="-2" attributes="0"/>
                       <EmptySpace pref="76" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
+                  <Component id="tutularesCuentaPanel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="cuentaBancariaPanel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="logotipoEmpresaPanel" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -99,27 +102,27 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jFormattedTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="codigoReupLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="codigoReupFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tutularesCuentaPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                      <Component id="cuentaBancariaPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                      <Component id="logotipoEmpresaPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="codigoReupLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="C&#xf3;digo Reup:"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JPanel" name="jPanel3">
+            <Container class="javax.swing.JPanel" name="tutularesCuentaPanel">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -135,14 +138,14 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="titularCuentaCUPLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jTextField2" max="32767" attributes="0"/>
+                                  <Component id="titularCuentaCUPTextField" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="titularCuentaCUCLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jTextField3" max="32767" attributes="0"/>
+                                  <Component id="titularCuentaCUCTextField" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -154,13 +157,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="titularCuentaCUPLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="titularCuentaCUPTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="titularCuentaCUCLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="titularCuentaCUCTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -168,29 +171,35 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel2">
+                <Component class="javax.swing.JLabel" name="titularCuentaCUPLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Titular de la cuenta CUP:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel3">
+                <Component class="javax.swing.JLabel" name="titularCuentaCUCLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Titular de la custa CUC:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField2">
+                <Component class="javax.swing.JTextField" name="titularCuentaCUPTextField">
                   <Properties>
                     <Property name="toolTipText" type="java.lang.String" value="Entre el titular de la cuenta CUP"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField3">
+                <Component class="javax.swing.JTextField" name="titularCuentaCUCTextField">
                   <Properties>
                     <Property name="toolTipText" type="java.lang.String" value="Entre el titular de la cuenta CUC"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel4">
+            <Container class="javax.swing.JPanel" name="cuentaBancariaPanel">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -206,14 +215,14 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cuentaBancariaCUPLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jTextField1" max="32767" attributes="0"/>
+                                  <Component id="cuentaBancariaCUPTextField" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cuentaBancariaCUCLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jTextField4" max="32767" attributes="0"/>
+                                  <Component id="cuentaBancariaCUCTextField" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -225,42 +234,48 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cuentaBancariaCUPLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cuentaBancariaCUPTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cuentaBancariaCUCLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cuentaBancariaCUCTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel4">
+                <Component class="javax.swing.JLabel" name="cuentaBancariaCUPLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cuenta bancaria CUP:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel5">
+                <Component class="javax.swing.JLabel" name="cuentaBancariaCUCLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cuenta bancaria CUC:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField1">
+                <Component class="javax.swing.JTextField" name="cuentaBancariaCUPTextField">
                   <Properties>
                     <Property name="toolTipText" type="java.lang.String" value="Entre la cuenta bancaria en CUP"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField4">
+                <Component class="javax.swing.JTextField" name="cuentaBancariaCUCTextField">
                   <Properties>
                     <Property name="toolTipText" type="java.lang.String" value="Entre la cuenta bancaria en CUC"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel5">
+            <Container class="javax.swing.JPanel" name="logotipoEmpresaPanel">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -274,9 +289,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanelImage1" min="-2" max="-2" attributes="0"/>
+                          <Component id="logotipoEmpresaPanelImage" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buscarLogotipoButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -284,19 +299,19 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jPanelImage1" min="-2" max="-2" attributes="0"/>
+                          <Component id="logotipoEmpresaPanelImage" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buscarLogotipoButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Container class="myclass.JPanelImage" name="jPanelImage1">
+                <Container class="myclass.JPanelImage" name="logotipoEmpresaPanelImage">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="cc" red="99" type="rgb"/>
@@ -311,6 +326,9 @@
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Logotipo de la Empresa"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
 
                   <Layout>
                     <DimensionLayout dim="0">
@@ -325,24 +343,33 @@
                     </DimensionLayout>
                   </Layout>
                 </Container>
-                <Component class="javax.swing.JButton" name="jButton3">
+                <Component class="javax.swing.JButton" name="buscarLogotipoButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Buscar Logotipo"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField1">
+            <Component class="javax.swing.JFormattedTextField" name="codigoReupFormattedTextField">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
                   <Format format="###.#.####" subtype="-1" type="5"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Entre el c&#xf3;digo reup de la empresa"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel2">
+        <Container class="javax.swing.JPanel" name="datosGeneralesPanel">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Datos Generales">
@@ -359,26 +386,26 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="telefonoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="organismoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jFormattedTextField2" max="32767" attributes="0"/>
-                                  <Component id="jComboBox1" max="32767" attributes="0"/>
+                                  <Component id="telefonoFormattedTextField" max="32767" attributes="0"/>
+                                  <Component id="organismoComboBox" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="correoElectronicoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="faxLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="direccionLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jFormattedTextField4" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane1" alignment="0" pref="253" max="32767" attributes="0"/>
-                                  <Component id="jTextField5" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="faxFormattedTextField" max="32767" attributes="0"/>
+                                  <Component id="direccionScrollPane" alignment="0" pref="253" max="32767" attributes="0"/>
+                                  <Component id="correoElectronicoTextField" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -391,28 +418,28 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="organismoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="organismoComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jFormattedTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="telefonoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="telefonoFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jFormattedTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="faxLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="faxFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="correoElectronicoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="correoElectronicoTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="105" max="-2" attributes="0"/>
+                          <Component id="direccionLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="direccionScrollPane" min="-2" pref="105" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="141" max="32767" attributes="0"/>
                   </Group>
@@ -420,64 +447,32 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel6">
+            <Component class="javax.swing.JLabel" name="organismoLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Organismo:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel7">
+            <Component class="javax.swing.JLabel" name="telefonoLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Tel&#xe9;fono:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel8">
+            <Component class="javax.swing.JLabel" name="faxLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fax:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel9">
+            <Component class="javax.swing.JLabel" name="correoElectronicoLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Correo electronico:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel10">
+            <Component class="javax.swing.JLabel" name="direccionLabel1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Direcci&#xf3;n:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField2">
-              <Properties>
-                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                  <Format format="## ## ######" subtype="-1" type="5"/>
-                </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Tel&#xe9;fono de la empresa"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField4">
-              <Properties>
-                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                  <Format format="## ## ######" subtype="-1" type="5"/>
-                </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Fax de la Empresa"/>
-              </Properties>
-            </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTextArea" name="jTextArea1">
-                  <Properties>
-                    <Property name="columns" type="int" value="20"/>
-                    <Property name="rows" type="int" value="5"/>
-                    <Property name="toolTipText" type="java.lang.String" value="Entre la direcci&#xf3;n donde se encuentra la empresa"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
+            <Component class="javax.swing.JComboBox" name="organismoComboBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -490,24 +485,66 @@
                 <Property name="toolTipText" type="java.lang.String" value="Organismo al que pertenece la empresa"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField5">
+            <Component class="javax.swing.JFormattedTextField" name="telefonoFormattedTextField">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+                  <Format format="## ## ######" subtype="-1" type="5"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Tel&#xe9;fono de la empresa"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="faxFormattedTextField">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+                  <Format format="## ## ######" subtype="-1" type="5"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Fax de la Empresa"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="correoElectronicoTextField">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Entre Correo Electronico de la Empresa"/>
               </Properties>
             </Component>
+            <Container class="javax.swing.JScrollPane" name="direccionScrollPane">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextArea" name="direccionTextArea">
+                  <Properties>
+                    <Property name="columns" type="int" value="20"/>
+                    <Property name="rows" type="int" value="5"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Entre la direcci&#xf3;n donde se encuentra la empresa"/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="agregarModificarButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Agregar/ Modificar"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="cancelarButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

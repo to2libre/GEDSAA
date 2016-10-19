@@ -55,9 +55,9 @@ public class Autenticar extends javax.swing.JFrame {
 
         passwordLabel.setText("Contraseña:");
 
-        usuarioTextField.setToolTipText("Entre el nombre de usuario registrado en la Base de Datos");
+        usuarioTextField.setToolTipText("Entre nombre de usuario");
 
-        passwordTextField.setToolTipText("Entre la contraseña registrada en la Base de Datos");
+        passwordTextField.setToolTipText("Entre contraseña");
         passwordTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         aceptarButton.setText("Aceptar");
