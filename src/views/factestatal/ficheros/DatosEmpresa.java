@@ -46,6 +46,8 @@ public class DatosEmpresa extends javax.swing.JInternalFrame {
         logotipoEmpresaPanelImage = new myclass.JPanelImage();
         buscarLogotipoButton = new javax.swing.JButton();
         codigoReupFormattedTextField = new javax.swing.JFormattedTextField();
+        nombreEmpresaLabel = new javax.swing.JLabel();
+        nombreEmpresaTextField = new javax.swing.JTextField();
         datosGeneralesPanel = new javax.swing.JPanel();
         organismoLabel = new javax.swing.JLabel();
         telefonoLabel = new javax.swing.JLabel();
@@ -154,7 +156,7 @@ public class DatosEmpresa extends javax.swing.JInternalFrame {
         logotipoEmpresaPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Logotipo de la Empresa"));
 
         logotipoEmpresaPanelImage.setBackground(new java.awt.Color(153, 204, 255));
-        logotipoEmpresaPanelImage.setBorder(new javax.swing.border.MatteBorder(null));
+        logotipoEmpresaPanelImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         logotipoEmpresaPanelImage.setForeground(new java.awt.Color(204, 204, 204));
         logotipoEmpresaPanelImage.setToolTipText("Logotipo de la Empresa");
 
@@ -162,7 +164,7 @@ public class DatosEmpresa extends javax.swing.JInternalFrame {
         logotipoEmpresaPanelImage.setLayout(logotipoEmpresaPanelImageLayout);
         logotipoEmpresaPanelImageLayout.setHorizontalGroup(
             logotipoEmpresaPanelImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 129, Short.MAX_VALUE)
         );
         logotipoEmpresaPanelImageLayout.setVerticalGroup(
             logotipoEmpresaPanelImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,11 +178,10 @@ public class DatosEmpresa extends javax.swing.JInternalFrame {
         logotipoEmpresaPanelLayout.setHorizontalGroup(
             logotipoEmpresaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logotipoEmpresaPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(logotipoEmpresaPanelImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buscarLogotipoButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         logotipoEmpresaPanelLayout.setVerticalGroup(
             logotipoEmpresaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,24 +201,36 @@ public class DatosEmpresa extends javax.swing.JInternalFrame {
         }
         codigoReupFormattedTextField.setToolTipText("Entre el código reup de la empresa");
 
+        nombreEmpresaLabel.setText("Nombre de la Empresa:");
+
         javax.swing.GroupLayout datosTrabajoPanelLayout = new javax.swing.GroupLayout(datosTrabajoPanel);
         datosTrabajoPanel.setLayout(datosTrabajoPanelLayout);
         datosTrabajoPanelLayout.setHorizontalGroup(
             datosTrabajoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(datosTrabajoPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(codigoReupLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(codigoReupFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
             .addComponent(tutularesCuentaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(cuentaBancariaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(logotipoEmpresaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(datosTrabajoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(datosTrabajoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(datosTrabajoPanelLayout.createSequentialGroup()
+                        .addComponent(codigoReupLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(codigoReupFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(datosTrabajoPanelLayout.createSequentialGroup()
+                        .addComponent(nombreEmpresaLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nombreEmpresaTextField)))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         datosTrabajoPanelLayout.setVerticalGroup(
             datosTrabajoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(datosTrabajoPanelLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(datosTrabajoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreEmpresaLabel)
+                    .addComponent(nombreEmpresaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(datosTrabajoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReupLabel)
                     .addComponent(codigoReupFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -226,8 +239,7 @@ public class DatosEmpresa extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cuentaBancariaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(logotipoEmpresaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(logotipoEmpresaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         contenedorTabbedPane.addTab("Datos de Trabajo", datosTrabajoPanel);
@@ -246,14 +258,14 @@ public class DatosEmpresa extends javax.swing.JInternalFrame {
         organismoComboBox.setToolTipText("Organismo al que pertenece la empresa");
 
         try {
-            telefonoFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ## ######")));
+            telefonoFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("+53 ## ######")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         telefonoFormattedTextField.setToolTipText("Teléfono de la empresa");
 
         try {
-            faxFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## ## ######")));
+            faxFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("+53 ## ######")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -316,7 +328,7 @@ public class DatosEmpresa extends javax.swing.JInternalFrame {
                 .addGroup(datosGeneralesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(direccionLabel1)
                     .addComponent(direccionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
 
         contenedorTabbedPane.addTab("Datos Generales", datosGeneralesPanel);
@@ -343,14 +355,11 @@ public class DatosEmpresa extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(contenedorTabbedPane)
+                .addComponent(contenedorTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cancelarButton)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(agregarModificarButton)
-                        .addContainerGap())))
+                    .addComponent(agregarModificarButton, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
 
         pack();
@@ -365,7 +374,7 @@ public class DatosEmpresa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel codigoReupLabel;
     public javax.swing.JTabbedPane contenedorTabbedPane;
     private javax.swing.JLabel correoElectronicoLabel;
-    private javax.swing.JTextField correoElectronicoTextField;
+    public javax.swing.JTextField correoElectronicoTextField;
     private javax.swing.JLabel cuentaBancariaCUCLabel;
     public javax.swing.JTextField cuentaBancariaCUCTextField;
     private javax.swing.JLabel cuentaBancariaCUPLabel;
@@ -376,14 +385,16 @@ public class DatosEmpresa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel direccionLabel1;
     public javax.swing.JScrollPane direccionScrollPane;
     public javax.swing.JTextArea direccionTextArea;
-    private javax.swing.JFormattedTextField faxFormattedTextField;
+    public javax.swing.JFormattedTextField faxFormattedTextField;
     private javax.swing.JLabel faxLabel;
     private javax.swing.JPanel logotipoEmpresaPanel;
     public myclass.JPanelImage logotipoEmpresaPanelImage;
-    private javax.swing.JFileChooser logotipoFileChooser;
-    private javax.swing.JComboBox organismoComboBox;
+    public javax.swing.JFileChooser logotipoFileChooser;
+    private javax.swing.JLabel nombreEmpresaLabel;
+    public javax.swing.JTextField nombreEmpresaTextField;
+    public javax.swing.JComboBox organismoComboBox;
     private javax.swing.JLabel organismoLabel;
-    private javax.swing.JFormattedTextField telefonoFormattedTextField;
+    public javax.swing.JFormattedTextField telefonoFormattedTextField;
     private javax.swing.JLabel telefonoLabel;
     private javax.swing.JLabel titularCuentaCUCLabel;
     public javax.swing.JTextField titularCuentaCUCTextField;
