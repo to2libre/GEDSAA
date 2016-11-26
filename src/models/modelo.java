@@ -17,8 +17,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
- *
  * @author carlos860920
+ *
  */
 public class modelo extends SQLite_conexion {
 
@@ -87,7 +87,7 @@ public class modelo extends SQLite_conexion {
     }
 
     /**
-     * Método que debuelve el model de un <b>jCombobox</b>
+     * Método que debuelve el model de un <b>jCombobox</b> para lo Roles
      *
      * @param tabla String con el nombre de la tabla que tiene los datos
      * necesatios
@@ -128,17 +128,25 @@ public class modelo extends SQLite_conexion {
     }
 
     /**
+     * Método para actualizar usuario
+     *
      * @param idUsuario
      * @param usuario
      * @param password
      * @param idRol
-     * @return
+     * @return boolean
      */
     public boolean actualizarUsuario(int idUsuario, String usuario, String password, int idRol) {
         String pssSHA512 = getStringMessageDigest(password, "SHA-512");
         return this.actualizar("t_usuario", "usuario = '" + usuario + "',password = '" + pssSHA512 + "', id_rol = " + idRol, "id_usuario = " + idUsuario);
     }
 
+    /**
+     * Método para eliminar usuario
+     *
+     * @param id_usuario
+     * @return boolean
+     */
     public boolean eliminarUsuario(int id_usuario) {
         String donde = "id_usuario = " + id_usuario;
         if (id_usuario == 1) {
@@ -148,12 +156,68 @@ public class modelo extends SQLite_conexion {
         }
     }
 
+    /**
+     * Métoto para mostrar usuario
+     *
+     * @return usuario
+     */
     public Usuario getUsuario() {
         return usuario;
     }
 
     /**
-     * *
+     * Método para retornar una empresa dado el código reup
+     *
+     * @param codigo_reup
+     * @return Empresa
+     */
+    public Empresa getEmpresa(String codigo_reup) {
+        Empresa empresa = null;
+        resultSet = this.seleccionarResultSet("v_empresa_all", "codigo_reup = " + codigo_reup);
+        try {
+            if (resultSet.next()) {
+                empresa = new Empresa(resultSet.getInt("id_empresa"), resultSet.getString("nombre_empresa"), resultSet.getString("codigo_reup"), resultSet.getString("titular_cuenta_cup"), resultSet.getString("titular_cuenta_cuc"), resultSet.getString("cuenta_cup"), resultSet.getString("cuenta_cuc"), resultSet.getString("direccion_logo"), resultSet.getInt("id_organismo"), resultSet.getString("telefono"), resultSet.getString("fax"), resultSet.getString("correo_electronico"), resultSet.getString("direccion"), resultSet.getString("nombre_organismo"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return empresa;
+    }
+
+    public boolean actualizarEmpresa(int id_empresa, String nombre_empresa, String codigo_reup, String titular_cuenta_cup, String titular_cuenta_cuc, String cuenta_cup, String cuenta_cuc, String direccion_logo, int id_organismo, String telefono, String fax, String correo_electronico, String direccion, String organismo) {
+        return this.actualizar("t_empresa", "id_empresa =" + id_empresa + ",nombre_empresa='" + nombre_empresa + "',titular_cuenta_cup='" + titular_cuenta_cup + "',titular_cuenta_cuc='" + titular_cuenta_cuc + "',cuenta_cup='" + cuenta_cup + "',cuenta_cuc='" + cuenta_cuc + "',direccion_logo='" + direccion_logo + "',id_organismo=" + id_organismo + ",telefono='" + telefono + "',fax='" + fax + "',correo_electronico='" + correo_electronico + "',direccion='" + direccion + "',organismo='" + organismo + "'", ",codigo_reup = " + codigo_reup);
+    }
+
+    /**
+     * Método que debuelve el model de un <b>jCombobox</b> para los mostrar los
+     * organismos
+     *
+     * @param tabla String con el nombre de la tabla que tiene los datos
+     * necesatios
+     * @param campos Strign en el formato campo1, campo2, campon, ... con los
+     * campos necesarios
+     */
+    public ComboBoxModel organismoCombobox(String tabla) {
+        ComboBoxModel cbm;
+
+        resultSet = seleccionarResultSet(tabla);
+        ArrayList arreglo = new ArrayList();
+        arreglo.add("Seleccionar");
+
+        try {
+            while (resultSet.next()) {
+                arreglo.add(resultSet.getString("nombre_organismo"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cbm = new DefaultComboBoxModel(arreglo.toArray());
+
+        return cbm;
+    }
+
+    /**
+     *
      * Encripta un mensaje de texto mediante algoritmo de resumen de mensaje.
      *
      * @param message texto a encriptar
