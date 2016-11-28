@@ -37,7 +37,8 @@ public class About extends javax.swing.JInternalFrame {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
-        setTitle("About");
+        setTitle("About...");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
 
         jEditorPane1.setEditable(false);
         jEditorPane1.setText("GEDSAA - Gestion Empresarial de Servicio de Acueducto y Alcantarillado, es un sistema para la gestion comercial de las empresas de acueducto y alcantarillado, para el sector estatal. Realizado por el Ing. Carlos Y Zaldivar Purón, diseño de imagen Lic. Adrian Hidalgo Escobar, para mas información visitar su pagina web.");

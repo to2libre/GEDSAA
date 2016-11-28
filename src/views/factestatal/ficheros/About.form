@@ -6,7 +6,10 @@
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
     </Property>
     <Property name="closable" type="boolean" value="true"/>
-    <Property name="title" type="java.lang.String" value="About"/>
+    <Property name="title" type="java.lang.String" value="About..."/>
+    <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+      <Image iconType="3" name="/images/logo.png"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
