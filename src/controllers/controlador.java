@@ -231,7 +231,7 @@ public class controlador implements ActionListener {
         users.setLocation(centradoXY(users));
         users.setTitle("Gestion de Usuarios...");
         users.setVisible(true);
-        usuarioAcction("visualizar");
+        this.usuarioAcction("visualizar");
         //Se agrega las acciones al formulario de Usuario        
         this.users.CrearButton.setActionCommand("crearUsuario");
         this.users.usuarioTextField.setActionCommand("crearUsuario");
@@ -415,7 +415,7 @@ public class controlador implements ActionListener {
                     this.users.CrearButton.setText("Crear");
                     this.users.contenedorTabbedPane.setEnabledAt(0, true);
                     // Refrescar los datos a mostrar en el formulario de visualización
-                    usuarioAcction("visualizar");
+                    this.usuarioAcction("visualizar");
                 }
                 break;
             case "modificar":
@@ -447,7 +447,7 @@ public class controlador implements ActionListener {
                     JOptionPane.showMessageDialog(this.users, "Seleccione un usuario para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 idUsuario = -1;
-                usuarioAcction("visualizar");
+                this.usuarioAcction("visualizar");
                 break;
             case "cancelar":
                 this.users.usuarioTextField.setText("");
@@ -456,7 +456,7 @@ public class controlador implements ActionListener {
                 this.users.rolComboBox.setSelectedIndex(0);
                 this.users.contenedorTabbedPane.setEnabledAt(0, true);
                 // Refrescar los datos a mostrar en el formulario de visualización
-                usuarioAcction("visualizar");
+                this.usuarioAcction("visualizar");
                 break;
             default:
                 this.users.contenedorTabbedPane.setSelectedIndex(0);
