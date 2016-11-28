@@ -387,6 +387,87 @@ public class controlador implements ActionListener {
     }
 
     /**
+     * Método para el trabajo con el formulario de Usuario
+     *
+     * @param accion String con la accion a realizar
+     */
+    private void usuarioAcction(String accion) {
+        int row = -1;
+        switch (accion) {
+            case "crear":
+                // Capturar datos del formulario
+                String Usuario = this.users.usuarioTextField.getText();
+                String Password = this.users.PasswordPasswordField.getText();
+                String rePassword = this.users.rePasswordPasswordField.getText();
+                int idRol = this.users.rolComboBox.getSelectedIndex();
+                // idUsuario es igual a -1 para crearlo o es igual al id del usario para modificarlo o eliminarlo
+                if (idUsuario == -1) {
+                    this.crearUsuario(Usuario, Password, rePassword, idRol);
+                } else {
+                    this.modificarUsuario(Usuario, Password, rePassword, idRol);
+                }
+                // Si se crea o se ctualiza el usuario entra
+                if (this.msg.isEmpty()) {
+                    // Limpiar todos los escaques del formulario
+                    this.users.usuarioTextField.setText("");
+                    this.users.PasswordPasswordField.setText("");
+                    this.users.rePasswordPasswordField.setText("");
+                    this.users.rolComboBox.setSelectedIndex(0);
+                    this.users.CrearButton.setText("Crear");
+                    this.users.contenedorTabbedPane.setEnabledAt(0, true);
+                    // Refrescar los datos a mostrar en el formulario de visualización
+                    usuarioAcction("visualizar");
+                }
+                break;
+            case "modificar":
+                row = this.users.usuariosTable.getSelectedRow();
+                if (row != -1) {
+                    idUsuario = this.model.arreglo.get(row).getIdUsuario();
+                    this.users.usuarioTextField.setText(this.model.arreglo.get(row).getUsuario());
+                    this.users.rolComboBox.setSelectedIndex(this.model.arreglo.get(row).getIdRol());
+                    this.users.contenedorTabbedPane.setSelectedIndex(1);
+                    this.users.CrearButton.setText("Modificar");
+                    this.users.contenedorTabbedPane.setEnabledAt(0, false);
+                }
+                break;
+            case "eliminar":
+
+                row = this.users.usuariosTable.getSelectedRow();
+                if (row != -1) {
+                    idUsuario = this.model.arreglo.get(row).getIdUsuario();
+                    String us = this.model.arreglo.get(row).getUsuario();
+                    int acc = JOptionPane.showConfirmDialog(this.users, "Estas seguro de eliminar a " + us, "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (acc == 0) {
+                        if (this.model.eliminarUsuario(idUsuario)) {
+                            JOptionPane.showMessageDialog(this.users, "Se ha eliminado el usuario correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this.users, "Error al intentar eliminar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this.users, "Seleccione un usuario para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                idUsuario = -1;
+                usuarioAcction("visualizar");
+                break;
+            case "cancelar":
+                this.users.usuarioTextField.setText("");
+                this.users.PasswordPasswordField.setText("");
+                this.users.rePasswordPasswordField.setText("");
+                this.users.rolComboBox.setSelectedIndex(0);
+                this.users.contenedorTabbedPane.setEnabledAt(0, true);
+                // Refrescar los datos a mostrar en el formulario de visualización
+                usuarioAcction("visualizar");
+                break;
+            default:
+                this.users.contenedorTabbedPane.setSelectedIndex(0);
+                users.rolComboBox.setModel(this.model.rolCombobox("t_rol"));
+                users.usuariosTable.setModel(this.model.mostrarUsuarios());
+                break;
+        }
+    }
+
+    /**
      * Método para cerrar el sistema
      */
     private void cerrar_sistema() {
@@ -588,15 +669,15 @@ public class controlador implements ActionListener {
                 dirLogos = this.e.getDireccion_logo();
             } else {
                 dirLogos = direccion_logo + "/" + ficheroSeleccionado.getName();
-                if (!dirLogos.equals(this.e.getDireccion_logo())){
+                if (!dirLogos.equals(this.e.getDireccion_logo())) {
                     File f = new File(this.e.getDireccion_logo());
                     f.delete();
                 }
-            }            
+            }
             if (this.model.actualizarEmpresa(nombre_empresa, codigo_reup, titular_cuenta_cup, titular_cuenta_cuc, cuenta_cup, cuenta_cuc, dirLogos, id_organismo, telefono, fax, correo_electronico, direccion)) {
                 if (ficheroSeleccionado != null) {
-                    copiarLogo(ficheroSeleccionado, direccion_logo);                    
-                    File f = new File("logos_temp/"+ficheroSeleccionado.getName());
+                    copiarLogo(ficheroSeleccionado, direccion_logo);
+                    File f = new File("logos_temp/" + ficheroSeleccionado.getName());
                     f.deleteOnExit();
                 }
                 JOptionPane.showMessageDialog(this.users, "Se ha actualizado la empresa correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
@@ -609,87 +690,6 @@ public class controlador implements ActionListener {
                 this.msg = "Error al intentar actualizar la empresa";
                 JOptionPane.showMessageDialog(this.users, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }
-    }
-
-    /**
-     * Método para el trabajo con el formulario de Usuario
-     *
-     * @param accion String con la accion a realizar
-     */
-    private void usuarioAcction(String accion) {
-        int row = -1;
-        switch (accion) {
-            case "crear":
-                // Capturar datos del formulario
-                String Usuario = this.users.usuarioTextField.getText();
-                String Password = this.users.PasswordPasswordField.getText();
-                String rePassword = this.users.rePasswordPasswordField.getText();
-                int idRol = this.users.rolComboBox.getSelectedIndex();
-                // idUsuario es igual a -1 para crearlo o es igual al id del usario para modificarlo o eliminarlo
-                if (idUsuario == -1) {
-                    this.crearUsuario(Usuario, Password, rePassword, idRol);
-                } else {
-                    this.modificarUsuario(Usuario, Password, rePassword, idRol);
-                }
-                // Si se crea o se ctualiza el usuario entra
-                if (this.msg.isEmpty()) {
-                    // Limpiar todos los escaques del formulario
-                    this.users.usuarioTextField.setText("");
-                    this.users.PasswordPasswordField.setText("");
-                    this.users.rePasswordPasswordField.setText("");
-                    this.users.rolComboBox.setSelectedIndex(0);
-                    this.users.CrearButton.setText("Crear");
-                    this.users.contenedorTabbedPane.setEnabledAt(0, true);
-                    // Refrescar los datos a mostrar en el formulario de visualización
-                    usuarioAcction("visualizar");
-                }
-                break;
-            case "modificar":
-                row = this.users.usuariosTable.getSelectedRow();
-                if (row != -1) {
-                    idUsuario = this.model.arreglo.get(row).getIdUsuario();
-                    this.users.usuarioTextField.setText(this.model.arreglo.get(row).getUsuario());
-                    this.users.rolComboBox.setSelectedIndex(this.model.arreglo.get(row).getIdRol());
-                    this.users.contenedorTabbedPane.setSelectedIndex(1);
-                    this.users.CrearButton.setText("Modificar");
-                    this.users.contenedorTabbedPane.setEnabledAt(0, false);
-                }
-                break;
-            case "eliminar":
-
-                row = this.users.usuariosTable.getSelectedRow();
-                if (row != -1) {
-                    idUsuario = this.model.arreglo.get(row).getIdUsuario();
-                    String us = this.model.arreglo.get(row).getUsuario();
-                    int acc = JOptionPane.showConfirmDialog(this.users, "Estas seguro de eliminar a " + us, "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if (acc == 0) {
-                        if (this.model.eliminarUsuario(idUsuario)) {
-                            JOptionPane.showMessageDialog(this.users, "Se ha eliminado el usuario correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(this.users, "Error al intentar eliminar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this.users, "Seleccione un usuario para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                idUsuario = -1;
-                usuarioAcction("visualizar");
-                break;
-            case "cancelar":
-                this.users.usuarioTextField.setText("");
-                this.users.PasswordPasswordField.setText("");
-                this.users.rePasswordPasswordField.setText("");
-                this.users.rolComboBox.setSelectedIndex(0);
-                this.users.contenedorTabbedPane.setEnabledAt(0, true);
-                // Refrescar los datos a mostrar en el formulario de visualización
-                usuarioAcction("visualizar");
-                break;
-            default:
-                this.users.contenedorTabbedPane.setSelectedIndex(0);
-                users.rolComboBox.setModel(this.model.rolCombobox("t_rol"));
-                users.usuariosTable.setModel(this.model.mostrarUsuarios());
-                break;
         }
     }
 

@@ -4,49 +4,49 @@
 <TDBADiagramObject id="1" propertiesclass="TDiagramMetaTableProperties" objectname="t_cliente">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="300" top="420" width="200" height="153"/>
+<Geometry left="510" top="400" width="200" height="153"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
 <TDBADiagramObject id="2" propertiesclass="TDiagramMetaTableProperties" objectname="t_organismo">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="280" top="10" width="200" height="97"/>
+<Geometry left="510" top="20" width="200" height="97"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
 <TDBADiagramObject id="3" propertiesclass="TDiagramMetaTableProperties" objectname="t_rol">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="510" top="10" width="200" height="69"/>
+<Geometry left="730" top="10" width="200" height="69"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
 <TDBADiagramObject id="4" propertiesclass="TDiagramMetaTableProperties" objectname="t_session">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="510" top="250" width="200" height="66"/>
+<Geometry left="730" top="220" width="200" height="66"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
 <TDBADiagramObject id="5" propertiesclass="TDiagramMetaTableProperties" objectname="t_tipo_servicio">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="20" top="500" width="200" height="69"/>
+<Geometry left="290" top="490" width="200" height="69"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
 <TDBADiagramObject id="6" propertiesclass="TDiagramMetaTableProperties" objectname="t_titular">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="290" top="140" width="200" height="237"/>
+<Geometry left="510" top="140" width="200" height="237"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
 <TDBADiagramObject id="8" propertiesclass="TDiagramMetaTableProperties" objectname="t_usuario">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="510" top="120" width="200" height="97"/>
+<Geometry left="730" top="100" width="200" height="97"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
@@ -56,8 +56,8 @@
 <Geometry left="128" top="128" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="560" y="160"/>
-<Point x="540" y="30"/>
+<Point x="780" y="140"/>
+<Point x="760" y="30"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -69,8 +69,8 @@
 <Geometry left="144" top="144" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="370" y="200"/>
-<Point x="350" y="50"/>
+<Point x="590" y="200"/>
+<Point x="580" y="60"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -82,8 +82,8 @@
 <Geometry left="160" top="160" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="380" y="430"/>
-<Point x="220" y="500"/>
+<Point x="590" y="410"/>
+<Point x="490" y="490"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -95,8 +95,8 @@
 <Geometry left="176" top="176" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="420" y="520"/>
-<Point x="290" y="377"/>
+<Point x="630" y="500"/>
+<Point x="510" y="377"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -108,8 +108,8 @@
 <Geometry left="192" top="192" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="580" y="300"/>
-<Point x="570" y="170"/>
+<Point x="800" y="270"/>
+<Point x="790" y="150"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -118,21 +118,21 @@
 <TDBADiagramObject id="13" propertiesclass="TDiagramMetaTableProperties" objectname="t_metro">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="560" top="400" width="200" height="110"/>
+<Geometry left="730" top="390" width="200" height="110"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
 <TDBADiagramObject id="14" propertiesclass="TDiagramMetaTableProperties" objectname="t_metro_marca">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="750" top="310" width="200" height="69"/>
+<Geometry left="730" top="300" width="200" height="69"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
 <TDBADiagramObject id="15" propertiesclass="TDiagramMetaTableProperties" objectname="t_metro_modelo">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="790" top="560" width="200" height="69"/>
+<Geometry left="950" top="300" width="200" height="69"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
@@ -142,8 +142,8 @@
 <Geometry left="256" top="256" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="670" y="427"/>
-<Point x="790" y="310"/>
+<Point x="840" y="417"/>
+<Point x="770" y="300"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -155,8 +155,8 @@
 <Geometry left="272" top="272" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="630" y="467"/>
-<Point x="880" y="629"/>
+<Point x="800" y="457"/>
+<Point x="1040" y="369"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -168,8 +168,8 @@
 <Geometry left="0" top="0" width="0" height="0"/>
 <Glyph>
 <Geometry>
-<Point x="630" y="410"/>
-<Point x="440" y="480"/>
+<Point x="800" y="400"/>
+<Point x="650" y="460"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -178,28 +178,28 @@
 <TDBADiagramObject id="19" propertiesclass="TDiagramMetaTableProperties" objectname="t_metro_lectura">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="530" top="560" width="200" height="110"/>
+<Geometry left="730" top="540" width="200" height="110"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
 <TDBADiagramObject id="20" propertiesclass="TDiagramMetaTableProperties" objectname="t_anno">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="290" top="760" width="200" height="52"/>
+<Geometry left="510" top="700" width="200" height="52"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
 <TDBADiagramObject id="21" propertiesclass="TDiagramMetaTableProperties" objectname="t_mes">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="290" top="640" width="200" height="66"/>
+<Geometry left="500" top="590" width="200" height="66"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
 <TDBADiagramObject id="22" propertiesclass="TDiagramMetaTableProperties" objectname="t_mes_nombre">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="20" top="640" width="200" height="69"/>
+<Geometry left="270" top="600" width="200" height="69"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
@@ -209,8 +209,8 @@
 <Geometry left="368" top="368" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="370" y="670"/>
-<Point x="220" y="709"/>
+<Point x="580" y="620"/>
+<Point x="470" y="669"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -222,8 +222,8 @@
 <Geometry left="384" top="384" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="350" y="650"/>
-<Point x="290" y="760"/>
+<Point x="560" y="600"/>
+<Point x="510" y="700"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -235,8 +235,8 @@
 <Geometry left="400" top="400" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="610" y="587"/>
-<Point x="560" y="510"/>
+<Point x="810" y="567"/>
+<Point x="730" y="500"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -248,8 +248,8 @@
 <Geometry left="416" top="416" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="640" y="627"/>
-<Point x="490" y="640"/>
+<Point x="840" y="607"/>
+<Point x="700" y="590"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -258,7 +258,7 @@
 <TDiagramNote id="27" propertiesclass="TDiagramNoteProperties">
 <TDiagramNoteProperties>
 <Glyph>
-<Geometry left="560" top="720" width="140" height="80"/>
+<Geometry left="880" top="740" width="140" height="80"/>
 </Glyph>
 <Text>
 t_mes:
@@ -271,8 +271,8 @@ El último registro es el del mes en el que se está trabajando</Text>
 <Geometry left="0" top="0" width="0" height="0"/>
 <Glyph>
 <Geometry>
-<Point x="560" y="720"/>
-<Point x="490" y="706"/>
+<Point x="880" y="740"/>
+<Point x="700" y="656"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -281,14 +281,14 @@ El último registro es el del mes en el que se está trabajando</Text>
 <TDBADiagramObject id="29" propertiesclass="TDiagramMetaTableProperties" objectname="t_empresa">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="20" top="10" width="200" height="230"/>
+<Geometry left="280" top="10" width="200" height="230"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
 <TDBADiagramObject id="30" propertiesclass="TDiagramMetaTableProperties" objectname="t_ueb">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="20" top="270" width="200" height="90"/>
+<Geometry left="280" top="270" width="200" height="90"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
@@ -298,8 +298,8 @@ El último registro es el del mes en el que se está trabajando</Text>
 <Geometry left="496" top="496" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="100" y="290"/>
-<Point x="100" y="141"/>
+<Point x="360" y="290"/>
+<Point x="360" y="141"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -308,7 +308,7 @@ El último registro es el del mes en el que se está trabajando</Text>
 <TDBADiagramObject id="32" propertiesclass="TDiagramMetaTableProperties" objectname="t_ueb_titular">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="20" top="400" width="200" height="66"/>
+<Geometry left="290" top="390" width="200" height="66"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
@@ -318,8 +318,8 @@ El último registro es el del mes en el que se está trabajando</Text>
 <Geometry left="528" top="528" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="220" y="430"/>
-<Point x="290" y="140"/>
+<Point x="490" y="420"/>
+<Point x="510" y="140"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -331,8 +331,8 @@ El último registro es el del mes en el que se está trabajando</Text>
 <Geometry left="544" top="544" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="160" y="430"/>
-<Point x="140" y="360"/>
+<Point x="430" y="420"/>
+<Point x="400" y="360"/>
 </Geometry>
 </Glyph>
 </Relation>
@@ -344,14 +344,34 @@ El último registro es el del mes en el que se está trabajando</Text>
 <Geometry left="560" top="560" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="340" y="50"/>
-<Point x="160" y="145"/>
+<Point x="570" y="60"/>
+<Point x="420" y="145"/>
+</Geometry>
+</Glyph>
+</Relation>
+</TDiagramForeignKeyProperties>
+</TDBADiagramObject>
+<TDBADiagramObject id="36" propertiesclass="TDiagramMetaTableProperties" objectname="t_detalles_control">
+<TDiagramMetaTableProperties>
+<Glyph>
+<Geometry left="20" top="250" width="220" height="140"/>
+</Glyph>
+</TDiagramMetaTableProperties>
+</TDBADiagramObject>
+<TDBADiagramObject id="37" propertiesclass="TDiagramForeignKeyProperties" objectname="t_detalles_control.Foreign_key01">
+<TDiagramForeignKeyProperties>
+<Relation>
+<Geometry left="592" top="592" width="200" height="100"/>
+<Glyph>
+<Geometry>
+<Point x="60" y="288"/>
+<Point x="350" y="300"/>
 </Geometry>
 </Glyph>
 </Relation>
 </TDiagramForeignKeyProperties>
 </TDBADiagramObject>
 </Elements>
-<Surface zoom="100" scrollx="0" scrolly="0"/>
+<Surface zoom="100" scrollx="186" scrolly="0"/>
 </TDBADiagramController>
 </XMLDiagram>
