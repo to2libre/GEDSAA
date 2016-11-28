@@ -2,7 +2,7 @@ package controllers;
 
 import factestatal.ficheros.About;
 import factestatal.ficheros.DatosEmpresa;
-import views.factestatal.ficheros.Users;
+import factestatal.ficheros.DetallesDeControl;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
@@ -21,11 +21,13 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import models.DetallesControl;
 import models.Empresa;
 import models.Usuario;
 import models.modelo;
 import views.factestatal.Autenticar;
 import views.factestatal.Principal;
+import views.factestatal.ficheros.Users;
 import views.factestatal.ficheros.cambiarPassword;
 
 /**
@@ -46,6 +48,7 @@ public class controlador implements ActionListener {
     private Users users;
     private About about;
     public DatosEmpresa datosEmpresa;
+    private DetallesDeControl detallesControl;
 
     //Variables de modelos
     public Usuario usuario;
@@ -54,7 +57,8 @@ public class controlador implements ActionListener {
     public String msg;// Variable que guarda los mensages del sistema, sean informacion o error
     public int idUsuario; // id del usuario que se desea modificar en getionar usuario
     public Image imagen; // variable para el logo de la empresa  
-    public String codigo_reup = "48159263"; //coigo reo de la empresa que esta seleccionada
+    public String codigo_reup = "48159263"; //codigo reup de la empresa que esta seleccionada (configurado en el xml de configuracion)
+    public int id_ueb = 1; // Id de la UEB con la que se esta trabando, este id se carga de (Achivo de configuracion XML  de configuracion)
     File ficheroSeleccionado;
     Empresa e;
 
@@ -141,6 +145,12 @@ public class controlador implements ActionListener {
             case "eliminarEmpresa":
                 this.datosEmpresaAcction("eliminar", null);
                 break;
+            case "formDetallesControl":
+                this.formDetallesControl();
+                break;
+            case "aceptarDetallesControl":
+                this.detallesControlAcction("actualizar");
+                break;
             case "Cancelar Accion":
                 try {
                     cerrar(this.view.desktopPane.getSelectedFrame());
@@ -168,12 +178,14 @@ public class controlador implements ActionListener {
         view.setLocationRelativeTo(null);//centrado en pantalla        
         //Se añade las acciones a los controles del formulario padre        
         this.view.datosEmpresaMenuItem.setActionCommand("datosEmpresaForm"); //Datos de Empresa
+        this.view.detallesControlMenuItem.setActionCommand("formDetallesControl"); //Formulario Detalles de Control
         this.view.usersMenuItem.setActionCommand("Usuario"); //Gestionar Usuario
         this.view.cambiarContrasennaMenuItem.setActionCommand("Cambiar password"); //Cambiar contraseña        
         this.view.exitMenuItem.setActionCommand("Salir del Sistema"); //Salir del sistema        
         this.view.aboutMenuItem.setActionCommand("about"); // Acerca de nosotros
         //Se pone a escuchar las acciones del usuario
         view.datosEmpresaMenuItem.addActionListener(this);
+        view.detallesControlMenuItem.addActionListener(this);
         view.usersMenuItem.addActionListener(this);
         view.cambiarContrasennaMenuItem.addActionListener(this); //Cambiar contraseñas
         view.exitMenuItem.addActionListener(this); //Salir del sistema        
@@ -268,6 +280,32 @@ public class controlador implements ActionListener {
         this.datosEmpresa.agregarModificarButton.addActionListener(this);
         this.datosEmpresa.cancelarButton.addActionListener(this);
         this.datosEmpresa.buscarLogotipoButton.addActionListener(this);
+    }
+
+    /**
+     * Método para controlar el formulario <b>Detalles de Control</b>
+     */
+    public void formDetallesControl() {
+        detallesControl = new DetallesDeControl();
+        this.view.desktopPane.add(detallesControl);
+        detallesControl.setLocation(centradoXY(detallesControl));
+        detallesControl.setTitle("Detalles de Control...");
+        detallesControl.setVisible(true);
+        detallesControlAcction("visualizar");
+        //Se agrega las acciones al formulario de Usuario        
+        this.detallesControl.aceptarButton.setActionCommand("aceptarDetallesControl");
+        this.detallesControl.cancelarButton.setActionCommand("Cancelar Accion");
+        this.detallesControl.realizadoPorTextField.setActionCommand("aceptarDetallesControl");
+        this.detallesControl.cargoTextField.setActionCommand("aceptarDetallesControl");
+        this.detallesControl.avisoVencimientoContratoFormattedTextField.setActionCommand("aceptarDetallesControl");
+        this.detallesControl.mesesPromediarLecturaFormattedTextField.setActionCommand("aceptarDetallesControl");
+        //Se pone a la escucha de las acciones del Usuario
+        this.detallesControl.aceptarButton.addActionListener(this);
+        this.detallesControl.cancelarButton.addActionListener(this);
+        this.detallesControl.realizadoPorTextField.addActionListener(this);
+        this.detallesControl.cargoTextField.addActionListener(this);
+        this.detallesControl.avisoVencimientoContratoFormattedTextField.addActionListener(this);
+        this.detallesControl.mesesPromediarLecturaFormattedTextField.addActionListener(this);
     }
 
     /**
@@ -689,6 +727,54 @@ public class controlador implements ActionListener {
                 this.msg = "Error al intentar actualizar la empresa";
                 JOptionPane.showMessageDialog(this.users, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+
+    private void detallesControlAcction(String accion) {
+        switch (accion) {
+            case "actualizar":
+                String realiado_por = this.detallesControl.realizadoPorTextField.getText();
+                String cargo = this.detallesControl.cargoTextField.getText();
+                String aviso_vencimiento_contrato = this.detallesControl.avisoVencimientoContratoFormattedTextField.getText();
+                String meses_promediar_lectura = this.detallesControl.mesesPromediarLecturaFormattedTextField.getText();
+                this.msg = "";
+                if (realiado_por.isEmpty()) {
+                    this.msg += "Realizado por: Campo Nulo \n";
+                }
+                if (cargo.isEmpty()) {
+                    this.msg += "Cargo: Campo Nula \n";
+                }
+                if (aviso_vencimiento_contrato.isEmpty()) {
+                    this.msg += "Aviso de Vencimiento Contrato: Campo Nula \n";
+                }
+                if (meses_promediar_lectura.isEmpty()) {
+                    this.msg += "Meses a Promediar Lectura: Campo Nula \n";
+                }
+                if (!msg.isEmpty()) {
+                    JOptionPane.showMessageDialog(this.users, msg, "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    if (this.model.agregarOActualizarDetallesControl(id_ueb, realiado_por, cargo, Integer.parseInt(aviso_vencimiento_contrato), Integer.parseInt(meses_promediar_lectura))) {
+                        JOptionPane.showMessageDialog(this.users, "Se ha actualizado los detalles de control correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                        try {
+                            this.cerrar(this.detallesControl);
+                        } catch (PropertyVetoException ex) {
+                            System.err.println(ex.getMessage());
+                        }
+                    } else {
+                        this.msg = "Error al intentar actualizar los detalles de control";
+                        JOptionPane.showMessageDialog(this.users, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                break;
+            default:
+                DetallesControl detallesDeControl = this.model.getDetallesControl(this.id_ueb);
+                if (detallesDeControl != null) {
+                    this.detallesControl.realizadoPorTextField.setText(detallesDeControl.getRealiado_por());
+                    this.detallesControl.cargoTextField.setText(detallesDeControl.getCargo());
+                    this.detallesControl.avisoVencimientoContratoFormattedTextField.setText(String.valueOf(detallesDeControl.getViso_vencimiento_contrato()));
+                    this.detallesControl.mesesPromediarLecturaFormattedTextField.setText(String.valueOf(detallesDeControl.getMeses_promediar_lectura()));
+                }
+                break;
         }
     }
 

@@ -180,11 +180,11 @@ public class modelo extends SQLite_conexion {
             }
         } catch (SQLException ex) {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
         return empresa;
     }
 
-    public boolean actualizarEmpresa(String nombre_empresa, String codigo_reup, String titular_cuenta_cup, String titular_cuenta_cuc, String cuenta_cup, String cuenta_cuc, String direccion_logo, int id_organismo, String telefono, String fax, String correo_electronico, String direccion) {        
+    public boolean actualizarEmpresa(String nombre_empresa, String codigo_reup, String titular_cuenta_cup, String titular_cuenta_cuc, String cuenta_cup, String cuenta_cuc, String direccion_logo, int id_organismo, String telefono, String fax, String correo_electronico, String direccion) {
         return this.actualizar("t_empresa", "nombre_empresa='" + nombre_empresa + "',titular_cuenta_cup='" + titular_cuenta_cup + "',titular_cuenta_cuc='" + titular_cuenta_cuc + "',cuenta_cup='" + cuenta_cup + "',cuenta_cuc='" + cuenta_cuc + "',direccion_logo='" + direccion_logo + "',id_organismo=" + id_organismo + ",telefono='" + telefono + "',fax='" + fax + "',correo_electronico='" + correo_electronico + "',direccion='" + direccion + "'", "codigo_reup = " + codigo_reup);
     }
 
@@ -214,6 +214,34 @@ public class modelo extends SQLite_conexion {
         cbm = new DefaultComboBoxModel(arreglo1.toArray());
 
         return cbm;
+    }
+
+    /**
+     * Método que retorna los detales de control de una UEB
+     *
+     * @param id_ueb
+     * @return <b>DetallesControl</b>
+     */
+    public DetallesControl getDetallesControl(int id_ueb) {
+        DetallesControl dc = null;
+        resultSet = this.seleccionarResultSet("v_detalles_control_all", "id_ueb = " + id_ueb);
+        try {
+            if (resultSet.next()) {
+                dc = new DetallesControl(resultSet.getInt("id_ueb"), resultSet.getString("realizado_por"), resultSet.getString("cargo"), resultSet.getInt("aviso_vencimiento_contrato"), resultSet.getInt("meses_promediar_lectura"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dc;
+    }
+
+    public boolean agregarOActualizarDetallesControl(int id_ueb, String realizado_por, String cargo, int aviso_vencimiento_contrato, int meses_promediar_lectura) {
+        DetallesControl dc = this.getDetallesControl(id_ueb);
+        if (dc == null) {
+            return this.insertar("t_detalles_control", "id_ueb, realizado_por, cargo, aviso_vencimiento_contrato, meses_promediar_lectura", id_ueb + ",'" + realizado_por + "','" + cargo + "'," + aviso_vencimiento_contrato + "," + meses_promediar_lectura);
+        } else {
+            return this.actualizar("t_detalles_control", "realizado_por='" + realizado_por + "', cargo='" + cargo + "',aviso_vencimiento_contrato=" + aviso_vencimiento_contrato + ",meses_promediar_lectura =" + meses_promediar_lectura, "id_ueb = " + id_ueb);
+        }
     }
 
     /**

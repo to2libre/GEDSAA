@@ -39,10 +39,12 @@ public class DetallesDeControl extends javax.swing.JInternalFrame {
         mesesPromediarLecturaFormattedTextField = new javax.swing.JFormattedTextField();
         aceptarButton = new javax.swing.JButton();
         cancelarButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Detalles de Control");
-        setFrameIcon(new javax.swing.ImageIcon("C:\\Users\\comercial.gvca\\Documents\\NetBeansProjects\\FactEstatal\\images\\detalles_control.png")); // NOI18N
+        setFrameIcon(null);
 
         pieFacturaPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Pie de la Factura"));
 
@@ -89,6 +91,10 @@ public class DetallesDeControl extends javax.swing.JInternalFrame {
 
         cancelarButton.setText("Cancelar");
 
+        jLabel1.setText("Años.");
+
+        jLabel2.setText("Meses.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,9 +108,14 @@ public class DetallesDeControl extends javax.swing.JInternalFrame {
                             .addComponent(avisoVencimientoContradoLabel)
                             .addComponent(mesesPromediarLecturaLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(avisoVencimientoContratoFormattedTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                            .addComponent(mesesPromediarLecturaFormattedTextField))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(avisoVencimientoContratoFormattedTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                            .addComponent(mesesPromediarLecturaFormattedTextField)))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(0, 23, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(aceptarButton)
@@ -120,11 +131,13 @@ public class DetallesDeControl extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(avisoVencimientoContradoLabel)
-                    .addComponent(avisoVencimientoContratoFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(avisoVencimientoContratoFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mesesPromediarLecturaLabel)
-                    .addComponent(mesesPromediarLecturaFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(mesesPromediarLecturaFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aceptarButton)
@@ -137,16 +150,18 @@ public class DetallesDeControl extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton aceptarButton;
+    public javax.swing.JButton aceptarButton;
     private javax.swing.JLabel avisoVencimientoContradoLabel;
-    private javax.swing.JFormattedTextField avisoVencimientoContratoFormattedTextField;
-    private javax.swing.JButton cancelarButton;
+    public javax.swing.JFormattedTextField avisoVencimientoContratoFormattedTextField;
+    public javax.swing.JButton cancelarButton;
     private javax.swing.JLabel cargoLabel;
-    private javax.swing.JTextField cargoTextField;
-    private javax.swing.JFormattedTextField mesesPromediarLecturaFormattedTextField;
+    public javax.swing.JTextField cargoTextField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    public javax.swing.JFormattedTextField mesesPromediarLecturaFormattedTextField;
     private javax.swing.JLabel mesesPromediarLecturaLabel;
     private javax.swing.JPanel pieFacturaPanel;
     private javax.swing.JLabel realizadoPorLabel;
-    private javax.swing.JTextField realizadoPorTextField;
+    public javax.swing.JTextField realizadoPorTextField;
     // End of variables declaration//GEN-END:variables
 }
