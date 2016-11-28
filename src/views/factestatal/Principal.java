@@ -250,7 +250,7 @@ public class Principal extends javax.swing.JFrame {
         usuarioAutenticadoLabel.setText(" User Name");
         usuarioToolBar.add(usuarioAutenticadoLabel);
 
-        fileMenu.setMnemonic('f');
+        fileMenu.setMnemonic('a');
         fileMenu.setText("Archivo");
 
         importMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -269,6 +269,7 @@ public class Principal extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
+        ficherosMenu.setMnemonic('f');
         ficherosMenu.setText("Ficheros");
 
         datosEmpresaMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -303,6 +304,7 @@ public class Principal extends javax.swing.JFrame {
 
         menuBar.add(ficherosMenu);
 
+        produccionMenu.setMnemonic('p');
         produccionMenu.setText("Producción");
 
         relacionSMMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/relacion_servicio_sobreconsumo.png"))); // NOI18N
@@ -328,6 +330,7 @@ public class Principal extends javax.swing.JFrame {
 
         menuBar.add(produccionMenu);
 
+        informesMenu.setMnemonic('i');
         informesMenu.setText("Informes");
 
         listadoFacturasMenuItem.setText("Listado de Facturas");
@@ -398,6 +401,7 @@ public class Principal extends javax.swing.JFrame {
 
         menuBar.add(informesMenu);
 
+        datosCierreMenu.setMnemonic('d');
         datosCierreMenu.setText("Datos de Cierre");
 
         crearFicheroBancoMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/fichero_a_banco.png"))); // NOI18N
@@ -424,6 +428,7 @@ public class Principal extends javax.swing.JFrame {
 
         menuBar.add(datosCierreMenu);
 
+        cobrosMenu.setMnemonic('c');
         cobrosMenu.setText("Cobros");
 
         capturarFacturasXCobroMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/capturar_facturas_cobros.png"))); // NOI18N
@@ -463,6 +468,7 @@ public class Principal extends javax.swing.JFrame {
 
         menuBar.add(herramientasMenu);
 
+        prodMenu.setMnemonic('r');
         prodMenu.setText("Productividad");
         menuBar.add(prodMenu);
 

@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
@@ -55,6 +56,8 @@ public class controlador implements ActionListener {
     public int idUsuario; // id del usuario que se desea modificar en getionar usuario
     public Image imagen; // variable para el logo de la empresa  
     public String codigo_reup = "48159263"; //coigo reo de la empresa que esta seleccionada
+    File ficheroSeleccionado;
+    Empresa e;
 
     /**
      * Método Constructor de la clase controldora
@@ -125,16 +128,19 @@ public class controlador implements ActionListener {
                 datosEmpresa.logotipoFileChooser.setFileFilter(ff);
                 datosEmpresa.logotipoFileChooser.setAcceptAllFileFilterUsed(false);
                 datosEmpresa.logotipoFileChooser.showOpenDialog(datosEmpresa);
-                this.copiarLogo();
+                this.ficheroSeleccionado = null;//Creo el objeto File para luego asignarle el fichero seleccionado
+                ficheroSeleccionado = datosEmpresa.logotipoFileChooser.getSelectedFile();
+                this.copiarLogo(ficheroSeleccionado, "logos_temp");
                 break;
             case "crearEmpresa":
-                this.datosEmpresaAcction("crear",null);
+                this.datosEmpresaAcction("crear", null);
                 break;
             case "modificarEmpresa":
-                this.datosEmpresaAcction("modificar",null);
+                String direccionLogo = "logos";
+                this.datosEmpresaAcction("modificar", direccionLogo);
                 break;
             case "eliminarEmpresa":
-                this.datosEmpresaAcction("eliminar",null);
+                this.datosEmpresaAcction("eliminar", null);
                 break;
             case "Cancelar Accion":
                 try {
@@ -254,7 +260,7 @@ public class controlador implements ActionListener {
         datosEmpresa.setLocation(centradoXY(datosEmpresa));
         datosEmpresa.setTitle("Datos de la Empresa...");
         datosEmpresa.setVisible(true);
-        datosEmpresaAcction("visualizar",null);
+        datosEmpresaAcction("visualizar", null);
         //Se agrega las acciones al formulario de Usuario        
         this.datosEmpresa.agregarModificarButton.setActionCommand("modificarEmpresa");
         this.datosEmpresa.cancelarButton.setActionCommand("Cancelar Accion");
@@ -432,67 +438,70 @@ public class controlador implements ActionListener {
      *
      * @param accion String con la accion a realizar
      */
-    private void datosEmpresaAcction(String accion,String direccionLogo) {
+    private void datosEmpresaAcction(String accion, String direccion_logo) {
         switch (accion) {
             case "crear":
                 // Poner código de accion crear
                 break;
-            case "modificar":                
+            case "modificar":
                 String nombre_empresa = this.datosEmpresa.nombreEmpresaTextField.getText();
-                String codigo_reup = this.datosEmpresa.codigoReupFormattedTextField.getText();
+                this.codigo_reup = this.datosEmpresa.codigoReupFormattedTextField.getText();
+                codigo_reup = codigo_reup.replace(".", "");
                 String titular_cuenta_cup = this.datosEmpresa.titularCuentaCUPTextField.getText();
                 String titular_cuenta_cuc = this.datosEmpresa.titularCuentaCUCTextField.getText();
                 String cuenta_cup = this.datosEmpresa.cuentaBancariaCUPTextField.getText();
                 String cuenta_cuc = this.datosEmpresa.cuentaBancariaCUCTextField.getText();
-                String direccion_logo = direccionLogo;
                 int id_organismo = this.datosEmpresa.organismoComboBox.getSelectedIndex();
                 String telefono = this.datosEmpresa.telefonoFormattedTextField.getText();
                 String fax = this.datosEmpresa.faxFormattedTextField.getText();
                 String correo_electronico = this.datosEmpresa.correoElectronicoTextField.getText();
-                String direccion = this.datosEmpresa.direccionTextArea.getText();                
-                this.modificarEmpresa(idUsuario, codigo_reup, codigo_reup, codigo_reup, accion, codigo_reup, codigo_reup, accion, idUsuario, accion, msg, codigo_reup, accion, accion);
+                String direccion = this.datosEmpresa.direccionTextArea.getText();
+                this.modificarEmpresa(nombre_empresa, this.codigo_reup, titular_cuenta_cup, titular_cuenta_cuc, cuenta_cup, cuenta_cuc, direccion_logo, id_organismo, telefono, fax, correo_electronico, direccion);
                 break;
             case "eliminar":
                 // Poner código de accion eliminar
                 break;
             default:
-                Empresa e = this.model.getEmpresa(this.codigo_reup);
-                this.datosEmpresa.nombreEmpresaTextField.setText(e.getNombre_empresa());
-                this.datosEmpresa.codigoReupFormattedTextField.setText(e.getCodigo_reup());
-                this.datosEmpresa.titularCuentaCUPTextField.setText(e.getTitular_cuenta_cup());
-                this.datosEmpresa.titularCuentaCUCTextField.setText(e.getTitular_cuenta_cuc());
-                this.datosEmpresa.cuentaBancariaCUPTextField.setText(e.getCuenta_cup());
-                this.datosEmpresa.cuentaBancariaCUCTextField.setText(e.getCuenta_cuc());
+                this.e = this.model.getEmpresa(this.codigo_reup);
+                this.datosEmpresa.nombreEmpresaTextField.setText(this.e.getNombre_empresa());
+                this.datosEmpresa.codigoReupFormattedTextField.setText(this.e.getCodigo_reup());
+                this.datosEmpresa.titularCuentaCUPTextField.setText(this.e.getTitular_cuenta_cup());
+                this.datosEmpresa.titularCuentaCUCTextField.setText(this.e.getTitular_cuenta_cuc());
+                this.datosEmpresa.cuentaBancariaCUPTextField.setText(this.e.getCuenta_cup());
+                this.datosEmpresa.cuentaBancariaCUCTextField.setText(this.e.getCuenta_cuc());
                 //Verificar si existe el logo para mostrarlo de lo contrario mostrar imagen por defecto                
-                if (e.getDireccion_logo() != null) {
-                    imagen = Toolkit.getDefaultToolkit().getImage(e.getDireccion_logo());
+                if (this.e.getDireccion_logo() != null) {
+                    File f = new File(e.getDireccion_logo());
+                    if (f.exists()) {
+                        imagen = Toolkit.getDefaultToolkit().getImage(e.getDireccion_logo());
+                    } else {
+                        imagen = Toolkit.getDefaultToolkit().getImage("logos/default.png");
+                    }
                 } else {
                     imagen = Toolkit.getDefaultToolkit().getImage("logos/default.png");
                 }
                 this.datosEmpresa.logotipoEmpresaPanelImage.setImagen(imagen);
                 this.datosEmpresa.organismoComboBox.setModel(this.model.organismoCombobox("t_organismo"));
-                this.datosEmpresa.organismoComboBox.setSelectedIndex(e.getId_organismo());
-                this.datosEmpresa.telefonoFormattedTextField.setText(e.getTelefono());
-                this.datosEmpresa.faxFormattedTextField.setText(e.getFax());
-                this.datosEmpresa.correoElectronicoTextField.setText(e.getCorreo_electronico());
-                this.datosEmpresa.direccionTextArea.setText(e.getDireccion());
+                this.datosEmpresa.organismoComboBox.setSelectedIndex(this.e.getId_organismo());
+                this.datosEmpresa.telefonoFormattedTextField.setText(this.e.getTelefono());
+                this.datosEmpresa.faxFormattedTextField.setText(this.e.getFax());
+                this.datosEmpresa.correoElectronicoTextField.setText(this.e.getCorreo_electronico());
+                this.datosEmpresa.direccionTextArea.setText(this.e.getDireccion());
                 break;
         }
     }
 
     /**
-     * Método para copiar el <b>Logo</b>
-     * Este método copia el logo a la carpeta logo_temp, si posteriormente se
-     * guarda los cambios el logo sera copiado a la carpeta logo pro será
-     * controldo por otro métodos.
+     * Método para copiar un fichero a una dirección dada
+     *
+     * @param ficheroSeleccionado
+     * @param direccionDestino
+     * <b>ficheroSeleccionado</b> es el fichero que se copiar en la
+     * <b>direccionDestino</b>
      */
-    public void copiarLogo() {
-        File ficheroSeleccionado = null;//Creo el objeto File para luego asignarle el fichero seleccionado
-        ficheroSeleccionado = datosEmpresa.logotipoFileChooser.getSelectedFile();
-
-        //si seleccione algn fichero entonces paso a copiarlo en la carpeta logo_temp
+    public void copiarLogo(File ficheroSeleccionado, String direccionDestino) {
         if (ficheroSeleccionado != null) {
-            File ficheroSalida = new File("logos_temp/" + ficheroSeleccionado.getName());
+            File ficheroSalida = new File(direccionDestino + "/" + ficheroSeleccionado.getName());
 
             FileInputStream entrada = null;
 
@@ -524,12 +533,12 @@ public class controlador implements ActionListener {
                 System.err.println(ex.getMessage());
             }
             //cargo la imagen que copie en la carpeta logo_temp en el objeto logotipoEmpresaPanelImage para mostrar la imagen
-            imagen = Toolkit.getDefaultToolkit().getImage("logos_temp/" + ficheroSeleccionado.getName());
+            imagen = Toolkit.getDefaultToolkit().getImage(direccionDestino + "/" + ficheroSeleccionado.getName());
             this.datosEmpresa.logotipoEmpresaPanelImage.setImagen(imagen);
         }
     }
 
-    public void modificarEmpresa(int id_empresa, String nombre_empresa, String codigo_reup, String titular_cuenta_cup, String titular_cuenta_cuc, String cuenta_cup, String cuenta_cuc, String direccion_logo, int id_organismo, String telefono, String fax, String correo_electronico, String direccion, String organismo) {
+    public void modificarEmpresa(String nombre_empresa, String codigo_reup, String titular_cuenta_cup, String titular_cuenta_cuc, String cuenta_cup, String cuenta_cuc, String direccion_logo, int id_organismo, String telefono, String fax, String correo_electronico, String direccion) {
         this.msg = "";
         if (nombre_empresa.isEmpty()) {
             this.msg += "Nombre de la Empresa: Campo Nulo \n";
@@ -570,8 +579,32 @@ public class controlador implements ActionListener {
         if (!msg.isEmpty()) {
             JOptionPane.showMessageDialog(this.users, msg, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (this.model.actualizarEmpresa(id_empresa, nombre_empresa, codigo_reup, titular_cuenta_cup, titular_cuenta_cuc, cuenta_cup, cuenta_cuc, direccion_logo, id_organismo, telefono, fax, correo_electronico, direccion, organismo)) {
+            telefono = telefono.replace(" ", "");
+            telefono = telefono.replace("+53", "");
+            fax = fax.replace(" ", "");
+            fax = fax.replace("+53", "");
+            String dirLogos;
+            if (ficheroSeleccionado == null) {
+                dirLogos = this.e.getDireccion_logo();
+            } else {
+                dirLogos = direccion_logo + "/" + ficheroSeleccionado.getName();
+                if (!dirLogos.equals(this.e.getDireccion_logo())){
+                    File f = new File(this.e.getDireccion_logo());
+                    f.delete();
+                }
+            }            
+            if (this.model.actualizarEmpresa(nombre_empresa, codigo_reup, titular_cuenta_cup, titular_cuenta_cuc, cuenta_cup, cuenta_cuc, dirLogos, id_organismo, telefono, fax, correo_electronico, direccion)) {
+                if (ficheroSeleccionado != null) {
+                    copiarLogo(ficheroSeleccionado, direccion_logo);                    
+                    File f = new File("logos_temp/"+ficheroSeleccionado.getName());
+                    f.deleteOnExit();
+                }
                 JOptionPane.showMessageDialog(this.users, "Se ha actualizado la empresa correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    this.cerrar(this.datosEmpresa);
+                } catch (PropertyVetoException ex) {
+                    System.err.println(ex.getMessage());
+                }
             } else {
                 this.msg = "Error al intentar actualizar la empresa";
                 JOptionPane.showMessageDialog(this.users, this.msg, "Error", JOptionPane.ERROR_MESSAGE);

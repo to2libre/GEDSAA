@@ -180,12 +180,12 @@ public class modelo extends SQLite_conexion {
             }
         } catch (SQLException ex) {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }        
         return empresa;
     }
 
-    public boolean actualizarEmpresa(int id_empresa, String nombre_empresa, String codigo_reup, String titular_cuenta_cup, String titular_cuenta_cuc, String cuenta_cup, String cuenta_cuc, String direccion_logo, int id_organismo, String telefono, String fax, String correo_electronico, String direccion, String organismo) {
-        return this.actualizar("t_empresa", "id_empresa =" + id_empresa + ",nombre_empresa='" + nombre_empresa + "',titular_cuenta_cup='" + titular_cuenta_cup + "',titular_cuenta_cuc='" + titular_cuenta_cuc + "',cuenta_cup='" + cuenta_cup + "',cuenta_cuc='" + cuenta_cuc + "',direccion_logo='" + direccion_logo + "',id_organismo=" + id_organismo + ",telefono='" + telefono + "',fax='" + fax + "',correo_electronico='" + correo_electronico + "',direccion='" + direccion + "',organismo='" + organismo + "'", ",codigo_reup = " + codigo_reup);
+    public boolean actualizarEmpresa(String nombre_empresa, String codigo_reup, String titular_cuenta_cup, String titular_cuenta_cuc, String cuenta_cup, String cuenta_cuc, String direccion_logo, int id_organismo, String telefono, String fax, String correo_electronico, String direccion) {        
+        return this.actualizar("t_empresa", "nombre_empresa='" + nombre_empresa + "',titular_cuenta_cup='" + titular_cuenta_cup + "',titular_cuenta_cuc='" + titular_cuenta_cuc + "',cuenta_cup='" + cuenta_cup + "',cuenta_cuc='" + cuenta_cuc + "',direccion_logo='" + direccion_logo + "',id_organismo=" + id_organismo + ",telefono='" + telefono + "',fax='" + fax + "',correo_electronico='" + correo_electronico + "',direccion='" + direccion + "'", "codigo_reup = " + codigo_reup);
     }
 
     /**
@@ -201,17 +201,17 @@ public class modelo extends SQLite_conexion {
         ComboBoxModel cbm;
 
         resultSet = seleccionarResultSet(tabla);
-        ArrayList arreglo = new ArrayList();
-        arreglo.add("Seleccionar");
+        ArrayList arreglo1 = new ArrayList();
+        arreglo1.add("Seleccionar");
 
         try {
             while (resultSet.next()) {
-                arreglo.add(resultSet.getString("nombre_organismo"));
+                arreglo1.add(resultSet.getString("nombre_organismo"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        cbm = new DefaultComboBoxModel(arreglo.toArray());
+        cbm = new DefaultComboBoxModel(arreglo1.toArray());
 
         return cbm;
     }

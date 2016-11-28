@@ -21,7 +21,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="fileMenu">
           <Properties>
-            <Property name="mnemonic" type="int" value="102"/>
+            <Property name="mnemonic" type="int" value="97"/>
             <Property name="text" type="java.lang.String" value="Archivo"/>
           </Properties>
           <SubComponents>
@@ -68,6 +68,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="ficherosMenu">
           <Properties>
+            <Property name="mnemonic" type="int" value="102"/>
             <Property name="text" type="java.lang.String" value="Ficheros"/>
           </Properties>
           <SubComponents>
@@ -157,6 +158,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="produccionMenu">
           <Properties>
+            <Property name="mnemonic" type="int" value="112"/>
             <Property name="text" type="java.lang.String" value="Producci&#xf3;n"/>
           </Properties>
           <SubComponents>
@@ -221,6 +223,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="informesMenu">
           <Properties>
+            <Property name="mnemonic" type="int" value="105"/>
             <Property name="text" type="java.lang.String" value="Informes"/>
           </Properties>
           <SubComponents>
@@ -387,6 +390,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="datosCierreMenu">
           <Properties>
+            <Property name="mnemonic" type="int" value="100"/>
             <Property name="text" type="java.lang.String" value="Datos de Cierre"/>
           </Properties>
           <SubComponents>
@@ -452,6 +456,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="cobrosMenu">
           <Properties>
+            <Property name="mnemonic" type="int" value="99"/>
             <Property name="text" type="java.lang.String" value="Cobros"/>
           </Properties>
           <SubComponents>
@@ -548,6 +553,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="prodMenu">
           <Properties>
+            <Property name="mnemonic" type="int" value="114"/>
             <Property name="text" type="java.lang.String" value="Productividad"/>
           </Properties>
         </Menu>
