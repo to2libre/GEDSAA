@@ -1,5 +1,6 @@
 package controllers;
 
+import configuracion.config;
 import factestatal.ficheros.About;
 import factestatal.ficheros.DatosEmpresa;
 import factestatal.ficheros.DetallesDeControl;
@@ -57,8 +58,8 @@ public class controlador implements ActionListener {
     public String msg;// Variable que guarda los mensages del sistema, sean informacion o error
     public int idUsuario; // id del usuario que se desea modificar en getionar usuario
     public Image imagen; // variable para el logo de la empresa  
-    public String codigo_reup = "48159263"; //codigo reup de la empresa que esta seleccionada (configurado en el xml de configuracion)
-    public int id_ueb = 1; // Id de la UEB con la que se esta trabando, este id se carga de (Achivo de configuracion XML  de configuracion)
+    public String codigo_reup; //codigo reup de la empresa que esta seleccionada (configurado en el xml de configuracion)
+    public int id_ueb; // Id de la UEB con la que se esta trabando, este id se carga de (Achivo de configuracion XML  de configuracion)
     File ficheroSeleccionado;
     Empresa e;
 
@@ -75,6 +76,11 @@ public class controlador implements ActionListener {
         this.model = modelo;
         form_autenticar();
         idUsuario = -1;
+        
+        config conf = new config();//Clase para la lectura y escritura del archivo de configuración
+        conf.leerXml();//Método para leer el archivo de configuración
+        this.codigo_reup = conf.getCodigo_reup();//Guardo el codigo reup en la variable ocn mismo nonbre
+        this.id_ueb = conf.getId_ueb();//Guardo el id_ueb en la variable con mismo nombre
     }
 
     @Override
