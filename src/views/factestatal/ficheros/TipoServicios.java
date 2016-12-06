@@ -28,100 +28,100 @@ public class TipoServicios extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jButton1 = new javax.swing.JButton();
+        agregarTipoServicioPanel = new javax.swing.JPanel();
+        tipoServicioLabel = new javax.swing.JLabel();
+        tipoServicioTextField = new javax.swing.JTextField();
+        agregarModificarButton = new javax.swing.JButton();
+        modificarEliminarPanel = new javax.swing.JPanel();
+        modificarEliminarScrollPane = new javax.swing.JScrollPane();
+        modificarEliminarList = new javax.swing.JList();
+        eliminarButton = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Tipo de Servicios");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar tipo de servicios"));
+        agregarTipoServicioPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar tipo de servicios"));
 
-        jLabel1.setText("Tipos de Servicios:");
+        tipoServicioLabel.setText("Tipos de Servicios:");
 
-        jTextField1.setToolTipText("Entre el Tipo de Servicio, Metrado, Tarifado, etc.");
+        tipoServicioTextField.setToolTipText("Entre el Tipo de Servicio, Metrado, Tarifado, etc.");
 
-        jButton2.setText("Agregar/ Modificar");
+        agregarModificarButton.setText("Agregar/ Modificar");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout agregarTipoServicioPanelLayout = new javax.swing.GroupLayout(agregarTipoServicioPanel);
+        agregarTipoServicioPanel.setLayout(agregarTipoServicioPanelLayout);
+        agregarTipoServicioPanelLayout.setHorizontalGroup(
+            agregarTipoServicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(agregarTipoServicioPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                .addGroup(agregarTipoServicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(agregarTipoServicioPanelLayout.createSequentialGroup()
+                        .addComponent(tipoServicioLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(tipoServicioTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, agregarTipoServicioPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(agregarModificarButton)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        agregarTipoServicioPanelLayout.setVerticalGroup(
+            agregarTipoServicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(agregarTipoServicioPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(agregarTipoServicioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tipoServicioLabel)
+                    .addComponent(tipoServicioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
-                .addComponent(jButton2))
+                .addComponent(agregarModificarButton))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Modificar/ Eliminar"));
+        modificarEliminarPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Modificar/ Eliminar"));
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        modificarEliminarList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jList1.setToolTipText("Escoja un Servicio a Modificar o Eliminar");
-        jScrollPane1.setViewportView(jList1);
+        modificarEliminarList.setToolTipText("Escoja un Servicio a Modificar o Eliminar");
+        modificarEliminarScrollPane.setViewportView(modificarEliminarList);
 
-        jButton1.setText("Eliminar");
+        eliminarButton.setText("Eliminar");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout modificarEliminarPanelLayout = new javax.swing.GroupLayout(modificarEliminarPanel);
+        modificarEliminarPanel.setLayout(modificarEliminarPanelLayout);
+        modificarEliminarPanelLayout.setHorizontalGroup(
+            modificarEliminarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modificarEliminarPanelLayout.createSequentialGroup()
+                .addGroup(modificarEliminarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(modificarEliminarScrollPane)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificarEliminarPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(eliminarButton)))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+        modificarEliminarPanelLayout.setVerticalGroup(
+            modificarEliminarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modificarEliminarPanelLayout.createSequentialGroup()
+                .addComponent(modificarEliminarScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                .addComponent(eliminarButton))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(agregarTipoServicioPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(modificarEliminarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(agregarTipoServicioPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(modificarEliminarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -129,13 +129,13 @@ public class TipoServicios extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JList jList1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    public javax.swing.JButton agregarModificarButton;
+    private javax.swing.JPanel agregarTipoServicioPanel;
+    public javax.swing.JButton eliminarButton;
+    public javax.swing.JList modificarEliminarList;
+    private javax.swing.JPanel modificarEliminarPanel;
+    private javax.swing.JScrollPane modificarEliminarScrollPane;
+    private javax.swing.JLabel tipoServicioLabel;
+    public javax.swing.JTextField tipoServicioTextField;
     // End of variables declaration//GEN-END:variables
 }
