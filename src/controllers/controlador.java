@@ -4,6 +4,7 @@ import configuracion.config;
 import factestatal.ficheros.About;
 import factestatal.ficheros.DatosEmpresa;
 import factestatal.ficheros.DetallesDeControl;
+import factestatal.ficheros.TipoServicios;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
@@ -39,17 +40,18 @@ import views.factestatal.ficheros.cambiarPassword;
  */
 public class controlador implements ActionListener {
 
-    // Si da error quitar el tipo final del atributo view, viewA y model
+    //Si da error quitar el tipo final del atributo view, viewA y model
     private final Principal view;
     private final Autenticar viewA;
     private final modelo model;
 
     //Variables para lis jInternalFrame
-    public cambiarPassword cP;
+    private cambiarPassword cP;
     private Users users;
     private About about;
-    public DatosEmpresa datosEmpresa;
+    private DatosEmpresa datosEmpresa;
     private DetallesDeControl detallesControl;
+    private TipoServicios tipoServicio;
 
     //Variables de modelos
     public Usuario usuario;
@@ -76,7 +78,7 @@ public class controlador implements ActionListener {
         this.model = modelo;
         form_autenticar();
         idUsuario = -1;
-        
+
         config conf = new config();//Clase para la lectura y escritura del archivo de configuración
         conf.leerXml();//Método para leer el archivo de configuración
         this.codigo_reup = conf.getCodigo_reup();//Guardo el codigo reup en la variable ocn mismo nonbre
@@ -141,20 +143,32 @@ public class controlador implements ActionListener {
                 ficheroSeleccionado = datosEmpresa.logotipoFileChooser.getSelectedFile();
                 this.copiarLogo(ficheroSeleccionado, "logos_temp");
                 break;
-            case "crearEmpresa":
+            case "crearEmpresa":// Accion para crear empresa
                 this.datosEmpresaAcction("crear", null);
                 break;
-            case "modificarEmpresa":
+            case "modificarEmpresa": // Accion para modificar Empresa
                 String direccionLogo = "logos";
                 this.datosEmpresaAcction("modificar", direccionLogo);
                 break;
-            case "eliminarEmpresa":
+            case "eliminarEmpresa": //Accion para eliminar empresa
                 this.datosEmpresaAcction("eliminar", null);
                 break;
-            case "formDetallesControl":
+            case "tipoServiciosForm": //Accion para mostrar jinternal frame TipoSrvicio
+                this.formTipoServicio();
+                break;
+            case "agrearModificarTipoSerivio": //Accion para agrear o modificar tipo de servicio
+                this.tipoServiosAcction("agregarModifiar");
+                break;
+            case "modificarTipoServicio": //Accion para modificar el tipo de Servicio
+                this.tipoServicio.tipoServicioTextField.setText((String) this.tipoServicio.modificarEliminarList.getSelectedValue());
+                break;
+            case "eliminarTipoServicio": //Accion para eliminar tipo de Servicio                
+                this.tipoServiosAcction("eliminar");
+                break;
+            case "formDetallesControl": // Accion para mostrar jInternarFrame Detalles de control
                 this.formDetallesControl();
                 break;
-            case "aceptarDetallesControl":
+            case "aceptarDetallesControl": //Acciona para actualir los detalles de control
                 this.detallesControlAcction("actualizar");
                 break;
             case "Cancelar Accion":
@@ -180,22 +194,24 @@ public class controlador implements ActionListener {
     private void iniciar() {
         this.viewA.setVisible(false);
         this.view.setVisible(true);
-        view.setTitle("GEDSAA");
-        view.setLocationRelativeTo(null);//centrado en pantalla        
+        this.view.setTitle("GEDSAA");
+        this.view.setLocationRelativeTo(null);//centrado en pantalla        
         //Se añade las acciones a los controles del formulario padre        
         this.view.datosEmpresaMenuItem.setActionCommand("datosEmpresaForm"); //Datos de Empresa
+        this.view.tipoServiciosMenuItem.setActionCommand("tipoServiciosForm"); //TipoServicios
         this.view.detallesControlMenuItem.setActionCommand("formDetallesControl"); //Formulario Detalles de Control
         this.view.usersMenuItem.setActionCommand("Usuario"); //Gestionar Usuario
         this.view.cambiarContrasennaMenuItem.setActionCommand("Cambiar password"); //Cambiar contraseña        
         this.view.exitMenuItem.setActionCommand("Salir del Sistema"); //Salir del sistema        
         this.view.aboutMenuItem.setActionCommand("about"); // Acerca de nosotros
         //Se pone a escuchar las acciones del usuario
-        view.datosEmpresaMenuItem.addActionListener(this);
-        view.detallesControlMenuItem.addActionListener(this);
-        view.usersMenuItem.addActionListener(this);
-        view.cambiarContrasennaMenuItem.addActionListener(this); //Cambiar contraseñas
-        view.exitMenuItem.addActionListener(this); //Salir del sistema        
-        view.aboutMenuItem.addActionListener(this); // Acerca de nosotros
+        this.view.datosEmpresaMenuItem.addActionListener(this); //Datos Empresa
+        this.view.tipoServiciosMenuItem.addActionListener(this); //TipoServicios
+        this.view.detallesControlMenuItem.addActionListener(this); //DetallesControl
+        this.view.usersMenuItem.addActionListener(this); //Gestionar Usuario
+        this.view.cambiarContrasennaMenuItem.addActionListener(this); //Cambiar contraseñas
+        this.view.exitMenuItem.addActionListener(this); //Salir del sistema        
+        this.view.aboutMenuItem.addActionListener(this); // Acerca de nosotros
     }
 
     /**
@@ -312,6 +328,28 @@ public class controlador implements ActionListener {
         this.detallesControl.cargoTextField.addActionListener(this);
         this.detallesControl.avisoVencimientoContratoFormattedTextField.addActionListener(this);
         this.detallesControl.mesesPromediarLecturaFormattedTextField.addActionListener(this);
+    }
+
+    /**
+     * Método para controlar el formulario <b>TipoServicio</b>
+     */
+    public void formTipoServicio() {
+        this.tipoServicio = new TipoServicios();
+        this.view.desktopPane.add(this.tipoServicio);
+        this.tipoServicio.setLocation(centradoXY(this.tipoServicio));
+        this.tipoServicio.setTitle("Tipos de Servicios...");
+        this.tipoServicio.setVisible(true);
+        this.tipoServiosAcction("visualizar");
+        //Se agrega las acciones al formulario de Usuario        
+        this.tipoServicio.tipoServicioTextField.setActionCommand("agrearModificarTipoSerivio");
+        this.tipoServicio.agregarModificarButton.setActionCommand("agrearModificarTipoSerivio");
+        this.tipoServicio.modificarButton.setActionCommand("modificarTipoServicio");
+        this.tipoServicio.eliminarButton.setActionCommand("eliminarTipoServicio");
+        //Se pone a la escucha de las acciones del Usuario
+        this.tipoServicio.tipoServicioTextField.addActionListener(this);
+        this.tipoServicio.agregarModificarButton.addActionListener(this);
+        this.tipoServicio.modificarButton.addActionListener(this);
+        this.tipoServicio.eliminarButton.addActionListener(this);
     }
 
     /**
@@ -474,7 +512,6 @@ public class controlador implements ActionListener {
                 }
                 break;
             case "eliminar":
-
                 row = this.users.usuariosTable.getSelectedRow();
                 if (row != -1) {
                     idUsuario = this.model.arreglo.get(row).getIdUsuario();
@@ -736,6 +773,11 @@ public class controlador implements ActionListener {
         }
     }
 
+    /**
+     * Método para el trabajo con el formulario de <b>Detalles de Control</b>
+     *
+     * @param accion String con la accion a realizar
+     */
     private void detallesControlAcction(String accion) {
         switch (accion) {
             case "actualizar":
@@ -780,6 +822,55 @@ public class controlador implements ActionListener {
                     this.detallesControl.avisoVencimientoContratoFormattedTextField.setText(String.valueOf(detallesDeControl.getViso_vencimiento_contrato()));
                     this.detallesControl.mesesPromediarLecturaFormattedTextField.setText(String.valueOf(detallesDeControl.getMeses_promediar_lectura()));
                 }
+                break;
+        }
+    }
+
+    /**
+     * Método para el trabajo con el formulario de <b>TipoServicios</b>
+     *
+     * @param accion String con la accion a realizar
+     */
+    private void tipoServiosAcction(String accion) {
+        String selectString = (String) this.tipoServicio.modificarEliminarList.getSelectedValue();
+        switch (accion) {
+            case "agregarModifiar":
+                String tipo_servicio = this.tipoServicio.tipoServicioTextField.getText();
+                this.msg = "";
+                if (tipo_servicio.isEmpty()) {
+                    this.msg += "Tipos de Servicios: Campo Nulo \n";
+                }
+                if (!msg.isEmpty()) {
+                    JOptionPane.showMessageDialog(this.users, msg, "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    if (this.model.agregarTipoServicio(tipo_servicio, selectString)) {
+                        JOptionPane.showMessageDialog(this.users, "Se han actualizado los tipos de servicios correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        this.msg = "Error al intentar actualizar los tipos de servicios \n";
+                        this.msg += "Puede que exista un Servicio con ese nombre o exista problema con la Base de Datos.";
+                        JOptionPane.showMessageDialog(this.users, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                this.tipoServiosAcction("visualizar");
+                break;
+            case "eliminar":
+                if (!selectString.isEmpty()) {
+                    int acc = JOptionPane.showConfirmDialog(this.users, "Estas seguro de eliminar a " + selectString, "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (acc == 0) {
+                        if (this.model.eliminarTipoServicio(selectString)) {
+                            JOptionPane.showMessageDialog(this.users, "Se ha eliminado el Tipo d Servicio correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this.users, "Error al intentar eliminar el Tipo de Servicio", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this.users, "Seleccione un usuario para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                this.tipoServiosAcction("visualizar");
+                break;
+            default:
+                this.tipoServicio.tipoServicioTextField.setText("");
+                this.tipoServicio.modificarEliminarList.setModel(this.model.getTipoServicio());
                 break;
         }
     }

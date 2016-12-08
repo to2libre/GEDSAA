@@ -11,8 +11,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.ListModel;
+import javax.swing.event.ListDataListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -24,6 +29,7 @@ public class modelo extends SQLite_conexion {
 
     public Usuario usuario;
     public ArrayList<Usuario> arreglo;
+    public ArrayList<TipoServicios> arregloTipoServ;
 
     /**
      * Constructor de la clase <b>modelo</b>
@@ -242,6 +248,70 @@ public class modelo extends SQLite_conexion {
         } else {
             return this.actualizar("t_detalles_control", "realizado_por='" + realizado_por + "', cargo='" + cargo + "',aviso_vencimiento_contrato=" + aviso_vencimiento_contrato + ",meses_promediar_lectura =" + meses_promediar_lectura, "id_ueb = " + id_ueb);
         }
+    }
+
+    /**
+     * Método que retorna los TipoSevicio
+     *
+     * @return <b>ListModel</b> con los tipos de servicios
+     */
+    public ListModel getTipoServicio() {
+        resultSet = seleccionarResultSet("v_tipo_servicio_all"); //Selecciono los datos de tipos de servicios
+        arregloTipoServ = new ArrayList<>(); //creo el objeto para guardar los tipos de servicio        
+        ArrayList<String> a = new ArrayList<>(); //creo un arreglo de String para guardar los tipos de serivios (para poder incluirlo en el jList)
+        // Llenando los arreglos
+        try {
+            while (resultSet.next()) {
+                arregloTipoServ.add(new TipoServicios(resultSet.getInt("id_tipo_servicio"), resultSet.getString("tipo_servicio")));
+                a.add(resultSet.getString("tipo_servicio"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JList jl = new JList(a.toArray());//Creo el JList con los valores del arreglo que tiene los tipos de servicio
+        //Retorno ListModel con los tipos de servicios
+        return jl.getModel();
+    }
+
+    /**
+     * Método para agregar un Tipo de Servicio
+     *
+     * @param tipo_servicio
+     * @return boolean
+     */
+    public boolean agregarTipoServicio(String tipo_servicio, String selectString) {
+        if (selectString == null) {
+            if (buscarTipoServicio(tipo_servicio) != -1) {
+                return false;
+            } else {
+                return insertar("t_tipo_servicio", "tipo_servicio", "'" + tipo_servicio + "'");
+            }
+        } else {
+            if (buscarTipoServicio(tipo_servicio) != -1) {
+                return false;
+            } else {
+                return actualizar("t_tipo_servicio", "tipo_servicio = '" + tipo_servicio + "'", "id_tipo_servicio = " + buscarTipoServicio(selectString));
+            }
+        }
+    }
+
+    /**
+     * @param tipo_servicio
+     * @return boolean Método que dado un tipo de servicio busca en todos los
+     * tipos de servicios que hay en la Bse de datos y retorna <b>verdadero</b>
+     * si existe uno igual, <b>falso</b> de forma contraria
+     */
+    public int buscarTipoServicio(String tipo_servicio) {
+        for (int i = 0; i < arregloTipoServ.size(); i++) {
+            if (arregloTipoServ.get(i).getTipo_servicio().toUpperCase().equals(tipo_servicio.toUpperCase())) {
+                return arregloTipoServ.get(i).getId_tipo_srvicio();
+            }
+        }
+        return -1;
+    }
+
+    public boolean eliminarTipoServicio(String selectString) {
+        return eliminarRegistro("t_tipo_servicio", "id_tipo_servicio = " + buscarTipoServicio(selectString));
     }
 
     /**
