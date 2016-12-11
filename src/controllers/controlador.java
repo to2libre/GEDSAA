@@ -344,36 +344,6 @@ public class controlador implements ActionListener {
     }
 
     /**
-     * Método para restaurar la posicion inicial de un jInternalFrame dedo el
-     * titulo del mismo
-     *
-     * @param tituloJInternalFrame
-     * @return boolean
-     */
-    public boolean restaurarFormulario(String tituloJInternalFrame) {
-        JInternalFrame[] activos = this.view.desktopPane.getAllFrames();
-        int contador = 0, numactivo = -1;
-        for (int i = 0; i < activos.length; i++) {
-            if (activos[i].getTitle().equals(tituloJInternalFrame)) {
-                contador++;
-                numactivo = i;
-            }
-        }
-        if (contador > 0) {
-            try {
-                activos[numactivo].setLocation(centradoXY(activos[numactivo]));// Pone el jInternalFrame en la posicion inicial
-                activos[numactivo].setSelected(true);// Pone el jInternalFrame como selecionado
-                activos[numactivo].pack();//Pone el jInternalFrame Restaurado si esta minimizado
-            } catch (PropertyVetoException ex) {
-                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Método para controlar el formulario <b>TipoServicio</b>
      */
     @SuppressWarnings("empty-statement")
@@ -592,53 +562,6 @@ public class controlador implements ActionListener {
                 users.usuariosTable.setModel(this.model.mostrarUsuarios());
                 break;
         }
-    }
-
-    /**
-     * Método para cerrar el sistema
-     */
-    private void cerrar_sistema() {
-        System.exit(0);
-    }
-
-    /**
-     * Método para cerrar un JInternalFrame
-     */
-    private void cerrar(JInternalFrame jif) throws PropertyVetoException {
-        jif.setClosed(true);
-    }
-
-    /**
-     * Método para cerrar todos los </>jInternalFrame</b> que esten abiertos
-     */
-    private void cerrar_todo() {
-        JInternalFrame[] activos = this.view.desktopPane.getAllFrames();
-        int i = 0;
-        while (i < activos.length) {
-            try {
-                cerrar(activos[i]);
-            } catch (PropertyVetoException ex) {
-                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            i++;
-        }
-    }
-
-    /**
-     * Método que dado un <b>JInternalFrame</b> calcula la posicion de centrado
-     * respecto a su contenedor, retorna las coordenadas en una variable de tipo
-     * POINT
-     */
-    private Point centradoXY(JInternalFrame jif) {
-        Point p = new Point(0, 0);
-        //se obtiene dimension del contenedor
-        Dimension pantalla = this.view.desktopPane.getSize();
-        //se obtiene dimension del JInternalFrame
-        Dimension ventana = jif.getSize();
-        //se calcula posición para el centrado
-        p.x = (pantalla.width - ventana.width) / 2;
-        p.y = (pantalla.height - ventana.height) / 2;
-        return p;
     }
 
     /**
@@ -969,4 +892,82 @@ public class controlador implements ActionListener {
             }
         }
     }
+
+    /**
+     * Método para cerrar el sistema
+     */
+    private void cerrar_sistema() {
+        System.exit(0);
+    }
+
+    /**
+     * Método para cerrar un JInternalFrame
+     */
+    private void cerrar(JInternalFrame jif) throws PropertyVetoException {
+        jif.setClosed(true);
+    }
+
+    /**
+     * Método para cerrar todos los </>jInternalFrame</b> que esten abiertos
+     */
+    private void cerrar_todo() {
+        JInternalFrame[] activos = this.view.desktopPane.getAllFrames();
+        int i = 0;
+        while (i < activos.length) {
+            try {
+                cerrar(activos[i]);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            i++;
+        }
+    }
+
+    /**
+     * Método que dado un <b>JInternalFrame</b> calcula la posicion de centrado
+     * respecto a su contenedor, retorna las coordenadas en una variable de tipo
+     * POINT
+     */
+    private Point centradoXY(JInternalFrame jif) {
+        Point p = new Point(0, 0);
+        //se obtiene dimension del contenedor
+        Dimension pantalla = this.view.desktopPane.getSize();
+        //se obtiene dimension del JInternalFrame
+        Dimension ventana = jif.getSize();
+        //se calcula posición para el centrado
+        p.x = (pantalla.width - ventana.width) / 2;
+        p.y = (pantalla.height - ventana.height) / 2;
+        return p;
+    }
+
+    /**
+     * Método para restaurar la posicion inicial de un jInternalFrame dedo el
+     * titulo del mismo
+     *
+     * @param tituloJInternalFrame
+     * @return boolean
+     */
+    public boolean restaurarFormulario(String tituloJInternalFrame) {
+        JInternalFrame[] activos = this.view.desktopPane.getAllFrames();
+        int contador = 0, numactivo = -1;
+        for (int i = 0; i < activos.length; i++) {
+            if (activos[i].getTitle().equals(tituloJInternalFrame)) {
+                contador++;
+                numactivo = i;
+            }
+        }
+        if (contador > 0) {
+            try {
+                activos[numactivo].setLocation(centradoXY(activos[numactivo]));// Pone el jInternalFrame en la posicion inicial
+                activos[numactivo].setSelected(true);// Pone el jInternalFrame como selecionado
+                activos[numactivo].pack();//Pone el jInternalFrame Restaurado si esta minimizado
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
