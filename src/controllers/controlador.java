@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
@@ -237,51 +238,57 @@ public class controlador implements ActionListener {
      * Método para controlar el formulario <b>cambiarPsasword</b>
      */
     private void formCambiarPassword() {
-        cP = new cambiarPassword();
-        this.view.desktopPane.add(cP);
-        cP.setLocation(centradoXY(cP));
-        cP.setTitle("Cambiar contraseña...");
-        cP.setVisible(true);
-        //Se agrega las acciones al formulario de Autenticación
-        this.cP.contrasennaActualPasswordField.setActionCommand("cambiarPasswordAccion");
-        this.cP.nuevaContrasennaPasswordField.setActionCommand("cambiarPasswordAccion");
-        this.cP.repetirContrasennaNuevaPasswordField.setActionCommand("cambiarPasswordAccion");
-        this.cP.cambiarContrasennaButton.setActionCommand("cambiarPasswordAccion");
-        this.cP.cancelarButton.setActionCommand("Cancelar Accion");
-        //Se pone a la escucha de las acciones del Usuario        
-        this.cP.contrasennaActualPasswordField.addActionListener(this);
-        this.cP.nuevaContrasennaPasswordField.addActionListener(this);
-        this.cP.repetirContrasennaNuevaPasswordField.addActionListener(this);
-        this.cP.cancelarButton.addActionListener(this);
-        this.cP.cambiarContrasennaButton.addActionListener(this);
+        this.cP = new cambiarPassword();
+        this.cP.setTitle("Cambiar contraseña...");
+
+        if (!restaurarFormulario(this.cP.getTitle())) {
+            this.view.desktopPane.add(cP);
+            this.cP.setLocation(centradoXY(cP));
+            this.cP.setVisible(true);
+            //Se agrega las acciones al formulario de Autenticación
+            this.cP.contrasennaActualPasswordField.setActionCommand("cambiarPasswordAccion");
+            this.cP.nuevaContrasennaPasswordField.setActionCommand("cambiarPasswordAccion");
+            this.cP.repetirContrasennaNuevaPasswordField.setActionCommand("cambiarPasswordAccion");
+            this.cP.cambiarContrasennaButton.setActionCommand("cambiarPasswordAccion");
+            this.cP.cancelarButton.setActionCommand("Cancelar Accion");
+            //Se pone a la escucha de las acciones del Usuario        
+            this.cP.contrasennaActualPasswordField.addActionListener(this);
+            this.cP.nuevaContrasennaPasswordField.addActionListener(this);
+            this.cP.repetirContrasennaNuevaPasswordField.addActionListener(this);
+            this.cP.cancelarButton.addActionListener(this);
+            this.cP.cambiarContrasennaButton.addActionListener(this);
+        }
     }
 
     /**
      * Método para controlar el formulario <b>Users</b>
      */
     private void formUsuario() {
-        users = new Users();
-        this.view.desktopPane.add(users);
-        users.setLocation(centradoXY(users));
-        users.setTitle("Gestion de Usuarios...");
-        users.setVisible(true);
-        this.usuarioAcction("visualizar");
-        //Se agrega las acciones al formulario de Usuario        
-        this.users.CrearButton.setActionCommand("crearUsuario");
-        this.users.usuarioTextField.setActionCommand("crearUsuario");
-        this.users.PasswordPasswordField.setActionCommand("crearUsuario");
-        this.users.rePasswordPasswordField.setActionCommand("crearUsuario");
-        this.users.cancelarButton.setActionCommand("cancelarUsuario");
-        this.users.modificarButton.setActionCommand("modificarUsuario");
-        this.users.eliminarButton.setActionCommand("eliminarUsuario");
-        //Se pone a la escucha de las acciones del Usuario   
-        this.users.CrearButton.addActionListener(this);
-        this.users.usuarioTextField.addActionListener(this);
-        this.users.PasswordPasswordField.addActionListener(this);
-        this.users.rePasswordPasswordField.addActionListener(this);
-        this.users.cancelarButton.addActionListener(this);
-        this.users.modificarButton.addActionListener(this);
-        this.users.eliminarButton.addActionListener(this);
+        this.users = new Users();
+        this.users.setTitle("Gestion de Usuarios...");
+
+        if (!restaurarFormulario(this.users.getTitle())) {
+            this.view.desktopPane.add(users);
+            users.setLocation(centradoXY(users));
+            users.setVisible(true);
+            this.usuarioAcction("visualizar");
+            //Se agrega las acciones al formulario de Usuario        
+            this.users.CrearButton.setActionCommand("crearUsuario");
+            this.users.usuarioTextField.setActionCommand("crearUsuario");
+            this.users.PasswordPasswordField.setActionCommand("crearUsuario");
+            this.users.rePasswordPasswordField.setActionCommand("crearUsuario");
+            this.users.cancelarButton.setActionCommand("cancelarUsuario");
+            this.users.modificarButton.setActionCommand("modificarUsuario");
+            this.users.eliminarButton.setActionCommand("eliminarUsuario");
+            //Se pone a la escucha de las acciones del Usuario   
+            this.users.CrearButton.addActionListener(this);
+            this.users.usuarioTextField.addActionListener(this);
+            this.users.PasswordPasswordField.addActionListener(this);
+            this.users.rePasswordPasswordField.addActionListener(this);
+            this.users.cancelarButton.addActionListener(this);
+            this.users.modificarButton.addActionListener(this);
+            this.users.eliminarButton.addActionListener(this);
+        }
     }
 
     /**
@@ -289,19 +296,22 @@ public class controlador implements ActionListener {
      */
     private void formDatosEmpresa() {
         datosEmpresa = new DatosEmpresa();
-        this.view.desktopPane.add(datosEmpresa);
-        datosEmpresa.setLocation(centradoXY(datosEmpresa));
         datosEmpresa.setTitle("Datos de la Empresa...");
-        datosEmpresa.setVisible(true);
-        datosEmpresaAcction("visualizar", null);
-        //Se agrega las acciones al formulario de Usuario        
-        this.datosEmpresa.agregarModificarButton.setActionCommand("modificarEmpresa");
-        this.datosEmpresa.cancelarButton.setActionCommand("Cancelar Accion");
-        this.datosEmpresa.buscarLogotipoButton.setActionCommand("buscarLogotipoButton");
-        //Se pone a la escucha de las acciones del Usuario   
-        this.datosEmpresa.agregarModificarButton.addActionListener(this);
-        this.datosEmpresa.cancelarButton.addActionListener(this);
-        this.datosEmpresa.buscarLogotipoButton.addActionListener(this);
+
+        if (!restaurarFormulario(this.datosEmpresa.getTitle())) {
+            this.view.desktopPane.add(datosEmpresa);
+            datosEmpresa.setLocation(centradoXY(datosEmpresa));
+            datosEmpresa.setVisible(true);
+            datosEmpresaAcction("visualizar", null);
+            //Se agrega las acciones al formulario de Usuario        
+            this.datosEmpresa.agregarModificarButton.setActionCommand("modificarEmpresa");
+            this.datosEmpresa.cancelarButton.setActionCommand("Cancelar Accion");
+            this.datosEmpresa.buscarLogotipoButton.setActionCommand("buscarLogotipoButton");
+            //Se pone a la escucha de las acciones del Usuario   
+            this.datosEmpresa.agregarModificarButton.addActionListener(this);
+            this.datosEmpresa.cancelarButton.addActionListener(this);
+            this.datosEmpresa.buscarLogotipoButton.addActionListener(this);
+        }
     }
 
     /**
@@ -309,47 +319,84 @@ public class controlador implements ActionListener {
      */
     public void formDetallesControl() {
         detallesControl = new DetallesDeControl();
-        this.view.desktopPane.add(detallesControl);
-        detallesControl.setLocation(centradoXY(detallesControl));
         detallesControl.setTitle("Detalles de Control...");
-        detallesControl.setVisible(true);
-        detallesControlAcction("visualizar");
-        //Se agrega las acciones al formulario de Usuario        
-        this.detallesControl.aceptarButton.setActionCommand("aceptarDetallesControl");
-        this.detallesControl.cancelarButton.setActionCommand("Cancelar Accion");
-        this.detallesControl.realizadoPorTextField.setActionCommand("aceptarDetallesControl");
-        this.detallesControl.cargoTextField.setActionCommand("aceptarDetallesControl");
-        this.detallesControl.avisoVencimientoContratoFormattedTextField.setActionCommand("aceptarDetallesControl");
-        this.detallesControl.mesesPromediarLecturaFormattedTextField.setActionCommand("aceptarDetallesControl");
-        //Se pone a la escucha de las acciones del Usuario
-        this.detallesControl.aceptarButton.addActionListener(this);
-        this.detallesControl.cancelarButton.addActionListener(this);
-        this.detallesControl.realizadoPorTextField.addActionListener(this);
-        this.detallesControl.cargoTextField.addActionListener(this);
-        this.detallesControl.avisoVencimientoContratoFormattedTextField.addActionListener(this);
-        this.detallesControl.mesesPromediarLecturaFormattedTextField.addActionListener(this);
+
+        if (!restaurarFormulario(this.detallesControl.getTitle())) {
+            this.view.desktopPane.add(detallesControl);
+            detallesControl.setLocation(centradoXY(detallesControl));
+            detallesControl.setVisible(true);
+            detallesControlAcction("visualizar");
+            //Se agrega las acciones al formulario de Usuario        
+            this.detallesControl.aceptarButton.setActionCommand("aceptarDetallesControl");
+            this.detallesControl.cancelarButton.setActionCommand("Cancelar Accion");
+            this.detallesControl.realizadoPorTextField.setActionCommand("aceptarDetallesControl");
+            this.detallesControl.cargoTextField.setActionCommand("aceptarDetallesControl");
+            this.detallesControl.avisoVencimientoContratoFormattedTextField.setActionCommand("aceptarDetallesControl");
+            this.detallesControl.mesesPromediarLecturaFormattedTextField.setActionCommand("aceptarDetallesControl");
+            //Se pone a la escucha de las acciones del Usuario
+            this.detallesControl.aceptarButton.addActionListener(this);
+            this.detallesControl.cancelarButton.addActionListener(this);
+            this.detallesControl.realizadoPorTextField.addActionListener(this);
+            this.detallesControl.cargoTextField.addActionListener(this);
+            this.detallesControl.avisoVencimientoContratoFormattedTextField.addActionListener(this);
+            this.detallesControl.mesesPromediarLecturaFormattedTextField.addActionListener(this);
+        }
+    }
+
+    /**
+     * Método para restaurar la posicion inicial de un jInternalFrame dedo el
+     * titulo del mismo
+     *
+     * @param tituloJInternalFrame
+     * @return boolean
+     */
+    public boolean restaurarFormulario(String tituloJInternalFrame) {
+        JInternalFrame[] activos = this.view.desktopPane.getAllFrames();
+        int contador = 0, numactivo = -1;
+        for (int i = 0; i < activos.length; i++) {
+            if (activos[i].getTitle().equals(tituloJInternalFrame)) {
+                contador++;
+                numactivo = i;
+            }
+        }
+        if (contador > 0) {
+            try {
+                activos[numactivo].setLocation(centradoXY(activos[numactivo]));// Pone el jInternalFrame en la posicion inicial
+                activos[numactivo].setSelected(true);// Pone el jInternalFrame como selecionado
+                activos[numactivo].pack();//Pone el jInternalFrame Restaurado si esta minimizado
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
      * Método para controlar el formulario <b>TipoServicio</b>
      */
+    @SuppressWarnings("empty-statement")
     public void formTipoServicio() {
         this.tipoServicio = new TipoServicios();
-        this.view.desktopPane.add(this.tipoServicio);
-        this.tipoServicio.setLocation(centradoXY(this.tipoServicio));
         this.tipoServicio.setTitle("Tipos de Servicios...");
-        this.tipoServicio.setVisible(true);
-        this.tipoServiosAcction("visualizar");
-        //Se agrega las acciones al formulario de Usuario        
-        this.tipoServicio.tipoServicioTextField.setActionCommand("agrearModificarTipoSerivio");
-        this.tipoServicio.agregarModificarButton.setActionCommand("agrearModificarTipoSerivio");
-        this.tipoServicio.modificarButton.setActionCommand("modificarTipoServicio");
-        this.tipoServicio.eliminarButton.setActionCommand("eliminarTipoServicio");
-        //Se pone a la escucha de las acciones del Usuario
-        this.tipoServicio.tipoServicioTextField.addActionListener(this);
-        this.tipoServicio.agregarModificarButton.addActionListener(this);
-        this.tipoServicio.modificarButton.addActionListener(this);
-        this.tipoServicio.eliminarButton.addActionListener(this);
+
+        if (!restaurarFormulario(this.tipoServicio.getTitle())) {
+            this.view.desktopPane.add(this.tipoServicio);
+            this.tipoServicio.setLocation(centradoXY(this.tipoServicio));
+            this.tipoServicio.setVisible(true);
+            this.tipoServiosAcction("visualizar");
+            //Se agrega las acciones al formulario de Usuario        
+            this.tipoServicio.tipoServicioTextField.setActionCommand("agrearModificarTipoSerivio");
+            this.tipoServicio.agregarModificarButton.setActionCommand("agrearModificarTipoSerivio");
+            this.tipoServicio.modificarButton.setActionCommand("modificarTipoServicio");
+            this.tipoServicio.eliminarButton.setActionCommand("eliminarTipoServicio");
+            //Se pone a la escucha de las acciones del Usuario
+            this.tipoServicio.tipoServicioTextField.addActionListener(this);
+            this.tipoServicio.agregarModificarButton.addActionListener(this);
+            this.tipoServicio.modificarButton.addActionListener(this);
+            this.tipoServicio.eliminarButton.addActionListener(this);
+        }
     }
 
     /**
