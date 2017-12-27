@@ -279,7 +279,7 @@ El último registro es el del mes en el que se está trabajando</Text>
 <TDBADiagramObject id="32" propertiesclass="TDiagramMetaTableProperties" objectname="t_ueb_titular">
 <TDiagramMetaTableProperties>
 <Glyph>
-<Geometry left="290" top="390" width="200" height="66"/>
+<Geometry left="280" top="380" width="200" height="66"/>
 </Glyph>
 </TDiagramMetaTableProperties>
 </TDBADiagramObject>
@@ -289,7 +289,7 @@ El último registro es el del mes en el que se está trabajando</Text>
 <Geometry left="528" top="528" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="490" y="420"/>
+<Point x="480" y="410"/>
 <Point x="510" y="140"/>
 </Geometry>
 </Glyph>
@@ -302,7 +302,7 @@ El último registro es el del mes en el que se está trabajando</Text>
 <Geometry left="544" top="544" width="200" height="100"/>
 <Glyph>
 <Geometry>
-<Point x="430" y="420"/>
+<Point x="420" y="410"/>
 <Point x="400" y="360"/>
 </Geometry>
 </Glyph>
@@ -362,40 +362,7 @@ El último registro es el del mes en el que se está trabajando</Text>
 </Relation>
 </TDiagramForeignKeyProperties>
 </TDBADiagramObject>
-<TDBADiagramObject id="38" propertiesclass="TDiagramMetaTableProperties" objectname="t_cliente_tipo_servicio">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="280" top="470" width="200" height="66"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="39" propertiesclass="TDiagramForeignKeyProperties" objectname="t_cliente_tipo_servicio.Foreign_key01">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="624" top="624" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="380" y="503"/>
-<Point x="610" y="480"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="40" propertiesclass="TDiagramForeignKeyProperties" objectname="t_cliente_tipo_servicio.Foreign_key02">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="640" top="640" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="380" y="503"/>
-<Point x="140" y="580"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
 </Elements>
-<Surface zoom="100" scrollx="0" scrolly="200"/>
+<Surface zoom="100" scrollx="10" scrolly="80"/>
 </TDBADiagramController>
 </XMLDiagram>

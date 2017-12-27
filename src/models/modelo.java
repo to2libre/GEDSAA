@@ -11,13 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.ListModel;
-import javax.swing.event.ListDataListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -30,6 +27,7 @@ public class modelo extends SQLite_conexion {
     public Usuario usuario;
     public ArrayList<Usuario> arreglo;
     public ArrayList<TipoServicios> arregloTipoServ;
+    public ArrayList<Servicio> arregloServicio;
 
     /**
      * Constructor de la clase <b>modelo</b>
@@ -310,8 +308,118 @@ public class modelo extends SQLite_conexion {
         return -1;
     }
 
+    /**
+     * Método para eliminar un tipo de servicio
+     *
+     * @param selectString
+     * @return boolean
+     */
     public boolean eliminarTipoServicio(String selectString) {
         return eliminarRegistro("t_tipo_servicio", "id_tipo_servicio = " + buscarTipoServicio(selectString));
+    }
+
+    /**
+     * Método para mostrar los Servicios
+     *
+     * @return TableModel modelo con los datos de la tabla
+     */
+    public TableModel mostrarServicios() {
+        resultSet = seleccionarResultSet("v_servicio_all");
+
+        arregloServicio = new ArrayList<>();
+
+        try {
+            while (resultSet.next()) {
+                arregloServicio.add(new Servicio(resultSet.getInt("id_servicio"), resultSet.getString("descripcion"), resultSet.getString("unidad_medida"), resultSet.getInt("id_tipo_servicio"), resultSet.getString("precio_cuc"), resultSet.getString("precio_cup"), resultSet.getString("tipo_servicio")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        TableModel tm;
+        if (arregloServicio.size() > 0) {
+            String nombreColumna[] = {"Descripción", "Unidad de Medida", "Tipo de Servicio", "Precio en CUC", "Precio en CUP"};
+            tm = new DefaultTableModel(nombreColumna, arregloServicio.size());
+            int conuntRow = 0;
+            for (int i = 0; i < arregloServicio.size(); i++) {
+                tm.setValueAt(arregloServicio.get(i).getDescripcion(), conuntRow, 0);
+                tm.setValueAt(arregloServicio.get(i).getUnidad_medida(), conuntRow, 1);
+                tm.setValueAt(arregloServicio.get(i).getTipo_servicio(), conuntRow, 2);
+                tm.setValueAt(arregloServicio.get(i).getPrecio_cuc(), conuntRow, 3);
+                tm.setValueAt(arregloServicio.get(i).getPrecio_cup(), conuntRow, 4);
+                conuntRow++;
+            }
+        } else {
+            String nombreColumna[] = {"Descripción"};
+            tm = new DefaultTableModel(nombreColumna, 1);
+            tm.setValueAt("No existen Servicios para mostrar", 0, 0);
+        }
+        return tm;
+    }
+
+    /**
+     * Método que debuelve el model de un <b>jCombobox</b> para tipo de Servicio
+     *
+     * @param tabla String con el nombre de la tabla que tiene los datos
+     * necesatios
+     * @param campos Strign en el formato campo1, campo2, campon, ... con los
+     * campos necesarios
+     */
+    public ComboBoxModel tipoServicioCombobox(String tabla) {
+        ComboBoxModel cbm;
+
+        resultSet = seleccionarResultSet(tabla);
+        ArrayList arreglo1 = new ArrayList();
+        arreglo1.add("Seleccionar");        
+
+        try {
+            while (resultSet.next()) {
+                arreglo1.add(resultSet.getString("tipo_servicio"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cbm = new DefaultComboBoxModel(arreglo1.toArray());
+        
+        getTipoServicio(); // Esto es para refrescar los tipos de servicio (guardarlos en array)
+        return cbm;
+    }
+
+    /**
+     * Método para la creación de usuario
+     *
+     * @param usuario Nombre de usuario a crear
+     * @param password Contraseña del usuario a crear
+     * @param idRol Id del rol al que pertenece el usuario
+     * @return boolean, verdadero si se agrega el servicio, falso si no pudo
+     * agregarce.
+     */
+    public boolean agregarServicio(String descripcion, String unidad_medida, int idTipoServicio, String precio_cuc, String precio_cup) {
+        return insertar("t_servicio", "descripcion, unidad_medida, id_tipo_servicio, precio_cuc, precio_cup", "'" + descripcion + "','" + unidad_medida + "'," + idTipoServicio + ",'" + precio_cuc + "','" + precio_cup + "'");
+    }
+
+    /**
+     * Método para actualizar usuario
+     *
+     * @param idUsuario
+     * @param usuario
+     * @param password
+     * @param idRol
+     * @return boolean
+     */
+    public boolean actualizarServicio(int id_servicio, String descripcion, String unidad_medida, int idTipoServicio, String precio_cuc, String precio_cup) {
+        return this.actualizar("t_servicio", "descripcion = '" + descripcion + "',unidad_medida = '" + unidad_medida + "', id_tipo_servicio = " + idTipoServicio + ",precio_cuc = '" + precio_cuc + "', precio_cup = '" + precio_cup + "'", "id_servicio = " + id_servicio);
+    }
+
+    /**
+     * Método para eliminar Servicio
+     *
+     * @param id_servicio
+     * @return boolean
+     */
+    public boolean eliminarServicio(int id_servicio) {
+        String donde = "id_servicio = " + id_servicio;
+        return this.eliminarRegistro("t_servicio", donde);
     }
 
     /**
