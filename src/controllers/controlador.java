@@ -111,8 +111,23 @@ public class controlador implements ActionListener {
             case "Cancelar":
                 this.cerrar_sistema(); // Si el usuario escogio cancelar se cierra el sistema.
                 break;
+            case "barraImportarExportar": //Mostrar u Ocultar barra de Importar exportar
+                this.mostrarOcultarBarraImportarExportar();
+                break;
+            case "barraAcciones": //Mostrar u Ocultar barra de Acciones
+                this.mostrarOcultarBarraAcciones();
+                break;
+            case "barraInformes": //Mostrar u Ocultar barra de Informes
+                this.mostrarOcultarBarraInformes();
+                break;
+            case "barraCierreMes": //Mostrar u Ocultar barra de Cierre de mes
+                this.mostrarOcultarBarraCierreMes();
+                break;
+            case "barraCobros": //Mostrar u Ocultar barra de Cobros
+                this.mostrarOcultarBarraCobros();
+                break;
             case "about":
-                this.formAcerca(); // mostrar jInternalFrame Acerca
+                this.formAcerca(); // Mostrar jInternalFrame Acerca
                 break;
             case "Salir del Sistema":
                 this.cerrar_sistema(); // Si el usuario escogio cancelar se cierra el sistema.
@@ -216,23 +231,33 @@ public class controlador implements ActionListener {
         this.view.setVisible(true);
         this.view.setTitle("GEDSAA");
         this.view.setLocationRelativeTo(null);//centrado en pantalla        
-        //Se añade las acciones a los controles del formulario padre        
+        //Se añade las acciones a los controles del formulario padre  
+        this.view.exitMenuItem.setActionCommand("Salir del Sistema"); //Salir del sistema        
+        this.view.barraImportarExportarMenuItem.setActionCommand("barraImportarExportar");//Menú -View- Mostrar u Ocultar barra 
+        this.view.barraAccionesMenuItem.setActionCommand("barraAcciones");//Menú -View- Mostrar u Ocultar barra
+        this.view.barraInformesMenuItem.setActionCommand("barraInformes");//Menú -View- Mostrar u Ocultar barra
+        this.view.barraCierreMesMenuItem.setActionCommand("barraCierreMes");//Menú -View- Mostrar u Ocultar barra
+        this.view.barraCobrosMenuItem.setActionCommand("barraCobros");//Menú -View- Mostrar u Ocultar barra
         this.view.datosEmpresaMenuItem.setActionCommand("datosEmpresaForm"); //Datos de Empresa
         this.view.tipoServiciosMenuItem.setActionCommand("tipoServiciosForm"); //TipoServicios
         this.view.serviciosMenuItem.setActionCommand("servicioForm"); //Servicios
         this.view.detallesControlMenuItem.setActionCommand("formDetallesControl"); //Formulario Detalles de Control
         this.view.usersMenuItem.setActionCommand("Usuario"); //Gestionar Usuario
-        this.view.cambiarContrasennaMenuItem.setActionCommand("Cambiar password"); //Cambiar contraseña        
-        this.view.exitMenuItem.setActionCommand("Salir del Sistema"); //Salir del sistema        
+        this.view.cambiarContrasennaMenuItem.setActionCommand("Cambiar password"); //Cambiar contraseña                
         this.view.aboutMenuItem.setActionCommand("about"); // Acerca de nosotros
         //Se pone a escuchar las acciones del usuario
+        this.view.exitMenuItem.addActionListener(this); //Salir del sistema 
+        this.view.barraImportarExportarMenuItem.addActionListener(this);//Menú -View- Mostrar u Ocultar barra 
+        this.view.barraAccionesMenuItem.addActionListener(this);//Menú -View- Mostrar u Ocultar barra
+        this.view.barraInformesMenuItem.addActionListener(this);//Menú -View- Mostrar u Ocultar barra
+        this.view.barraCierreMesMenuItem.addActionListener(this);//Menú -View- Mostrar u Ocultar barra
+        this.view.barraCobrosMenuItem.addActionListener(this);//Menú -View- Mostrar u Ocultar barra
         this.view.datosEmpresaMenuItem.addActionListener(this); //Datos Empresa
         this.view.tipoServiciosMenuItem.addActionListener(this); //TipoServicios
         this.view.serviciosMenuItem.addActionListener(this); //Servicios
         this.view.detallesControlMenuItem.addActionListener(this); //DetallesControl
         this.view.usersMenuItem.addActionListener(this); //Gestionar Usuario
-        this.view.cambiarContrasennaMenuItem.addActionListener(this); //Cambiar contraseñas
-        this.view.exitMenuItem.addActionListener(this); //Salir del sistema        
+        this.view.cambiarContrasennaMenuItem.addActionListener(this); //Cambiar contraseñas        
         this.view.aboutMenuItem.addActionListener(this); // Acerca de nosotros
     }
 
@@ -1161,6 +1186,67 @@ public class controlador implements ActionListener {
             return true;
         } else {
             return false;
+        }
+    }
+    
+    /**
+     * Método para Mostrar u Ocultar la Barra de Importar Exportar
+     */
+    public void mostrarOcultarBarraImportarExportar(){
+        if (this.view.importarExportarToolBar.isVisible()){
+            this.view.importarExportarToolBar.setVisible(false);
+        }
+        else {
+            this.view.importarExportarToolBar.setVisible(true);
+        }
+    }
+    
+    /**
+     * Método para Mostrar u Ocultar la Barra de Acciones
+     */
+    public void mostrarOcultarBarraAcciones(){
+        if (this.view.accionesToolBar.isVisible()){
+            this.view.accionesToolBar.setVisible(false);
+        }
+        else {
+            this.view.accionesToolBar.setVisible(true);
+        }
+    }
+    
+    /**
+     * Método para Mostrar u Ocultar la Barra de Informes
+     */
+    public void mostrarOcultarBarraInformes(){
+        if (this.view.informesToolBar.isVisible()){
+            this.view.informesToolBar.setVisible(false);
+        }
+        else {
+            this.view.informesToolBar.setVisible(true);
+        }
+    }
+    
+    /**
+     * Método para Mostrar u Ocultar la Barra de Cierre de Mes
+     */
+    public void mostrarOcultarBarraCierreMes(){
+        if (this.view.cierreToolBar.isVisible()){
+            this.view.cierreToolBar.setVisible(false);
+        }
+        else {
+            this.view.cierreToolBar.setVisible(true);
+        }
+    }
+    
+    /**
+     * Método para Mostrar u Ocultar la Barra de Cobros
+     */
+    public void mostrarOcultarBarraCobros(){
+        if (this.view.cobrosToolBar.isVisible()){
+            this.view.cobrosToolBar.setVisible(false);                        
+        }
+        else {
+            this.view.cobrosToolBar.setVisible(true);
+            
         }
     }
 

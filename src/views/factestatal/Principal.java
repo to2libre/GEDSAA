@@ -67,6 +67,12 @@ public class Principal extends javax.swing.JFrame {
         importMenuItem = new javax.swing.JMenuItem();
         exportMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
+        verMenu = new javax.swing.JMenu();
+        barraImportarExportarMenuItem = new javax.swing.JCheckBoxMenuItem();
+        barraAccionesMenuItem = new javax.swing.JCheckBoxMenuItem();
+        barraInformesMenuItem = new javax.swing.JCheckBoxMenuItem();
+        barraCierreMesMenuItem = new javax.swing.JCheckBoxMenuItem();
+        barraCobrosMenuItem = new javax.swing.JCheckBoxMenuItem();
         ficherosMenu = new javax.swing.JMenu();
         datosEmpresaMenuItem = new javax.swing.JMenuItem();
         tipoServiciosMenuItem = new javax.swing.JMenuItem();
@@ -268,6 +274,30 @@ public class Principal extends javax.swing.JFrame {
         fileMenu.add(exitMenuItem);
 
         menuBar.add(fileMenu);
+
+        verMenu.setText("Ver");
+
+        barraImportarExportarMenuItem.setSelected(true);
+        barraImportarExportarMenuItem.setText("Mostrar Barra Importar Exportar");
+        verMenu.add(barraImportarExportarMenuItem);
+
+        barraAccionesMenuItem.setSelected(true);
+        barraAccionesMenuItem.setText("Mostrar Barra Acciones");
+        verMenu.add(barraAccionesMenuItem);
+
+        barraInformesMenuItem.setSelected(true);
+        barraInformesMenuItem.setText("Mostrar Barra Informes");
+        verMenu.add(barraInformesMenuItem);
+
+        barraCierreMesMenuItem.setSelected(true);
+        barraCierreMesMenuItem.setText("Mostrar Barra Cierre de Mes");
+        verMenu.add(barraCierreMesMenuItem);
+
+        barraCobrosMenuItem.setSelected(true);
+        barraCobrosMenuItem.setText("Mostrar Barra Cobros");
+        verMenu.add(barraCobrosMenuItem);
+
+        menuBar.add(verMenu);
 
         ficherosMenu.setMnemonic('f');
         ficherosMenu.setText("Ficheros");
@@ -546,14 +576,19 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenuItem aboutMenuItem;
-    private javax.swing.JToolBar accionesToolBar;
+    public javax.swing.JToolBar accionesToolBar;
     private javax.swing.JMenu ayudaMunu;
+    public javax.swing.JCheckBoxMenuItem barraAccionesMenuItem;
+    public javax.swing.JCheckBoxMenuItem barraCierreMesMenuItem;
+    public javax.swing.JCheckBoxMenuItem barraCobrosMenuItem;
+    public javax.swing.JCheckBoxMenuItem barraImportarExportarMenuItem;
+    public javax.swing.JCheckBoxMenuItem barraInformesMenuItem;
     public javax.swing.JMenuItem cambiarContrasennaMenuItem;
     public javax.swing.JButton captarCobroButton;
     public javax.swing.JMenuItem capturarFacturasXCobroMenuItem;
     public javax.swing.JButton cierreMesButton;
     public javax.swing.JMenuItem cierreMesMenuItem;
-    private javax.swing.JToolBar cierreToolBar;
+    public javax.swing.JToolBar cierreToolBar;
     public javax.swing.JButton clientesButton;
     public javax.swing.JMenuItem clientesMenuItem;
     public javax.swing.JMenuItem clientesSinFacturarCUCMenuItem;
@@ -561,7 +596,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu clientesSinFacturarMenu;
     public javax.swing.JMenuItem cobrosAFacturasMenuItem;
     private javax.swing.JMenu cobrosMenu;
-    private javax.swing.JToolBar cobrosToolBar;
+    public javax.swing.JToolBar cobrosToolBar;
     public javax.swing.JMenuItem comprobanteOperacionnesMenuItem;
     public javax.swing.JMenuItem consultaFacturasXCobroMenuItem;
     public javax.swing.JMenuItem consultarFcheroBancoMenuItem;
@@ -596,12 +631,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu historicoMenu;
     public javax.swing.JMenuItem importMenuItem;
     public javax.swing.JButton importarButton;
-    private javax.swing.JToolBar importarExportarToolBar;
+    public javax.swing.JToolBar importarExportarToolBar;
     public javax.swing.JMenuItem informeMetrosCUCMenuItem;
     public javax.swing.JMenuItem informeMetrosCUPMenuItem;
     private javax.swing.JMenu informeMetrosMenu;
     private javax.swing.JMenu informesMenu;
-    private javax.swing.JToolBar informesToolBar;
+    public javax.swing.JToolBar informesToolBar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
@@ -638,6 +673,7 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JMenuItem usersMenuItem;
     public javax.swing.JLabel usuarioAutenticadoLabel;
     private javax.swing.JToolBar usuarioToolBar;
+    private javax.swing.JMenu verMenu;
     // End of variables declaration//GEN-END:variables
 
 }
