@@ -10,7 +10,7 @@ import java.awt.Toolkit;
 
 /**
  *
- * @author comercial.gvca
+ * @author carlos860920
  */
 public class Principal extends javax.swing.JFrame {
 
