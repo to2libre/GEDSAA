@@ -8,7 +8,15 @@ package models;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
@@ -17,6 +25,9 @@ import javax.swing.JList;
 import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import myclass.utilfecha;
+import sun.util.calendar.BaseCalendar;
+import sun.util.resources.cldr.CalendarData;
 
 /**
  * @author carlos860920
@@ -28,6 +39,7 @@ public class modelo extends SQLite_conexion {
     public ArrayList<Usuario> arreglo;
     public ArrayList<TipoServicios> arregloTipoServ;
     public ArrayList<Servicio> arregloServicio;
+    public ArrayList<Titulares> arregloTitulares;
 
     /**
      * Constructor de la clase <b>modelo</b>
@@ -420,6 +432,52 @@ public class modelo extends SQLite_conexion {
     public boolean eliminarServicio(int id_servicio) {
         String donde = "id_servicio = " + id_servicio;
         return this.eliminarRegistro("t_servicio", donde);
+    }
+    
+    /**
+     * Método para mostrar los Servicios
+     *
+     * @return TableModel modelo con los datos de la tabla
+     */
+    public TableModel mostrarTitulares() {
+        resultSet = seleccionarResultSet("v_titulares_all");
+
+        arregloTitulares = new ArrayList<>();
+
+        try {
+            while (resultSet.next()) {
+                arregloTitulares.add(new Titulares(resultSet.getInt("id_titular"), resultSet.getString("titular"), resultSet.getString("descripcion"), resultSet.getString("cuenta_bancaria"), resultSet.getString("codigo_reup"), resultSet.getString("direccion"), resultSet.getString("telefono"), resultSet.getString("fax"), resultSet.getString("email"), resultSet.getInt("no_contrato"), resultSet.getString("fecha_inicio_contrato"), resultSet.getInt("vigencia_contrato"), resultSet.getInt("id_organismo"), resultSet.getBoolean("tipo_moneda"), resultSet.getString("nombre_organismo")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        TableModel tm;
+        if (arregloTitulares.size() > 0) {
+            String nombreColumna[] = {"No Contrato", "Código Reup", "Descripción", "Cuenta en CUC", "Fecha Ini Contrato", "Fecha Fin Contrato"};
+            tm = new DefaultTableModel(nombreColumna, arregloTitulares.size());
+            int conuntRow = 0;
+            for (int i = 0; i < arregloTitulares.size(); i++) {
+                tm.setValueAt(arregloTitulares.get(i).getNo_contrato(), conuntRow, 0);
+                tm.setValueAt(arregloTitulares.get(i).getCodigo_reup(), conuntRow, 1);
+                tm.setValueAt(arregloTitulares.get(i).getDescripcion(), conuntRow, 2);
+                tm.setValueAt(arregloTitulares.get(i).getCuenta_bancaria(), conuntRow, 3);
+                tm.setValueAt(arregloTitulares.get(i).getFecha_inicio_contrato(), conuntRow, 4);                                                                                             
+                
+                Date fecha = utilfecha.convierteStringADate(arregloTitulares.get(i).getFecha_inicio_contrato(), "yyyy-MM-dd");
+                
+                int vigenciaContrato = arregloTitulares.get(i).getVigencia_contrato();
+                Date fecha_fin_contrato = utilfecha.sumaAnnos(fecha, vigenciaContrato);
+                
+                tm.setValueAt(utilfecha.convierteDateAString(fecha_fin_contrato), conuntRow, 5);      
+                conuntRow++;
+            }
+        } else {
+            String nombreColumna[] = {"Descripción"};
+            tm = new DefaultTableModel(nombreColumna, 1);
+            tm.setValueAt("No existen Titulares para mostrar", 0, 0);
+        }
+        return tm;
     }
 
     /**
