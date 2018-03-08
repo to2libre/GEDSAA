@@ -2,10 +2,12 @@ package controllers;
 
 import configuracion.config;
 import factestatal.ficheros.About;
+import views.factestatal.ficheros.AgregarActualizarTitular;
 import factestatal.ficheros.DatosEmpresa;
 import factestatal.ficheros.DetallesDeControl;
 import factestatal.ficheros.Servicios;
 import factestatal.ficheros.TipoServicios;
+import factestatal.ficheros.Titulares;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
@@ -20,9 +22,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.control.ComboBox;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
@@ -57,6 +56,8 @@ public class controlador implements ActionListener {
     private DetallesDeControl detallesControl;
     private TipoServicios tipoServicio;
     private Servicios servicio;
+    private Titulares titulares;
+    private AgregarActualizarTitular titularesAgregarActualizar;
 
     //Variables de modelos
     public Usuario usuario;
@@ -200,6 +201,18 @@ public class controlador implements ActionListener {
             case "modificarServicio": //Accion de modificar un servicio
                 this.serviciosAcction("modificar");
                 break;
+            case "titularesForm": //Accion para mostrar jinternal frame titulares
+                this.formTitulares();
+                break;
+            case "agrearModificarTitulares": //Accion para agrear o modificar titulares
+                this.titularesAcction("agregarModifiar");
+                break;
+            case "modificarTitulares": //Accion para modificar titulares
+                this.titularesAcction("modificar");
+                break;
+            case "eliminarTitulares": //Accion para eliminar titulares                
+                this.titularesAcction("eliminar");
+                break;
             case "formDetallesControl": // Accion para mostrar jInternarFrame Detalles de control
                 this.formDetallesControl();
                 break;
@@ -241,6 +254,7 @@ public class controlador implements ActionListener {
         this.view.datosEmpresaMenuItem.setActionCommand("datosEmpresaForm"); //Datos de Empresa
         this.view.tipoServiciosMenuItem.setActionCommand("tipoServiciosForm"); //TipoServicios
         this.view.serviciosMenuItem.setActionCommand("servicioForm"); //Servicios
+        this.view.titularesMenuItem.setActionCommand("titularesForm"); //Titulares
         this.view.detallesControlMenuItem.setActionCommand("formDetallesControl"); //Formulario Detalles de Control
         this.view.usersMenuItem.setActionCommand("Usuario"); //Gestionar Usuario
         this.view.cambiarContrasennaMenuItem.setActionCommand("Cambiar password"); //Cambiar contraseña                
@@ -255,6 +269,7 @@ public class controlador implements ActionListener {
         this.view.datosEmpresaMenuItem.addActionListener(this); //Datos Empresa
         this.view.tipoServiciosMenuItem.addActionListener(this); //TipoServicios
         this.view.serviciosMenuItem.addActionListener(this); //Servicios
+        this.view.titularesMenuItem.addActionListener(this); //Titulares
         this.view.detallesControlMenuItem.addActionListener(this); //DetallesControl
         this.view.usersMenuItem.addActionListener(this); //Gestionar Usuario
         this.view.cambiarContrasennaMenuItem.addActionListener(this); //Cambiar contraseñas        
@@ -442,6 +457,46 @@ public class controlador implements ActionListener {
             this.servicio.agregarModificarButton.addActionListener(this);
             this.servicio.eliminarButton.addActionListener(this);
             this.servicio.modificarButton.addActionListener(this);
+        }
+    }
+    
+    /**
+     * Método para controlar el formulario <b>Titulares</b>
+     */
+    public void formTitulares() {
+        this.titulares = new Titulares();
+        this.titulares.setTitle("Titulares...");
+
+        if (!restaurarFormulario(this.titulares.getTitle())) {
+            this.view.desktopPane.add(this.titulares);
+            this.titulares.setLocation(centradoXY(this.titulares));
+            this.titulares.setVisible(true);
+            this.titularesAcction("visualizar");
+            //Se agrega las acciones al formulario de Usuario        
+            this.titulares.agregarModificarButton.setActionCommand("agrearModificarTitulares");
+            this.titulares.eliminarButton.setActionCommand("eliminarTitulares");            
+            //Se pone a la escucha de las acciones del Usuario
+            this.titulares.agregarModificarButton.addActionListener(this);
+            this.titulares.eliminarButton.addActionListener(this);
+        }
+    }
+    
+    /**
+     * Método para controlar el formulario <b>AgregarActualizarTitular</b>
+     */
+    public void formAgregarActualizarTitular() {
+        this.titularesAgregarActualizar = new AgregarActualizarTitular();
+        this.titularesAgregarActualizar.setTitle("Agregar o Actualizar Titular...");
+
+        if (!restaurarFormulario(this.titularesAgregarActualizar.getTitle())) {
+            this.view.desktopPane.add(this.titularesAgregarActualizar);
+            this.titularesAgregarActualizar.setLocation(centradoXY(this.titularesAgregarActualizar));
+            this.titularesAgregarActualizar.setVisible(true);
+            this.titularesAcction("visualizar");
+            //Se agrega las acciones al formulario de Usuario        
+            this.titularesAgregarActualizar.agregarModificarButton.setActionCommand("modificarTitulares");            
+            //Se pone a la escucha de las acciones del Usuario
+            this.titularesAgregarActualizar.agregarModificarButton.addActionListener(this);            
         }
     }
 
@@ -1060,6 +1115,149 @@ public class controlador implements ActionListener {
             default:
                 this.servicio.visualizarServiciosTable.setModel(this.model.mostrarServicios());
                 this.servicio.tipoServicioComboBox.setModel(this.model.tipoServicioCombobox("t_tipo_servicio"));
+                break;
+        }
+    }
+    
+    /**
+     * Método para agregar titulares
+     *
+     * @param descripcion
+     * @param unidad_medida
+     * @param idTipoServicio
+     * @param precio_cuc
+     * @param precio_cup
+     */
+    public void agregarTitulares(String descripcion, String unidad_medida, int idTipoServicio, String precio_cuc, String precio_cup) {
+        this.msg = "";
+        if (descripcion.isEmpty()) {
+            this.msg += "Descripción: Campo Nulo \n";
+        }
+        if (unidad_medida.isEmpty()) {
+            this.msg += "Unidad de Medida: Campo Nula \n";
+        }
+        if (idTipoServicio == 0) {
+            this.msg += "Tipo de servicio: Seleccionar un rol \n";
+        }
+        if (precio_cuc.isEmpty() || precio_cup.isEmpty()) {
+            this.msg += "Precio en cuc o cup: Campo Nula \n";
+        }
+        if (!msg.isEmpty()) {
+            JOptionPane.showMessageDialog(this.servicio, msg, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {                                    
+            int idTipServ = this.model.arregloTipoServ.get(idTipoServicio-1).getId_tipo_srvicio();                    
+            if (this.model.agregarServicio(descripcion, unidad_medida, idTipServ, precio_cuc, precio_cup)) {
+                JOptionPane.showMessageDialog(this.servicio, "Se ha agregado el servicio correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                this.msg = "Error al intentar agregar el servicio";
+                JOptionPane.showMessageDialog(this.servicio, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    /**
+     * Método para la modificación de titulares
+     *
+     * @param descripcion
+     * @param unidad_medida
+     * @param idTipoServicio
+     * @param precio_cuc
+     * @param precio_cup
+     */
+    public void modificarTitulares(String descripcion, String unidad_medida, int idTipoServicio, String precio_cuc, String precio_cup) {
+        this.msg = "";
+        if (descripcion.isEmpty()) {
+            this.msg += "Descripción: Campo Nulo \n";
+        }
+        if (unidad_medida.isEmpty()) {
+            this.msg += "Unidad de Medida: Campo Nula \n";
+        }
+        if (idTipoServicio == 0) {
+            this.msg += "Tipo de Servicio: Seleccionar un Tipo de Servicio \n";
+        }
+        if (precio_cuc.isEmpty() || precio_cup.isEmpty()) {
+            this.msg += "Precio en cuc o cup: Campo Nula \n";
+        }
+        if (!msg.isEmpty()) {
+            JOptionPane.showMessageDialog(this.servicio, msg, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int idTipServ = this.model.arregloTipoServ.get(idTipoServicio-1).getId_tipo_srvicio();
+            if (this.model.actualizarServicio(this.idServicio, descripcion, unidad_medida, idTipServ, precio_cuc, precio_cup)) {
+                JOptionPane.showMessageDialog(this.servicio, "Se ha actualizado el Servicio correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                this.msg = "Error al intentar actualizar el servicio";
+                JOptionPane.showMessageDialog(this.servicio, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    /**
+     * Método para el trabajo con el formulario de <b>TipoServicios</b>
+     *
+     * @param accion String con la accion a realizar
+     */
+    private void titularesAcction(String accion) {        
+        int fila_seleccionada;
+        switch (accion) {
+            case "agregarModifiar":
+                this.formAgregarActualizarTitular();
+                /*// Capturar datos del formulario
+                String descripcion = this.servicio.descripcionTextField.getText();
+                String unidad_medida = this.servicio.unidadMedidaTextField.getText();
+                int idTipoServicio = this.servicio.tipoServicioComboBox.getSelectedIndex();
+                String precio_cuc = this.servicio.cucTextField.getText();
+                String precio_cup = this.servicio.cupTextField.getText();
+                // idUsuario es igual a -1 para crearlo o es igual al id del usario para modificarlo o eliminarlo                
+                if (idServicio == -1) {
+                    this.agregarServicio(descripcion, unidad_medida, idTipoServicio, precio_cuc, precio_cup);
+                } else {
+                    this.modificarServicio(descripcion, unidad_medida, idTipoServicio, precio_cuc, precio_cup);
+                }
+                // Si se crea o se ctualiza el usuario entra
+                if (this.msg.isEmpty()) {
+                    // Limpiar todos los escaques del formulario
+                    this.servicio.descripcionTextField.setText("");
+                    this.servicio.unidadMedidaTextField.setText("");
+                    this.servicio.cucTextField.setText("");
+                    this.servicio.cupTextField.setText("");
+                    this.servicio.tipoServicioComboBox.setSelectedIndex(0);
+                    // Refrescar los datos a mostrar en el formulario de visualización
+                    this.serviciosAcction("visualizar");
+                }*/
+                break;
+            case "eliminar":
+                /*fila_seleccionada = this.servicio.visualizarServiciosTable.getSelectedRow();
+                idServicio = this.model.arregloServicio.get(fila_seleccionada).getId_servicio();                
+                if (idServicio > 0) {
+                    int acc = JOptionPane.showConfirmDialog(this.servicio, "Estas seguro de eliminar a " + this.model.arregloServicio.get(fila_seleccionada).getDescripcion(), "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (acc == 0) {
+                        if (this.model.eliminarServicio(idServicio)) {
+                            JOptionPane.showMessageDialog(this.servicio, "Se ha eliminado el Servicio correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this.servicio, "Error al intentar eliminar el Servicio", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this.servicio, "Seleccione un usuario para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                idServicio = -1; // Si no se pone esto cuando buelba a intentar 
+                this.serviciosAcction("visualizar");*/
+                break;
+            case "modificar":
+                /*
+                fila_seleccionada = this.titulares.visualizarServiciosTable.getSelectedRow();
+                idServicio = this.model.arregloServicio.get(fila_seleccionada).getId_servicio();                
+                if (idServicio > 0) {
+                    this.titulares.descripcionTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getDescripcion());
+                    this.titulares.unidadMedidaTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getUnidad_medida());                    
+                    
+                    this.titulares.tipoServicioComboBox.setModel(this.model.tipoServicioCombobox("t_tipo_servicio"));
+                    
+                    this.titulares.cucTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getPrecio_cuc());
+                    this.titulares.cupTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getPrecio_cup());                    
+                } */               
+            default:
+                this.titulares.titularesTable.setModel(this.model.mostrarTitulares());                
                 break;
         }
     }
