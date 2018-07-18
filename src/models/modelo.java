@@ -8,15 +8,8 @@ package models;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
@@ -26,8 +19,6 @@ import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import myclass.utilfecha;
-import sun.util.calendar.BaseCalendar;
-import sun.util.resources.cldr.CalendarData;
 
 /**
  * @author carlos860920
@@ -40,6 +31,7 @@ public class modelo extends SQLite_conexion {
     public ArrayList<TipoServicios> arregloTipoServ;
     public ArrayList<Servicio> arregloServicio;
     public ArrayList<Titulares> arregloTitulares;
+    public ArrayList<Organismo> arregloOrganismos;
 
     /**
      * Constructor de la clase <b>modelo</b>
@@ -210,19 +202,20 @@ public class modelo extends SQLite_conexion {
      *
      * @param tabla String con el nombre de la tabla que tiene los datos
      * necesatios
-     * @param campos Strign en el formato campo1, campo2, campon, ... con los
-     * campos necesarios
+     * @return
      */
     public ComboBoxModel organismoCombobox(String tabla) {
         ComboBoxModel cbm;
-
         resultSet = seleccionarResultSet(tabla);
+        arregloOrganismos = new ArrayList<>();
+        
         ArrayList arreglo1 = new ArrayList();
         arreglo1.add("Seleccionar");
 
         try {
             while (resultSet.next()) {
                 arreglo1.add(resultSet.getString("nombre_organismo"));
+                arregloOrganismos.add(new Organismo(resultSet.getInt("id_organismo"), resultSet.getString("nombre_organismo"), resultSet.getString("siglas"), resultSet.getString("abreviatura")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
@@ -382,7 +375,7 @@ public class modelo extends SQLite_conexion {
 
         resultSet = seleccionarResultSet(tabla);
         ArrayList arreglo1 = new ArrayList();
-        arreglo1.add("Seleccionar");        
+        arreglo1.add("Seleccionar");
 
         try {
             while (resultSet.next()) {
@@ -392,17 +385,19 @@ public class modelo extends SQLite_conexion {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
         }
         cbm = new DefaultComboBoxModel(arreglo1.toArray());
-        
+
         getTipoServicio(); // Esto es para refrescar los tipos de servicio (guardarlos en array)
         return cbm;
     }
 
     /**
-     * Método para la creación de usuario
+     * Método para la creación de Servicios
      *
-     * @param usuario Nombre de usuario a crear
-     * @param password Contraseña del usuario a crear
-     * @param idRol Id del rol al que pertenece el usuario
+     * @param descripcion
+     * @param unidad_medida
+     * @param idTipoServicio
+     * @param precio_cuc
+     * @param precio_cup
      * @return boolean, verdadero si se agrega el servicio, falso si no pudo
      * agregarce.
      */
@@ -413,10 +408,12 @@ public class modelo extends SQLite_conexion {
     /**
      * Método para actualizar usuario
      *
-     * @param idUsuario
-     * @param usuario
-     * @param password
-     * @param idRol
+     * @param id_servicio
+     * @param descripcion
+     * @param unidad_medida
+     * @param idTipoServicio
+     * @param precio_cuc
+     * @param precio_cup
      * @return boolean
      */
     public boolean actualizarServicio(int id_servicio, String descripcion, String unidad_medida, int idTipoServicio, String precio_cuc, String precio_cup) {
@@ -433,9 +430,52 @@ public class modelo extends SQLite_conexion {
         String donde = "id_servicio = " + id_servicio;
         return this.eliminarRegistro("t_servicio", donde);
     }
-    
+
     /**
-     * Método para mostrar los Servicios
+     * Método para la agregar Titular
+     *
+     * @param titular
+     * @param descripcion
+     * @param cuenta_bancaria
+     * @param codigo_reup
+     * @param direccion
+     * @param telefono
+     * @param fax
+     * @param id_organismo
+     * @param no_contrato
+     * @param fecha_inicio_contrato
+     * @param vigencia_contrato
+     * @param email
+     * @param tipo_moneda
+     *
+     * @return boolean, verdadero si se agrega el servicio, falso si no pudo
+     * agregarce.
+     */
+    public boolean agregarTitular(String titular, String descripcion, String cuenta_bancaria, String codigo_reup, String direccion, String telefono, String fax, String email, int no_contrato, String fecha_inicio_contrato, int vigencia_contrato, int id_organismo, String tipo_moneda) {
+        Date Fid = utilfecha.convierteStringADate(fecha_inicio_contrato, "d/MM/yyyy");
+        String Fis = utilfecha.convierteDateAString(Fid,"yyyy-MM-dd");        
+        return insertar("t_titular", "titular, descripcion, cuenta_bancaria, codigo_reup, direccion, telefono, fax, email, no_contrato, fecha_inicio_contrato, vigencia_contrato, id_organismo, tipo_moneda", "'" + titular + "','" + descripcion + "'," + cuenta_bancaria + ",'" + codigo_reup + "','" + direccion + "','" + telefono + "','" + fax + "','" + email + "'," + no_contrato + ",'" + Fis + "'," + vigencia_contrato + "," + id_organismo + ",'" + tipo_moneda + "'");
+    }
+
+    public boolean actualizarTitular(int id_titular, String titular, String descripcion, String cuenta_bancaria, String codigo_reup, String direccion, String telefono, String fax, String email, int no_contrato, String fecha_inicio_contrato, int vigencia_contrato, int id_organismo, String tipo_moneda) {
+        Date Fid = utilfecha.convierteStringADate(fecha_inicio_contrato, "d/MM/yyyy");
+        String Fis = utilfecha.convierteDateAString(Fid,"yyyy-MM-dd");
+        return this.actualizar("t_titular", "titular='" + titular + "', descripcion='" + descripcion + "', cuenta_bancaria=" + cuenta_bancaria + ", codigo_reup='" + codigo_reup + "', direccion='" + direccion + "', telefono='" + telefono + "', fax='" + fax + "', email='" + email + "', no_contrato=" + no_contrato + ", fecha_inicio_contrato= '" + Fis + "', vigencia_contrato=" + vigencia_contrato + ", id_organismo=" + id_organismo + ", tipo_moneda='" + tipo_moneda + "'", "id_titular = " + id_titular);
+    }
+
+    /**
+     * Método para eliminar Servicio
+     *
+     * @param id_titular
+     * @return boolean
+     */
+    public boolean eliminarTitular(int id_titular) {
+        String donde = "id_titular = " + id_titular;
+        return this.eliminarRegistro("t_titular", donde);
+    }
+
+    /**
+     * Método para mostrar los Titular
      *
      * @return TableModel modelo con los datos de la tabla
      */
@@ -446,7 +486,9 @@ public class modelo extends SQLite_conexion {
 
         try {
             while (resultSet.next()) {
-                arregloTitulares.add(new Titulares(resultSet.getInt("id_titular"), resultSet.getString("titular"), resultSet.getString("descripcion"), resultSet.getString("cuenta_bancaria"), resultSet.getString("codigo_reup"), resultSet.getString("direccion"), resultSet.getString("telefono"), resultSet.getString("fax"), resultSet.getString("email"), resultSet.getInt("no_contrato"), resultSet.getString("fecha_inicio_contrato"), resultSet.getInt("vigencia_contrato"), resultSet.getInt("id_organismo"), resultSet.getBoolean("tipo_moneda"), resultSet.getString("nombre_organismo")));
+                Date fechaIN = utilfecha.convierteStringADate(resultSet.getString("fecha_inicio_contrato"), "yyyy-MM-dd");                
+                String FeIN = utilfecha.convierteDateAString(fechaIN, "d/MM/yyyy");                
+                arregloTitulares.add(new Titulares(resultSet.getInt("id_titular"), resultSet.getString("titular"), resultSet.getString("descripcion"), resultSet.getString("cuenta_bancaria"), resultSet.getString("codigo_reup"), resultSet.getString("direccion"), resultSet.getString("telefono"), resultSet.getString("fax"), resultSet.getString("email"), resultSet.getInt("no_contrato"), FeIN, resultSet.getInt("vigencia_contrato"), resultSet.getInt("id_organismo"), resultSet.getString("tipo_moneda"), resultSet.getString("nombre_organismo")));                
             }
         } catch (SQLException ex) {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
@@ -454,26 +496,27 @@ public class modelo extends SQLite_conexion {
 
         TableModel tm;
         if (arregloTitulares.size() > 0) {
-            String nombreColumna[] = {"No Contrato", "Código Reup", "Descripción", "Cuenta en CUC", "Fecha Ini Contrato", "Fecha Fin Contrato"};
+            String nombreColumna[] = {"No Contrato", "Código Reup", "Titular", "Cuenta", "CUC/CUP", "Fecha Ini Contrato", "Fecha Fin Contrato"};
             tm = new DefaultTableModel(nombreColumna, arregloTitulares.size());
-            int conuntRow = 0;
-            for (int i = 0; i < arregloTitulares.size(); i++) {
+            int conuntRow = 0;            
+            for (int i = 0; i < arregloTitulares.size(); i++) {                
                 tm.setValueAt(arregloTitulares.get(i).getNo_contrato(), conuntRow, 0);
                 tm.setValueAt(arregloTitulares.get(i).getCodigo_reup(), conuntRow, 1);
-                tm.setValueAt(arregloTitulares.get(i).getDescripcion(), conuntRow, 2);
+                tm.setValueAt(arregloTitulares.get(i).getTitular(), conuntRow, 2);                                
                 tm.setValueAt(arregloTitulares.get(i).getCuenta_bancaria(), conuntRow, 3);
-                tm.setValueAt(arregloTitulares.get(i).getFecha_inicio_contrato(), conuntRow, 4);                                                                                             
-                
-                Date fecha = utilfecha.convierteStringADate(arregloTitulares.get(i).getFecha_inicio_contrato(), "yyyy-MM-dd");
-                
+                tm.setValueAt(arregloTitulares.get(i).getTipo_moneda(), conuntRow, 4);
+                tm.setValueAt(arregloTitulares.get(i).getFecha_inicio_contrato(), conuntRow, 5);
+
+                Date fecha = utilfecha.convierteStringADate(arregloTitulares.get(i).getFecha_inicio_contrato(), "d/MM/yyyy");
+
                 int vigenciaContrato = arregloTitulares.get(i).getVigencia_contrato();
                 Date fecha_fin_contrato = utilfecha.sumaAnnos(fecha, vigenciaContrato);
-                
-                tm.setValueAt(utilfecha.convierteDateAString(fecha_fin_contrato), conuntRow, 5);      
+
+                tm.setValueAt(utilfecha.convierteDateAString(fecha_fin_contrato), conuntRow, 6);
                 conuntRow++;
             }
         } else {
-            String nombreColumna[] = {"Descripción"};
+            String nombreColumna[] = {"Titular"};
             tm = new DefaultTableModel(nombreColumna, 1);
             tm.setValueAt("No existen Titulares para mostrar", 0, 0);
         }
@@ -521,4 +564,18 @@ public class modelo extends SQLite_conexion {
         }
         return hash;
     }
+    
+    public void llenarArregloOrganismo(){
+        resultSet = seleccionarResultSet("t_organismo");
+        arregloOrganismos = new ArrayList();        
+
+        try {
+            while (resultSet.next()) {
+                arregloOrganismos.add(new Organismo(resultSet.getInt("id_organismo"), resultSet.getString("nombre_organismo"), resultSet.getString("siglas"), resultSet.getString("abreviaturas")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

@@ -2,7 +2,6 @@ package controllers;
 
 import configuracion.config;
 import factestatal.ficheros.About;
-import views.factestatal.ficheros.AgregarActualizarTitular;
 import factestatal.ficheros.DatosEmpresa;
 import factestatal.ficheros.DetallesDeControl;
 import factestatal.ficheros.Servicios;
@@ -20,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
@@ -30,8 +30,10 @@ import models.DetallesControl;
 import models.Empresa;
 import models.Usuario;
 import models.modelo;
+import myclass.utilfecha;
 import views.factestatal.Autenticar;
 import views.factestatal.Principal;
+import views.factestatal.ficheros.AgregarActualizarTitular;
 import views.factestatal.ficheros.Users;
 import views.factestatal.ficheros.cambiarPassword;
 
@@ -68,7 +70,8 @@ public class controlador implements ActionListener {
     public Image imagen; // variable para el logo de la empresa  
     public String codigo_reup; //codigo reup de la empresa que esta seleccionada (configurado en el xml de configuracion)
     public int id_ueb; // Id de la UEB con la que se esta trabando, este id se carga de (Achivo de configuracion XML  de configuracion)
-    public int idServicio;
+    public int idServicio; // Id del servicio a modificar o seleccionado
+    public int idTitular; // Id del titular a modificar o seleccionado
     File ficheroSeleccionado;
     Empresa e;
 
@@ -86,6 +89,7 @@ public class controlador implements ActionListener {
         this.form_autenticar();
         this.idUsuario = -1;
         this.idServicio = -1;
+        this.idTitular = -1;
 
         // Leer el fichero de configuración
         config conf = new config();//Clase para la lectura y escritura del archivo de configuración
@@ -459,7 +463,7 @@ public class controlador implements ActionListener {
             this.servicio.modificarButton.addActionListener(this);
         }
     }
-    
+
     /**
      * Método para controlar el formulario <b>Titulares</b>
      */
@@ -474,29 +478,30 @@ public class controlador implements ActionListener {
             this.titularesAcction("visualizar");
             //Se agrega las acciones al formulario de Usuario        
             this.titulares.agregarModificarButton.setActionCommand("agrearModificarTitulares");
-            this.titulares.eliminarButton.setActionCommand("eliminarTitulares");            
+            this.titulares.eliminarButton.setActionCommand("eliminarTitulares");
             //Se pone a la escucha de las acciones del Usuario
             this.titulares.agregarModificarButton.addActionListener(this);
             this.titulares.eliminarButton.addActionListener(this);
         }
     }
-    
+
     /**
      * Método para controlar el formulario <b>AgregarActualizarTitular</b>
      */
     public void formAgregarActualizarTitular() {
         this.titularesAgregarActualizar = new AgregarActualizarTitular();
         this.titularesAgregarActualizar.setTitle("Agregar o Actualizar Titular...");
+        this.titularesAgregarActualizar.organismoComboBox.setModel(this.model.organismoCombobox("t_organismo"));
 
         if (!restaurarFormulario(this.titularesAgregarActualizar.getTitle())) {
             this.view.desktopPane.add(this.titularesAgregarActualizar);
             this.titularesAgregarActualizar.setLocation(centradoXY(this.titularesAgregarActualizar));
             this.titularesAgregarActualizar.setVisible(true);
-            this.titularesAcction("visualizar");
+            //this.titularesAcction("visualizar");            
             //Se agrega las acciones al formulario de Usuario        
-            this.titularesAgregarActualizar.agregarModificarButton.setActionCommand("modificarTitulares");            
+            this.titularesAgregarActualizar.agregarModificarButton.setActionCommand("modificarTitulares");
             //Se pone a la escucha de las acciones del Usuario
-            this.titularesAgregarActualizar.agregarModificarButton.addActionListener(this);            
+            this.titularesAgregarActualizar.agregarModificarButton.addActionListener(this);
         }
     }
 
@@ -1001,8 +1006,8 @@ public class controlador implements ActionListener {
         }
         if (!msg.isEmpty()) {
             JOptionPane.showMessageDialog(this.servicio, msg, "Error", JOptionPane.ERROR_MESSAGE);
-        } else {                                    
-            int idTipServ = this.model.arregloTipoServ.get(idTipoServicio-1).getId_tipo_srvicio();                    
+        } else {
+            int idTipServ = this.model.arregloTipoServ.get(idTipoServicio - 1).getId_tipo_srvicio();
             if (this.model.agregarServicio(descripcion, unidad_medida, idTipServ, precio_cuc, precio_cup)) {
                 JOptionPane.showMessageDialog(this.servicio, "Se ha agregado el servicio correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -1038,7 +1043,7 @@ public class controlador implements ActionListener {
         if (!msg.isEmpty()) {
             JOptionPane.showMessageDialog(this.servicio, msg, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            int idTipServ = this.model.arregloTipoServ.get(idTipoServicio-1).getId_tipo_srvicio();
+            int idTipServ = this.model.arregloTipoServ.get(idTipoServicio - 1).getId_tipo_srvicio();
             if (this.model.actualizarServicio(this.idServicio, descripcion, unidad_medida, idTipServ, precio_cuc, precio_cup)) {
                 JOptionPane.showMessageDialog(this.servicio, "Se ha actualizado el Servicio correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -1084,7 +1089,7 @@ public class controlador implements ActionListener {
                 break;
             case "eliminar":
                 fila_seleccionada = this.servicio.visualizarServiciosTable.getSelectedRow();
-                idServicio = this.model.arregloServicio.get(fila_seleccionada).getId_servicio();                
+                idServicio = this.model.arregloServicio.get(fila_seleccionada).getId_servicio();
                 if (idServicio > 0) {
                     int acc = JOptionPane.showConfirmDialog(this.servicio, "Estas seguro de eliminar a " + this.model.arregloServicio.get(fila_seleccionada).getDescripcion(), "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (acc == 0) {
@@ -1097,96 +1102,163 @@ public class controlador implements ActionListener {
                 } else {
                     JOptionPane.showMessageDialog(this.servicio, "Seleccione un usuario para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                idServicio = -1; // Si no se pone esto cuando buelba a intentar 
+                idServicio = -1;
                 this.serviciosAcction("visualizar");
                 break;
             case "modificar":
                 fila_seleccionada = this.servicio.visualizarServiciosTable.getSelectedRow();
-                idServicio = this.model.arregloServicio.get(fila_seleccionada).getId_servicio();                
+                idServicio = this.model.arregloServicio.get(fila_seleccionada).getId_servicio();
                 if (idServicio > 0) {
                     this.servicio.descripcionTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getDescripcion());
-                    this.servicio.unidadMedidaTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getUnidad_medida());                    
-                    
+                    this.servicio.unidadMedidaTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getUnidad_medida());
+
                     this.servicio.tipoServicioComboBox.setModel(this.model.tipoServicioCombobox("t_tipo_servicio"));
-                    
+
                     this.servicio.cucTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getPrecio_cuc());
-                    this.servicio.cupTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getPrecio_cup());                    
-                }                
+                    this.servicio.cupTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getPrecio_cup());
+                }
             default:
                 this.servicio.visualizarServiciosTable.setModel(this.model.mostrarServicios());
                 this.servicio.tipoServicioComboBox.setModel(this.model.tipoServicioCombobox("t_tipo_servicio"));
                 break;
         }
     }
-    
+
     /**
      * Método para agregar titulares
      *
+     * @param titular
      * @param descripcion
-     * @param unidad_medida
-     * @param idTipoServicio
-     * @param precio_cuc
-     * @param precio_cup
+     * @param cuenta_bancaria
+     * @param codigo_reup
+     * @param direccion
+     * @param telefono
+     * @param fax
+     * @param email
+     * @param no_contrato
+     * @param fecha_inicio_contrato
+     * @param fecha_fin_contrato
+     * @param id_organismo
+     * @param tipo_moneda
      */
-    public void agregarTitulares(String descripcion, String unidad_medida, int idTipoServicio, String precio_cuc, String precio_cup) {
+    public void agregarTitulares(String titular, String descripcion, String cuenta_bancaria, String codigo_reup, String direccion, String telefono, String fax, String email, String no_contrato, String fecha_inicio_contrato, String fecha_fin_contrato, int id_organismo, String tipo_moneda) {
+        int noContrato = 0;
         this.msg = "";
-        if (descripcion.isEmpty()) {
-            this.msg += "Descripción: Campo Nulo \n";
+        if (titular.isEmpty()) {
+            this.msg += "Titular: Campo Nulo \n";
         }
-        if (unidad_medida.isEmpty()) {
-            this.msg += "Unidad de Medida: Campo Nula \n";
+        if (cuenta_bancaria.isEmpty() || cuenta_bancaria.length() != 16) {
+            this.msg += "Cuenta Bancaria: El campo no cumple con los requisitos, tiene "+cuenta_bancaria.length()+" caracteres de 16\n";
         }
-        if (idTipoServicio == 0) {
-            this.msg += "Tipo de servicio: Seleccionar un rol \n";
+        if (codigo_reup.isEmpty()) {
+            this.msg += "Codigo Reup: Campo Nula \n";
         }
-        if (precio_cuc.isEmpty() || precio_cup.isEmpty()) {
-            this.msg += "Precio en cuc o cup: Campo Nula \n";
+        if (direccion.isEmpty()) {
+            this.msg += "Dirección: Campo Nula \n";
         }
-        if (!msg.isEmpty()) {
+        if (no_contrato.isEmpty()) {
+            this.msg += "Numero de Contrato: Campo Nulo \n";
+        }
+        if (fecha_inicio_contrato.isEmpty()) {
+            this.msg += "Fecha de Inicio: Campo Nula \n";
+        }
+        if (fecha_fin_contrato.isEmpty()) {
+            this.msg += "Fecha de fin: Campo Nula \n";
+        }
+        if (id_organismo == 0) {
+            this.msg += "Organismo: Se debe seleccionar un organismo \n";
+        }
+        if (!this.msg.isEmpty()) {
             JOptionPane.showMessageDialog(this.servicio, msg, "Error", JOptionPane.ERROR_MESSAGE);
-        } else {                                    
-            int idTipServ = this.model.arregloTipoServ.get(idTipoServicio-1).getId_tipo_srvicio();                    
-            if (this.model.agregarServicio(descripcion, unidad_medida, idTipServ, precio_cuc, precio_cup)) {
-                JOptionPane.showMessageDialog(this.servicio, "Se ha agregado el servicio correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                this.msg = "Error al intentar agregar el servicio";
+        } else {
+            Date fini = utilfecha.convierteStringADate(fecha_inicio_contrato, "d/MM/yyyy");
+            Date ffin = utilfecha.convierteStringADate(fecha_fin_contrato, "d/MM/yyyy");
+            //int comparacionF = fini.compareTo(ffin);
+            if (fini.after(ffin)) {
+                this.msg += "Fecha de Fin: menor o igual a la Fecha de inicio \n";
+            }
+            if (!this.msg.isEmpty()) {
                 JOptionPane.showMessageDialog(this.servicio, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                noContrato = Integer.parseInt(no_contrato);
+                int vigenciaContrato = utilfecha.diferenciaFecha(utilfecha.convierteStringADate(fecha_inicio_contrato, "d/MM/yyyy"), utilfecha.convierteStringADate(fecha_fin_contrato, "d/MM/yyyy"), "A");
+                int id_org = this.model.arregloOrganismos.get(id_organismo - 1).getId_organismo();
+                if (this.model.agregarTitular(titular, descripcion, cuenta_bancaria, codigo_reup, direccion, telefono, fax, email, noContrato, fecha_inicio_contrato, vigenciaContrato, id_org, tipo_moneda)) {
+                    JOptionPane.showMessageDialog(this.servicio, "Se ha agregado el titular correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    this.msg = "Error al intentar agregar el titular \n";
+                    this.msg += "Revice el codigo reup, numero de cuenta o contrato, no puede repetirse";
+                    JOptionPane.showMessageDialog(this.servicio, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
+
     }
 
     /**
      * Método para la modificación de titulares
      *
+     * @param titular
      * @param descripcion
-     * @param unidad_medida
-     * @param idTipoServicio
-     * @param precio_cuc
-     * @param precio_cup
+     * @param cuenta_bancaria
+     * @param codigo_reup
+     * @param direccion
+     * @param telefono
+     * @param fax
+     * @param email
+     * @param no_contrato
+     * @param fecha_inicio_contrato
+     * @param fecha_fin_contrato
+     * @param id_organismo
+     * @param tipo_moneda
      */
-    public void modificarTitulares(String descripcion, String unidad_medida, int idTipoServicio, String precio_cuc, String precio_cup) {
+    public void modificarTitulares(String titular, String descripcion, String cuenta_bancaria, String codigo_reup, String direccion, String telefono, String fax, String email, String no_contrato, String fecha_inicio_contrato, String fecha_fin_contrato, int id_organismo, String tipo_moneda) {
+        int noContrato = 0;
         this.msg = "";
-        if (descripcion.isEmpty()) {
-            this.msg += "Descripción: Campo Nulo \n";
+        if (titular.isEmpty()) {
+            this.msg += "Titular: Campo Nulo \n";
         }
-        if (unidad_medida.isEmpty()) {
-            this.msg += "Unidad de Medida: Campo Nula \n";
+        if (cuenta_bancaria.isEmpty() || cuenta_bancaria.length() != 16) {
+            this.msg += "Cuenta Bancaria: El campo no cumple con los requisitos, tiene "+cuenta_bancaria.length()+" caracteres de 16\n";
         }
-        if (idTipoServicio == 0) {
-            this.msg += "Tipo de Servicio: Seleccionar un Tipo de Servicio \n";
+        if (codigo_reup.isEmpty()) {
+            this.msg += "Codigo Reup: Campo Nula \n";
         }
-        if (precio_cuc.isEmpty() || precio_cup.isEmpty()) {
-            this.msg += "Precio en cuc o cup: Campo Nula \n";
+        if (direccion.isEmpty()) {
+            this.msg += "Dirección: Campo Nula \n";
         }
-        if (!msg.isEmpty()) {
+        if (no_contrato.isEmpty()) {
+            this.msg += "Numero de Contrato: Campo Nulo \n";
+        }
+        if (fecha_inicio_contrato.isEmpty()) {
+            this.msg += "Fecha de Inicio: Campo Nula \n";
+        }
+        if (fecha_fin_contrato.isEmpty()) {
+            this.msg += "Fecha de fin: Campo Nula \n";
+        }
+        if (id_organismo == 0) {
+            this.msg += "Organismo: Se debe seleccionar un organismo \n";
+        }
+        if (!this.msg.isEmpty()) {
             JOptionPane.showMessageDialog(this.servicio, msg, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            int idTipServ = this.model.arregloTipoServ.get(idTipoServicio-1).getId_tipo_srvicio();
-            if (this.model.actualizarServicio(this.idServicio, descripcion, unidad_medida, idTipServ, precio_cuc, precio_cup)) {
-                JOptionPane.showMessageDialog(this.servicio, "Se ha actualizado el Servicio correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                this.msg = "Error al intentar actualizar el servicio";
+            Date fini = utilfecha.convierteStringADate(fecha_inicio_contrato, "d/MM/yyyy");
+            Date ffin = utilfecha.convierteStringADate(fecha_fin_contrato, "d/MM/yyyy");
+            //int comparacionF = fini.compareTo(ffin);
+            if (fini.after(ffin)) {
+                this.msg += "Fecha de Fin: menor o igual a la Fecha de inicio \n";
+            }
+            if (!this.msg.isEmpty()) {
                 JOptionPane.showMessageDialog(this.servicio, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                noContrato = Integer.parseInt(no_contrato);
+                int vigenciaContrato = utilfecha.diferenciaFecha(utilfecha.convierteStringADate(fecha_inicio_contrato, "d/MM/yyyy"), utilfecha.convierteStringADate(fecha_fin_contrato, "d/MM/yyyy"), "A");
+                int id_org = this.model.arregloOrganismos.get(id_organismo - 1).getId_organismo();
+                if (this.model.actualizarTitular(idTitular, titular, descripcion, cuenta_bancaria, codigo_reup, direccion, telefono, fax, email, noContrato, fecha_inicio_contrato, vigenciaContrato, id_org, tipo_moneda)) {
+                    JOptionPane.showMessageDialog(this.servicio, "Se ha actualizado el titular correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    this.msg = "Error al intentar agregar el titular";
+                }
             }
         }
     }
@@ -1196,70 +1268,129 @@ public class controlador implements ActionListener {
      *
      * @param accion String con la accion a realizar
      */
-    private void titularesAcction(String accion) {        
+    private void titularesAcction(String accion) {
         int fila_seleccionada;
+        fila_seleccionada = this.titulares.titularesTable.getSelectedRow();
         switch (accion) {
             case "agregarModifiar":
                 this.formAgregarActualizarTitular();
-                /*// Capturar datos del formulario
-                String descripcion = this.servicio.descripcionTextField.getText();
-                String unidad_medida = this.servicio.unidadMedidaTextField.getText();
-                int idTipoServicio = this.servicio.tipoServicioComboBox.getSelectedIndex();
-                String precio_cuc = this.servicio.cucTextField.getText();
-                String precio_cup = this.servicio.cupTextField.getText();
-                // idUsuario es igual a -1 para crearlo o es igual al id del usario para modificarlo o eliminarlo                
-                if (idServicio == -1) {
-                    this.agregarServicio(descripcion, unidad_medida, idTipoServicio, precio_cuc, precio_cup);
-                } else {
-                    this.modificarServicio(descripcion, unidad_medida, idTipoServicio, precio_cuc, precio_cup);
+                if (fila_seleccionada != -1) {
+                    idTitular = this.model.arregloTitulares.get(fila_seleccionada).getId_titular();
+                    this.rellenarCamposActualizarTitular(fila_seleccionada);
                 }
-                // Si se crea o se ctualiza el usuario entra
-                if (this.msg.isEmpty()) {
-                    // Limpiar todos los escaques del formulario
-                    this.servicio.descripcionTextField.setText("");
-                    this.servicio.unidadMedidaTextField.setText("");
-                    this.servicio.cucTextField.setText("");
-                    this.servicio.cupTextField.setText("");
-                    this.servicio.tipoServicioComboBox.setSelectedIndex(0);
-                    // Refrescar los datos a mostrar en el formulario de visualización
-                    this.serviciosAcction("visualizar");
-                }*/
                 break;
             case "eliminar":
-                /*fila_seleccionada = this.servicio.visualizarServiciosTable.getSelectedRow();
-                idServicio = this.model.arregloServicio.get(fila_seleccionada).getId_servicio();                
-                if (idServicio > 0) {
-                    int acc = JOptionPane.showConfirmDialog(this.servicio, "Estas seguro de eliminar a " + this.model.arregloServicio.get(fila_seleccionada).getDescripcion(), "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (fila_seleccionada != -1) {
+                    idTitular = this.model.arregloTitulares.get(fila_seleccionada).getId_titular();
+                    int acc = JOptionPane.showConfirmDialog(this.titulares, "Estas seguro de eliminar a " + this.model.arregloTitulares.get(fila_seleccionada).getDescripcion(), "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (acc == 0) {
-                        if (this.model.eliminarServicio(idServicio)) {
-                            JOptionPane.showMessageDialog(this.servicio, "Se ha eliminado el Servicio correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                        if (this.model.eliminarTitular(idTitular)) {
+                            JOptionPane.showMessageDialog(this.titulares, "Se ha eliminado el Titular correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
                         } else {
-                            JOptionPane.showMessageDialog(this.servicio, "Error al intentar eliminar el Servicio", "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(this.titulares, "Error al intentar eliminar el Titular", "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this.servicio, "Seleccione un usuario para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this.servicio, "Seleccione un Titular para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                idServicio = -1; // Si no se pone esto cuando buelba a intentar 
-                this.serviciosAcction("visualizar");*/
+
+                idTitular = -1; // Si no se pone esto cuando buelba a intentar 
+                this.titularesAcction("visualizar");
                 break;
+
             case "modificar":
-                /*
-                fila_seleccionada = this.titulares.visualizarServiciosTable.getSelectedRow();
-                idServicio = this.model.arregloServicio.get(fila_seleccionada).getId_servicio();                
-                if (idServicio > 0) {
-                    this.titulares.descripcionTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getDescripcion());
-                    this.titulares.unidadMedidaTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getUnidad_medida());                    
-                    
-                    this.titulares.tipoServicioComboBox.setModel(this.model.tipoServicioCombobox("t_tipo_servicio"));
-                    
-                    this.titulares.cucTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getPrecio_cuc());
-                    this.titulares.cupTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getPrecio_cup());                    
-                } */               
-            default:
-                this.titulares.titularesTable.setModel(this.model.mostrarTitulares());                
+                // Capturar datos del formulario
+                String titular = this.titularesAgregarActualizar.titularTextField.getText();
+                String descripcion = this.titularesAgregarActualizar.descripcionTextField.getText();
+                String cuentaBancaria = this.titularesAgregarActualizar.cuentaBancariaTextField.getText();
+                String codigo_reupp = this.titularesAgregarActualizar.codigo_reupFormattedText.getText();
+                String direccion = this.titularesAgregarActualizar.direccionTextField.getText();
+                String telefono = this.titularesAgregarActualizar.telefonoFormattedText.getText();
+                String fax = this.titularesAgregarActualizar.faxFormattedText.getText();
+                String email = this.titularesAgregarActualizar.emailTextField.getText();
+                String noContrato = this.titularesAgregarActualizar.noContratoFormattedText.getText();
+                String fechaIniContrat = this.titularesAgregarActualizar.fechaInicioContratoFormattedText.getText();
+                String fechaFinContrat = this.titularesAgregarActualizar.FechaFinalContratoFormattedText.getText();
+                int organismoSeleccionado = this.titularesAgregarActualizar.organismoComboBox.getSelectedIndex();
+
+                String tipoMoneda = "CUP";
+                if (this.titularesAgregarActualizar.cucRadioButton.isSelected()) {
+                    tipoMoneda = "CUC";
+                }
+                // Si el id del titual es -1 es que no hay titular seleccionado para modificar por lo que entra a agregar
+                if (idTitular == -1) {
+                    this.agregarTitulares(titular, descripcion, cuentaBancaria, codigo_reupp, direccion, telefono, fax, email, noContrato, fechaIniContrat, fechaFinContrat, organismoSeleccionado, tipoMoneda);
+                } else {
+                    this.modificarTitulares(titular, descripcion, cuentaBancaria, codigo_reupp, direccion, telefono, fax, email, noContrato, fechaIniContrat, fechaFinContrat, organismoSeleccionado, tipoMoneda);
+                }
+                // Si se crea o se ctualiza el titular entra
+                if (this.msg.isEmpty()) {
+                    if (idTitular == -1) {
+                        // Limpiar todos los escaques del formulario
+                        this.titularesAgregarActualizar.titularTextField.setText("");
+                        this.titularesAgregarActualizar.descripcionTextField.setText("");
+                        this.titularesAgregarActualizar.cuentaBancariaTextField.setText("");
+                        this.titularesAgregarActualizar.codigo_reupFormattedText.setText("");
+                        this.titularesAgregarActualizar.direccionTextField.setText("");
+                        this.titularesAgregarActualizar.telefonoFormattedText.setText("");
+                        this.titularesAgregarActualizar.faxFormattedText.setText("");
+                        this.titularesAgregarActualizar.emailTextField.setText("");
+                        this.titularesAgregarActualizar.noContratoFormattedText.setText("");
+                        this.titularesAgregarActualizar.fechaInicioContratoFormattedText.setText("");
+                        this.titularesAgregarActualizar.FechaFinalContratoFormattedText.setText("");
+                        this.titularesAgregarActualizar.organismoComboBox.setSelectedIndex(0);
+                        this.titularesAgregarActualizar.cucRadioButton.setSelected(true);
+                        // Refrescar los datos a mostrar en el formulario de visualización
+                    }
+                    try {
+                        this.cerrar(titularesAgregarActualizar);                        
+                    } catch (PropertyVetoException ex) {
+                        JOptionPane.showMessageDialog(this.servicio, ex, "Error", JOptionPane.ERROR_MESSAGE);
+                    }                        
+                    this.titularesAcction("visualizar");
+                }
+            default:                
+                this.titulares.titularesTable.setModel(this.model.mostrarTitulares());
+                idTitular = -1;
                 break;
         }
+    }
+
+    /**
+     * Método para rellenar los campos del formulario actualizar titular.
+     *
+     * @param fila_seleccionada
+     */
+    public void rellenarCamposActualizarTitular(int fila_seleccionada) {
+        this.titularesAgregarActualizar.codigo_reupFormattedText.setText(this.model.arregloTitulares.get(fila_seleccionada).getCodigo_reup());
+        this.titularesAgregarActualizar.titularTextField.setText(this.model.arregloTitulares.get(fila_seleccionada).getTitular());
+        this.titularesAgregarActualizar.descripcionTextField.setText(this.model.arregloTitulares.get(fila_seleccionada).getDescripcion());
+        this.titularesAgregarActualizar.cuentaBancariaTextField.setText(this.model.arregloTitulares.get(fila_seleccionada).getCuenta_bancaria());
+        // Para selecionar la moneda
+        if ("CUC".equals(this.model.arregloTitulares.get(fila_seleccionada).getTipo_moneda())) {
+            this.titularesAgregarActualizar.cucRadioButton.setSelected(true);
+        } else {
+            this.titularesAgregarActualizar.cupRadioButton.setSelected(true);
+        }
+        //
+        // Para ubicar el organismo que esta seleccionado y seleccionarlo
+        int fila_sel = 0;        
+        for (int i = 0; i < this.model.arregloOrganismos.size(); i++) {            
+            if (this.model.arregloOrganismos.get(i).getId_organismo() == this.model.arregloTitulares.get(fila_seleccionada).getId_organismo()) {
+                fila_sel = i + 1;
+                i = this.model.arregloOrganismos.size() + 1;                
+            }
+        }
+        //
+        this.titularesAgregarActualizar.organismoComboBox.setSelectedIndex(fila_sel);
+        this.titularesAgregarActualizar.direccionTextField.setText(this.model.arregloTitulares.get(fila_seleccionada).getDireccion());
+        this.titularesAgregarActualizar.telefonoFormattedText.setText(this.model.arregloTitulares.get(fila_seleccionada).getTelefono());
+        this.titularesAgregarActualizar.faxFormattedText.setText(this.model.arregloTitulares.get(fila_seleccionada).getFax());
+        this.titularesAgregarActualizar.emailTextField.setText(this.model.arregloTitulares.get(fila_seleccionada).getEmail());
+        this.titularesAgregarActualizar.noContratoFormattedText.setText(String.valueOf(this.model.arregloTitulares.get(fila_seleccionada).getNo_contrato()));
+        this.titularesAgregarActualizar.fechaInicioContratoFormattedText.setText(this.model.arregloTitulares.get(fila_seleccionada).getFecha_inicio_contrato());
+        String fechaFinContrato = utilfecha.convierteDateAString(utilfecha.sumaAnnos(utilfecha.convierteStringADate(this.model.arregloTitulares.get(fila_seleccionada).getFecha_inicio_contrato(), "d/MM/yyyy"), this.model.arregloTitulares.get(fila_seleccionada).getVigencia_contrato()));
+        this.titularesAgregarActualizar.FechaFinalContratoFormattedText.setText(fechaFinContrato);
     }
 
     /**
@@ -1386,65 +1517,60 @@ public class controlador implements ActionListener {
             return false;
         }
     }
-    
+
     /**
      * Método para Mostrar u Ocultar la Barra de Importar Exportar
      */
-    public void mostrarOcultarBarraImportarExportar(){
-        if (this.view.importarExportarToolBar.isVisible()){
+    public void mostrarOcultarBarraImportarExportar() {
+        if (this.view.importarExportarToolBar.isVisible()) {
             this.view.importarExportarToolBar.setVisible(false);
-        }
-        else {
+        } else {
             this.view.importarExportarToolBar.setVisible(true);
         }
     }
-    
+
     /**
      * Método para Mostrar u Ocultar la Barra de Acciones
      */
-    public void mostrarOcultarBarraAcciones(){
-        if (this.view.accionesToolBar.isVisible()){
+    public void mostrarOcultarBarraAcciones() {
+        if (this.view.accionesToolBar.isVisible()) {
             this.view.accionesToolBar.setVisible(false);
-        }
-        else {
+        } else {
             this.view.accionesToolBar.setVisible(true);
         }
     }
-    
+
     /**
      * Método para Mostrar u Ocultar la Barra de Informes
      */
-    public void mostrarOcultarBarraInformes(){
-        if (this.view.informesToolBar.isVisible()){
+    public void mostrarOcultarBarraInformes() {
+        if (this.view.informesToolBar.isVisible()) {
             this.view.informesToolBar.setVisible(false);
-        }
-        else {
+        } else {
             this.view.informesToolBar.setVisible(true);
         }
     }
-    
+
     /**
      * Método para Mostrar u Ocultar la Barra de Cierre de Mes
      */
-    public void mostrarOcultarBarraCierreMes(){
-        if (this.view.cierreToolBar.isVisible()){
+    public void mostrarOcultarBarraCierreMes() {
+        if (this.view.cierreToolBar.isVisible()) {
             this.view.cierreToolBar.setVisible(false);
-        }
-        else {
+        } else {
             this.view.cierreToolBar.setVisible(true);
         }
     }
-    
+
     /**
      * Método para Mostrar u Ocultar la Barra de Cobros
      */
-    public void mostrarOcultarBarraCobros(){
-        if (this.view.cobrosToolBar.isVisible()){
-            this.view.cobrosToolBar.setVisible(false);                        
-        }
-        else {
+    public void mostrarOcultarBarraCobros() {
+        if (this.view.cobrosToolBar.isVisible()) {
+            this.view.cobrosToolBar.setVisible(false);
+        } else {
             this.view.cobrosToolBar.setVisible(true);
-            
+
         }
     }
 

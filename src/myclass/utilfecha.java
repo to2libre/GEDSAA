@@ -34,11 +34,31 @@ public class utilfecha {
         }
     }
     
-     public static String convierteDateAString(Date fecha) {
+    /**
+     * Método para convertir Date a String compliento con formato entrado
+     * @param fecha
+     * @param formato
+     * @return 
+     */
+    public static String convierteDateAString(Date fecha, String formato) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(fecha);
         //cal.add(Calendar.DATE, 1);
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format1 = new SimpleDateFormat(formato);
+        String formatted = format1.format(cal.getTime());
+        return formatted;
+    }
+
+     /**
+      * Método para comvertir un Date a String
+     * @param fecha     
+     * @return 
+     */
+    public static String convierteDateAString(Date fecha) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(fecha);
+        //cal.add(Calendar.DATE, 1);
+        SimpleDateFormat format1 = new SimpleDateFormat("d/MM/yyyy");      
 
         String formatted = format1.format(cal.getTime());
         return formatted;
@@ -93,5 +113,26 @@ public class utilfecha {
         cal.setTime(fecha);
         cal.add(Calendar.YEAR, annos);
         return cal.getTime();
+    }
+
+    /**
+     * Método para el conocer la diferencia en años entre dos fechas
+     *
+     * @param fechaInicial
+     * @param fechaFinal
+     * @param modo es <b>A</b> si quieres devolver la diferencia en Años,
+     * <b>D</b> en días y <b>M</b>en meses.
+     * @return
+     */
+    public static int diferenciaFecha(Date fechaInicial, Date fechaFinal, String modo) {
+        int dias = (int) ((fechaFinal.getTime() - fechaInicial.getTime()) / 86400000);
+        if (modo.equals("A")) {
+            return (dias / 365);
+        }
+        if (modo.equals("D")) {
+            return dias;
+        }
+        else
+            return (dias / 12);
     }
 }

@@ -56,10 +56,13 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Visualizar Titulares en CUC"/>
+            <TitledBorder title="Visualizar Titulares"/>
           </Border>
         </Property>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Visualizar Titulares"/>
+      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -84,11 +87,12 @@
             <Component class="javax.swing.JTable" name="titularesTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="4">
+                  <Table columnCount="7" rowCount="4">
                     <Column editable="false" title="No Contrato" type="java.lang.Integer"/>
                     <Column editable="false" title="C&#xf3;digo Reup" type="java.lang.String"/>
-                    <Column editable="false" title="Descripci&#xf3;n" type="java.lang.String"/>
-                    <Column editable="false" title="Cuenta en CUC" type="java.lang.String"/>
+                    <Column editable="false" title="Titular" type="java.lang.String"/>
+                    <Column editable="false" title="Cuenta" type="java.lang.String"/>
+                    <Column editable="false" title="CUC/CUP" type="java.lang.Boolean"/>
                     <Column editable="false" title="Fecha Ini Contrato" type="java.lang.String"/>
                     <Column editable="false" title="Fecha Fin Contrato" type="java.lang.String"/>
                   </Table>

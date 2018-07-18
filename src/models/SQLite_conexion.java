@@ -55,6 +55,7 @@ public class SQLite_conexion {
             res = true;
         } catch (SQLException e) {            
             if (e.getErrorCode() == 19){
+                System.err.println(e.getMessage());//Esto es para imprimir el error que esta ocurriendo
                 return false;
             }
             else

@@ -24,13 +24,13 @@ public class Titulares {
     String fecha_inicio_contrato;
     int vigencia_contrato;
     int id_organismo;
-    boolean tipo_moneda;
+    String tipo_moneda;
     String nombre_organismo;
 
     public Titulares() {
     }
 
-    public Titulares(int id_titular, String titular, String descripcion, String cuenta_bancaria, String codigo_reup, String direccion, String telefono, String fax, String email, int no_contrato, String fecha_inicio_contrato, int vigencia_contrato, int id_organismo, boolean tipo_moneda, String nombre_organismo) {
+    public Titulares(int id_titular, String titular, String descripcion, String cuenta_bancaria, String codigo_reup, String direccion, String telefono, String fax, String email, int no_contrato, String fecha_inicio_contrato, int vigencia_contrato, int id_organismo, String tipo_moneda, String nombre_organismo) {
         this.id_titular = id_titular;
         this.titular = titular;
         this.descripcion = descripcion;
@@ -104,7 +104,7 @@ public class Titulares {
         return vigencia_contrato;
     }
 
-    public boolean isTipo_moneda() {
+    public String getTipo_moneda() {
         return tipo_moneda;
     }
 
@@ -156,7 +156,7 @@ public class Titulares {
         this.telefono = telefono;
     }
 
-    public void setTipo_moneda(boolean tipo_moneda) {
+    public void setTipo_moneda(String tipo_moneda) {
         this.tipo_moneda = tipo_moneda;
     }
 

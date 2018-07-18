@@ -39,24 +39,24 @@ public class Titulares extends javax.swing.JInternalFrame {
         setTitle("Titulares");
         setFrameIcon(null);
 
-        Panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualizar Titulares en CUC"));
+        Panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualizar Titulares"));
 
         titularesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "No Contrato", "Código Reup", "Descripción", "Cuenta en CUC", "Fecha Ini Contrato", "Fecha Fin Contrato"
+                "No Contrato", "Código Reup", "Titular", "Cuenta", "CUC/CUP", "Fecha Ini Contrato", "Fecha Fin Contrato"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -106,6 +106,8 @@ public class Titulares extends javax.swing.JInternalFrame {
                     .addComponent(eliminarButton))
                 .addContainerGap())
         );
+
+        Panel.getAccessibleContext().setAccessibleName("Visualizar Titulares");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
