@@ -20,6 +20,12 @@ public class config {
     File xmlFile;
     public String codigo_reup;
     public int id_ueb;
+    public boolean barraImportarExportar; // Carga de (Achivo de configuracion XML  de configuracion)
+    public boolean barraAcciones; // Carga de (Achivo de configuracion XML  de configuracion)
+    public boolean barraInformes; // Carga de (Achivo de configuracion XML  de configuracion)
+    public boolean barraCierreMes; // Carga de (Achivo de configuracion XML  de configuracion)
+    public boolean barraCobros; // Carga de (Achivo de configuracion XML  de configuracion)
+    List list;
 
     public config() {
         //Se crea un SAXBuilder para poder parsear el archivo
@@ -36,30 +42,50 @@ public class config {
             Element rootNode = document.getRootElement();
 
             //Se obtiene la lista de hijos de la raiz 'configuracion'
-            List list = rootNode.getChildren("configuracion");
+            list = rootNode.getChildren("configuracion");
 
             codigo_reup = ((Element) list.get(0)).getChildText("codigo_reup");
-            id_ueb = Integer.parseInt(((Element) list.get(0)).getChildText("id_ueb"));
+            id_ueb = Integer.parseInt(((Element) list.get(0)).getChildText("id_ueb"));            
+            barraImportarExportar = Boolean.valueOf(((Element) list.get(0)).getChildText("barraImportarExportar"));
+            barraAcciones = Boolean.valueOf(((Element) list.get(0)).getChildText("barraAcciones"));
+            barraInformes = Boolean.valueOf(((Element) list.get(0)).getChildText("barraInformes"));
+            barraCierreMes = Boolean.valueOf(((Element) list.get(0)).getChildText("barraCierreMes"));
+            barraCobros = Boolean.valueOf((((Element) list.get(0)).getChildText("barraCobros")));            
         } catch (IOException | JDOMException io) {
-            System.out.println(io.getMessage());
+            System.err.println(io.getMessage());  
+            System.err.println(io.getLocalizedMessage());
         }
     }
-
-    public void escribirXML(String cofigo_reup, int id_ueb) {
-
+    
+    public void escribirXML(){
         try {
             //Se crea el documento a traves del archivo
             Document doc = (Document) builder.build(xmlFile);
                       
+            //Llenando valores del archivo de configuración
             Element codigo_reup1 = new Element("codigo_reup");
-            codigo_reup1.setText(cofigo_reup);
-            
+            codigo_reup1.setText(this.codigo_reup);           
             Element id_ueb1 = new Element("id_ueb");
-            id_ueb1.setText(String.valueOf(id_ueb));
+            id_ueb1.setText(String.valueOf(this.id_ueb));
+            Element barraImportarExportar1 = new Element("barraImportarExportar");
+            barraImportarExportar1.setText(String.valueOf(this.barraImportarExportar));
+            Element barraAcciones1 = new Element("barraAcciones");
+            barraAcciones1.setText(String.valueOf(this.barraAcciones));
+            Element barraInformes1 = new Element("barraInformes");
+            barraInformes1.setText(String.valueOf(this.barraInformes));
+            Element barraCierreMes1 = new Element("barraCierreMes");
+            barraCierreMes1.setText(String.valueOf(this.barraCierreMes));
+            Element barraCobros1 = new Element("barraCobros");
+            barraCobros1.setText(String.valueOf(this.barraCobros));
             
             LinkedList contenido = new LinkedList();
             contenido.add(codigo_reup1);
             contenido.add(id_ueb1);
+            contenido.add(barraImportarExportar1);
+            contenido.add(barraAcciones1);
+            contenido.add(barraInformes1);
+            contenido.add(barraCierreMes1);
+            contenido.add(barraCobros1);
             
             doc.getRootElement().getChild("configuracion").setContent(contenido);
             
@@ -68,11 +94,17 @@ public class config {
             // display nice nice
             xmlOutput.setFormat(Format.getPrettyFormat());
             xmlOutput.output(doc, new FileWriter(this.xmlFile));
-            
-            System.out.println("File Saved!");
         } catch (JDOMException | IOException ex) {
+            System.err.println(ex.getMessage());
+            System.err.println(ex.getLocalizedMessage());
             Logger.getLogger(config.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void escribirXML(String cofigo_reup, int id_ueb) {
+        this.codigo_reup = cofigo_reup;
+        this.id_ueb = id_ueb;
+        escribirXML();
     }
 
     public void setCodigo_reup(String codigo_reup) {
@@ -81,6 +113,31 @@ public class config {
 
     public void setId_ueb(int id_ueb) {
         this.id_ueb = id_ueb;
+    }
+    
+    public void setBarraAcciones(boolean barraAcciones) {
+        this.barraAcciones = barraAcciones;
+        escribirXML();
+    }
+
+    public void setBarraCierreMes(boolean barraCierreMes) {
+        this.barraCierreMes = barraCierreMes;        
+        escribirXML();
+    }
+
+    public void setBarraCobros(boolean barraCobros) {
+        this.barraCobros = barraCobros;        
+        escribirXML();
+    }
+
+    public void setBarraImportarExportar(boolean barraImportarExportar) {
+        this.barraImportarExportar = barraImportarExportar;
+        escribirXML();
+    }
+
+    public void setBarraInformes(boolean barraInformes) {
+        this.barraInformes = barraInformes;
+        this.escribirXML();
     }
 
     public int getId_ueb() {
@@ -91,4 +148,23 @@ public class config {
         return codigo_reup;
     }
 
+    public boolean isBarraAcciones() {
+        return barraAcciones;
+    }
+
+    public boolean isBarraCierreMes() {
+        return barraCierreMes;
+    }
+
+    public boolean isBarraCobros() {
+        return barraCobros;
+    }
+
+    public boolean isBarraImportarExportar() {
+        return barraImportarExportar;
+    }
+
+    public boolean isBarraInformes() {
+        return barraInformes;
+    }
 }

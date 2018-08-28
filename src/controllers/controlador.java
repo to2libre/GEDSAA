@@ -68,10 +68,16 @@ public class controlador implements ActionListener {
     public String msg;// Variable que guarda los mensages del sistema, sean informacion o error
     public int idUsuario; // id del usuario que se desea modificar en getionar usuario
     public Image imagen; // variable para el logo de la empresa  
+    config conf;
     public String codigo_reup; //codigo reup de la empresa que esta seleccionada (configurado en el xml de configuracion)
     public int id_ueb; // Id de la UEB con la que se esta trabando, este id se carga de (Achivo de configuracion XML  de configuracion)
     public int idServicio; // Id del servicio a modificar o seleccionado
     public int idTitular; // Id del titular a modificar o seleccionado
+    public boolean barraImportarExportar; // Carga de (Achivo de configuracion XML  de configuracion)
+    public boolean barraAcciones; // Carga de (Achivo de configuracion XML  de configuracion)
+    public boolean barraInformes; // Carga de (Achivo de configuracion XML  de configuracion)
+    public boolean barraCierreMes; // Carga de (Achivo de configuracion XML  de configuracion)
+    public boolean barraCobros; // Carga de (Achivo de configuracion XML  de configuracion)
     File ficheroSeleccionado;
     Empresa e;
 
@@ -92,10 +98,52 @@ public class controlador implements ActionListener {
         this.idTitular = -1;
 
         // Leer el fichero de configuración
-        config conf = new config();//Clase para la lectura y escritura del archivo de configuración
-        conf.leerXml();//Método para leer el archivo de configuración
-        this.codigo_reup = conf.getCodigo_reup();//Guardo el codigo reup en la variable ocn mismo nonbre
-        this.id_ueb = conf.getId_ueb();//Guardo el id_ueb en la variable con mismo nombre
+        this.conf = new config(); //Clase para la lectura y escritura del archivo de configuración
+        this.conf.leerXml(); //Método para leer el archivo de configuración
+        this.codigo_reup = conf.getCodigo_reup(); //Guardo el codigo reup en la variable ocn mismo nonbre
+        this.id_ueb = conf.getId_ueb(); //Guardo el id_ueb en la variable con mismo nombre
+        this.barraImportarExportar = conf.isBarraImportarExportar();
+        this.barraAcciones = conf.isBarraAcciones();
+        this.barraInformes = conf.isBarraInformes();
+        this.barraCierreMes = conf.isBarraCierreMes();
+        this.barraCobros = conf.isBarraCobros();        
+
+        //cargar barra de herramienta
+        if (barraImportarExportar) {
+            this.view.importarExportarToolBar.setVisible(true);
+            this.view.barraImportarExportarMenuItem.setSelected(true);
+        } else {
+            this.view.importarExportarToolBar.setVisible(false);
+            this.view.barraImportarExportarMenuItem.setSelected(false);
+        }
+        if (barraAcciones) {
+            this.view.accionesToolBar.setVisible(true);
+            this.view.barraAccionesMenuItem.setSelected(true);
+        } else {
+            this.view.accionesToolBar.setVisible(false);
+            this.view.barraAccionesMenuItem.setSelected(false);
+        }
+        if (barraInformes) {
+            this.view.informesToolBar.setVisible(true);
+            this.view.barraInformesMenuItem.setSelected(true);
+        } else {
+            this.view.informesToolBar.setVisible(false);
+            this.view.barraInformesMenuItem.setSelected(false);
+        }
+        if (barraCierreMes) {
+            this.view.cierreToolBar.setVisible(true);
+            this.view.barraCierreMesMenuItem.setSelected(true);
+        } else {
+            this.view.cierreToolBar.setVisible(false);
+            this.view.barraCierreMesMenuItem.setSelected(false);
+        }
+        if (barraCobros) {
+            this.view.cobrosToolBar.setVisible(true);
+            this.view.barraCobrosMenuItem.setSelected(true);
+        } else {
+            this.view.cobrosToolBar.setVisible(false);
+            this.view.barraCobrosMenuItem.setSelected(false);
+        }
     }
 
     @Override
@@ -1148,7 +1196,7 @@ public class controlador implements ActionListener {
             this.msg += "Titular: Campo Nulo \n";
         }
         if (cuenta_bancaria.isEmpty() || cuenta_bancaria.length() != 16) {
-            this.msg += "Cuenta Bancaria: El campo no cumple con los requisitos, tiene "+cuenta_bancaria.length()+" caracteres de 16\n";
+            this.msg += "Cuenta Bancaria: El campo no cumple con los requisitos, tiene " + cuenta_bancaria.length() + " caracteres de 16\n";
         }
         if (codigo_reup.isEmpty()) {
             this.msg += "Codigo Reup: Campo Nula \n";
@@ -1219,7 +1267,7 @@ public class controlador implements ActionListener {
             this.msg += "Titular: Campo Nulo \n";
         }
         if (cuenta_bancaria.isEmpty() || cuenta_bancaria.length() != 16) {
-            this.msg += "Cuenta Bancaria: El campo no cumple con los requisitos, tiene "+cuenta_bancaria.length()+" caracteres de 16\n";
+            this.msg += "Cuenta Bancaria: El campo no cumple con los requisitos, tiene " + cuenta_bancaria.length() + " caracteres de 16\n";
         }
         if (codigo_reup.isEmpty()) {
             this.msg += "Codigo Reup: Campo Nula \n";
@@ -1343,13 +1391,13 @@ public class controlador implements ActionListener {
                         // Refrescar los datos a mostrar en el formulario de visualización
                     }
                     try {
-                        this.cerrar(titularesAgregarActualizar);                        
+                        this.cerrar(titularesAgregarActualizar);
                     } catch (PropertyVetoException ex) {
                         JOptionPane.showMessageDialog(this.servicio, ex, "Error", JOptionPane.ERROR_MESSAGE);
-                    }                        
+                    }
                     this.titularesAcction("visualizar");
                 }
-            default:                
+            default:
                 this.titulares.titularesTable.setModel(this.model.mostrarTitulares());
                 idTitular = -1;
                 break;
@@ -1374,11 +1422,11 @@ public class controlador implements ActionListener {
         }
         //
         // Para ubicar el organismo que esta seleccionado y seleccionarlo
-        int fila_sel = 0;        
-        for (int i = 0; i < this.model.arregloOrganismos.size(); i++) {            
+        int fila_sel = 0;
+        for (int i = 0; i < this.model.arregloOrganismos.size(); i++) {
             if (this.model.arregloOrganismos.get(i).getId_organismo() == this.model.arregloTitulares.get(fila_seleccionada).getId_organismo()) {
                 fila_sel = i + 1;
-                i = this.model.arregloOrganismos.size() + 1;                
+                i = this.model.arregloOrganismos.size() + 1;
             }
         }
         //
@@ -1522,10 +1570,14 @@ public class controlador implements ActionListener {
      * Método para Mostrar u Ocultar la Barra de Importar Exportar
      */
     public void mostrarOcultarBarraImportarExportar() {
-        if (this.view.importarExportarToolBar.isVisible()) {
+        if (barraImportarExportar) {
             this.view.importarExportarToolBar.setVisible(false);
+            this.conf.setBarraImportarExportar(false);
+            this.barraImportarExportar = conf.isBarraImportarExportar();
         } else {
             this.view.importarExportarToolBar.setVisible(true);
+            this.conf.setBarraImportarExportar(true);
+            this.barraImportarExportar = conf.isBarraImportarExportar();
         }
     }
 
@@ -1535,8 +1587,12 @@ public class controlador implements ActionListener {
     public void mostrarOcultarBarraAcciones() {
         if (this.view.accionesToolBar.isVisible()) {
             this.view.accionesToolBar.setVisible(false);
+            this.conf.setBarraAcciones(false);
+            this.barraAcciones = conf.barraAcciones;
         } else {
             this.view.accionesToolBar.setVisible(true);
+            this.conf.setBarraAcciones(true);
+            this.barraAcciones = conf.barraAcciones;
         }
     }
 
@@ -1546,8 +1602,12 @@ public class controlador implements ActionListener {
     public void mostrarOcultarBarraInformes() {
         if (this.view.informesToolBar.isVisible()) {
             this.view.informesToolBar.setVisible(false);
+            this.conf.setBarraInformes(false);
+            this.barraInformes = conf.barraInformes;
         } else {
             this.view.informesToolBar.setVisible(true);
+            this.conf.setBarraInformes(true);
+            this.barraInformes = conf.barraInformes;
         }
     }
 
@@ -1557,8 +1617,12 @@ public class controlador implements ActionListener {
     public void mostrarOcultarBarraCierreMes() {
         if (this.view.cierreToolBar.isVisible()) {
             this.view.cierreToolBar.setVisible(false);
+            this.conf.setBarraCierreMes(false);
+            this.barraCierreMes = conf.barraCierreMes;
         } else {
             this.view.cierreToolBar.setVisible(true);
+            this.conf.setBarraCierreMes(true);
+            this.barraCierreMes = conf.barraCierreMes;
         }
     }
 
@@ -1568,10 +1632,12 @@ public class controlador implements ActionListener {
     public void mostrarOcultarBarraCobros() {
         if (this.view.cobrosToolBar.isVisible()) {
             this.view.cobrosToolBar.setVisible(false);
+            this.conf.setBarraCobros(false);
+            this.barraCierreMes = conf.barraCierreMes;
         } else {
             this.view.cobrosToolBar.setVisible(true);
-
+            this.conf.setBarraCobros(true);
+            this.barraCierreMes = conf.barraCierreMes;
         }
     }
-
 }

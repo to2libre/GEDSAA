@@ -3,5 +3,10 @@
   <configuracion>
     <codigo_reup>48159263</codigo_reup>
     <id_ueb>1</id_ueb>
+    <barraImportarExportar>true</barraImportarExportar>
+    <barraAcciones>true</barraAcciones>
+    <barraInformes>true</barraInformes>
+    <barraCierreMes>true</barraCierreMes>
+    <barraCobros>true</barraCobros>
   </configuracion>
 </root>
