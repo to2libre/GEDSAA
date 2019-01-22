@@ -32,6 +32,9 @@ public class modelo extends SQLite_conexion {
     public ArrayList<Servicio> arregloServicio;
     public ArrayList<Titulares> arregloTitulares;
     public ArrayList<Organismo> arregloOrganismos;
+    public ArrayList<Cliente> arregloCliente;
+    public ArrayList<ClienteServicio> arregloClienteServicio;
+    public ArrayList<ServicioSobreConsumo> arregloServicioSobreC;
 
     /**
      * Constructor de la clase <b>modelo</b>
@@ -44,8 +47,7 @@ public class modelo extends SQLite_conexion {
      *
      * @param usuario Usario a verificar
      * @param password Password a verificar codificada en sha2
-     * @return Verdadero si el usuario y la contraseña existe, falso si no
-     * existe.
+     * @return
      */
     public Usuario Autenticar(String usuario, String password) {
         String pssSHA512 = getStringMessageDigest(password, "SHA-512");
@@ -55,6 +57,9 @@ public class modelo extends SQLite_conexion {
             if (resultSet.next()) {
                 try {
                     this.usuario = new Usuario(resultSet.getInt("id_usuario"), resultSet.getString("usuario"), resultSet.getString("password"), resultSet.getInt("id_rol"), resultSet.getString("rol"));
+                    Date hoy = new Date();
+                    String Fis = utilfecha.convierteDateAString(hoy, "yyyy-MM-dd kk:mm:ss");
+                    insertar("t_session", "fecha, id_usuario", "'" + Fis + "'," + this.getUsuario().getIdUsuario());
                 } catch (SQLException ex) {
                     Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -62,7 +67,7 @@ public class modelo extends SQLite_conexion {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-        return this.getUsuario();
+        return getUsuario();
     }
 
     /**
@@ -99,24 +104,23 @@ public class modelo extends SQLite_conexion {
      *
      * @param tabla String con el nombre de la tabla que tiene los datos
      * necesatios
-     * @param campos Strign en el formato campo1, campo2, campon, ... con los
-     * campos necesarios
+     * @return
      */
     public ComboBoxModel rolCombobox(String tabla) {
         ComboBoxModel cbm;
 
         resultSet = seleccionarResultSet(tabla);
-        ArrayList arreglo = new ArrayList();
-        arreglo.add("Seleccionar");
+        ArrayList arreglo1 = new ArrayList();
+        arreglo1.add("Seleccionar");
 
         try {
             while (resultSet.next()) {
-                arreglo.add(resultSet.getString("rol"));
+                arreglo1.add(resultSet.getString("rol"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        cbm = new DefaultComboBoxModel(arreglo.toArray());
+        cbm = new DefaultComboBoxModel(arreglo1.toArray());
 
         return cbm;
     }
@@ -208,7 +212,7 @@ public class modelo extends SQLite_conexion {
         ComboBoxModel cbm;
         resultSet = seleccionarResultSet(tabla);
         arregloOrganismos = new ArrayList<>();
-        
+
         ArrayList arreglo1 = new ArrayList();
         arreglo1.add("Seleccionar");
 
@@ -367,8 +371,7 @@ public class modelo extends SQLite_conexion {
      *
      * @param tabla String con el nombre de la tabla que tiene los datos
      * necesatios
-     * @param campos Strign en el formato campo1, campo2, campon, ... con los
-     * campos necesarios
+     * @return
      */
     public ComboBoxModel tipoServicioCombobox(String tabla) {
         ComboBoxModel cbm;
@@ -387,6 +390,27 @@ public class modelo extends SQLite_conexion {
         cbm = new DefaultComboBoxModel(arreglo1.toArray());
 
         getTipoServicio(); // Esto es para refrescar los tipos de servicio (guardarlos en array)
+        return cbm;
+    }
+
+    public ComboBoxModel servicioCombobox(String tabla) {
+        ComboBoxModel cbm;
+
+        resultSet = seleccionarResultSet(tabla);
+        ArrayList arreglo1 = new ArrayList();
+        arreglo1.add("Seleccionar");
+
+        try {
+            while (resultSet.next()) {
+                arreglo1.add(resultSet.getString("descripcion"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cbm = new DefaultComboBoxModel(arreglo1.toArray());
+
+        mostrarServicios();
+        //getTipoServicio(); // Esto es para refrescar los tipos de servicio (guardarlos en array)
         return cbm;
     }
 
@@ -453,13 +477,13 @@ public class modelo extends SQLite_conexion {
      */
     public boolean agregarTitular(String titular, String descripcion, String cuenta_bancaria, String codigo_reup, String direccion, String telefono, String fax, String email, int no_contrato, String fecha_inicio_contrato, int vigencia_contrato, int id_organismo, String tipo_moneda) {
         Date Fid = utilfecha.convierteStringADate(fecha_inicio_contrato, "d/MM/yyyy");
-        String Fis = utilfecha.convierteDateAString(Fid,"yyyy-MM-dd");        
+        String Fis = utilfecha.convierteDateAString(Fid, "yyyy-MM-dd");
         return insertar("t_titular", "titular, descripcion, cuenta_bancaria, codigo_reup, direccion, telefono, fax, email, no_contrato, fecha_inicio_contrato, vigencia_contrato, id_organismo, tipo_moneda", "'" + titular + "','" + descripcion + "'," + cuenta_bancaria + ",'" + codigo_reup + "','" + direccion + "','" + telefono + "','" + fax + "','" + email + "'," + no_contrato + ",'" + Fis + "'," + vigencia_contrato + "," + id_organismo + ",'" + tipo_moneda + "'");
     }
 
     public boolean actualizarTitular(int id_titular, String titular, String descripcion, String cuenta_bancaria, String codigo_reup, String direccion, String telefono, String fax, String email, int no_contrato, String fecha_inicio_contrato, int vigencia_contrato, int id_organismo, String tipo_moneda) {
         Date Fid = utilfecha.convierteStringADate(fecha_inicio_contrato, "d/MM/yyyy");
-        String Fis = utilfecha.convierteDateAString(Fid,"yyyy-MM-dd");
+        String Fis = utilfecha.convierteDateAString(Fid, "yyyy-MM-dd");
         return this.actualizar("t_titular", "titular='" + titular + "', descripcion='" + descripcion + "', cuenta_bancaria=" + cuenta_bancaria + ", codigo_reup='" + codigo_reup + "', direccion='" + direccion + "', telefono='" + telefono + "', fax='" + fax + "', email='" + email + "', no_contrato=" + no_contrato + ", fecha_inicio_contrato= '" + Fis + "', vigencia_contrato=" + vigencia_contrato + ", id_organismo=" + id_organismo + ", tipo_moneda='" + tipo_moneda + "'", "id_titular = " + id_titular);
     }
 
@@ -486,9 +510,9 @@ public class modelo extends SQLite_conexion {
 
         try {
             while (resultSet.next()) {
-                Date fechaIN = utilfecha.convierteStringADate(resultSet.getString("fecha_inicio_contrato"), "yyyy-MM-dd");                
-                String FeIN = utilfecha.convierteDateAString(fechaIN, "d/MM/yyyy");                
-                arregloTitulares.add(new Titulares(resultSet.getInt("id_titular"), resultSet.getString("titular"), resultSet.getString("descripcion"), resultSet.getString("cuenta_bancaria"), resultSet.getString("codigo_reup"), resultSet.getString("direccion"), resultSet.getString("telefono"), resultSet.getString("fax"), resultSet.getString("email"), resultSet.getInt("no_contrato"), FeIN, resultSet.getInt("vigencia_contrato"), resultSet.getInt("id_organismo"), resultSet.getString("tipo_moneda"), resultSet.getString("nombre_organismo")));                
+                Date fechaIN = utilfecha.convierteStringADate(resultSet.getString("fecha_inicio_contrato"), "yyyy-MM-dd");
+                String FeIN = utilfecha.convierteDateAString(fechaIN, "d/MM/yyyy");
+                arregloTitulares.add(new Titulares(resultSet.getInt("id_titular"), resultSet.getString("titular"), resultSet.getString("descripcion"), resultSet.getString("cuenta_bancaria"), resultSet.getString("codigo_reup"), resultSet.getString("direccion"), resultSet.getString("telefono"), resultSet.getString("fax"), resultSet.getString("email"), resultSet.getInt("no_contrato"), FeIN, resultSet.getInt("vigencia_contrato"), resultSet.getInt("id_organismo"), resultSet.getString("tipo_moneda"), resultSet.getString("nombre_organismo")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
@@ -498,11 +522,11 @@ public class modelo extends SQLite_conexion {
         if (arregloTitulares.size() > 0) {
             String nombreColumna[] = {"No Contrato", "Código Reup", "Titular", "Cuenta", "CUC/CUP", "Fecha Ini Contrato", "Fecha Fin Contrato"};
             tm = new DefaultTableModel(nombreColumna, arregloTitulares.size());
-            int conuntRow = 0;            
-            for (int i = 0; i < arregloTitulares.size(); i++) {                
+            int conuntRow = 0;
+            for (int i = 0; i < arregloTitulares.size(); i++) {
                 tm.setValueAt(arregloTitulares.get(i).getNo_contrato(), conuntRow, 0);
                 tm.setValueAt(arregloTitulares.get(i).getCodigo_reup(), conuntRow, 1);
-                tm.setValueAt(arregloTitulares.get(i).getTitular(), conuntRow, 2);                                
+                tm.setValueAt(arregloTitulares.get(i).getTitular(), conuntRow, 2);
                 tm.setValueAt(arregloTitulares.get(i).getCuenta_bancaria(), conuntRow, 3);
                 tm.setValueAt(arregloTitulares.get(i).getTipo_moneda(), conuntRow, 4);
                 tm.setValueAt(arregloTitulares.get(i).getFecha_inicio_contrato(), conuntRow, 5);
@@ -519,6 +543,203 @@ public class modelo extends SQLite_conexion {
             String nombreColumna[] = {"Titular"};
             tm = new DefaultTableModel(nombreColumna, 1);
             tm.setValueAt("No existen Titulares para mostrar", 0, 0);
+        }
+        return tm;
+    }
+
+    /**
+     * Método para la agregar Cliente
+     *
+     * @param nombre_cliente
+     * @param direccion
+     * @param id_titular
+     * @param telefono
+     * @param email
+     * @param alcantarillado
+     * @param presupuestado
+     * @param subsidio
+     *
+     * @return boolean, verdadero si se agrega el cliente, falso si no pudo
+     * agregarce.
+     */
+    public boolean agregarCliente(String nombre_cliente, String direccion, int id_titular, String telefono, String email, boolean alcantarillado, boolean presupuestado, boolean subsidio) {
+        return insertar("t_cliente", "nombre_cliente, direccion, id_titular, telefono, email, alcantarillado, presupuestado, subsidio", "'" + nombre_cliente + "','" + direccion + "'," + id_titular + ",'" + telefono + "','" + email + "','" + alcantarillado + "','" + presupuestado + "','" + subsidio + "'");
+    }
+
+    /**
+     * Método para actualizar Cliente
+     *
+     * @param id_cliente
+     * @param nombre_cliente
+     * @param direccion
+     * @param id_titular
+     * @param telefono
+     * @param email
+     * @param alcantarillado
+     * @param presupuestado
+     * @param subsidio
+     *
+     * @return
+     */
+    public boolean actualizarCliente(int id_cliente, String nombre_cliente, String direccion, int id_titular, String telefono, String email, boolean alcantarillado, boolean presupuestado, boolean subsidio) {
+        return this.actualizar("t_cliente", "nombre_cliente='" + nombre_cliente + "', direccion='" + direccion + "', id_titular=" + id_titular + ", telefono='" + telefono + "', email='" + email + "', alcantarillado='" + alcantarillado + "', presupuestado='" + presupuestado + "', subsidio='" + subsidio + "'", "id_cliente = " + id_cliente);
+    }
+
+    /**
+     * Método para eliminar Cliente
+     *
+     * @param id_cliente
+     * @return boolean
+     */
+    public boolean eliminarCliente(int id_cliente) {
+        String donde = "id_cliente = " + id_cliente;
+        return this.eliminarRegistro("t_cliente", donde);
+    }
+
+    /**
+     * Método para mostrar los Titular
+     *
+     * @return TableModel modelo con los datos de la tabla
+     */
+    public TableModel mostrarCliente() {
+        resultSet = seleccionarResultSet("v_cliente_all");
+
+        arregloCliente = new ArrayList<>();
+
+        try {
+            while (resultSet.next()) {
+                arregloCliente.add(new Cliente(resultSet.getInt("id_cliente"), resultSet.getString("nombre_cliente"), resultSet.getString("direccion"), resultSet.getInt("id_titular"), resultSet.getString("telefono"), resultSet.getString("email"), Boolean.valueOf(resultSet.getString("alcantarillado")), Boolean.valueOf(resultSet.getString("presupuestado")), Boolean.valueOf(resultSet.getString("subsidio")), resultSet.getString("titular")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        TableModel tm;
+        if (arregloCliente.size() > 0) {
+            String nombreColumna[] = {"Titular", "Cliente", "Dirección", "Teléfono", "Correo"};
+            tm = new DefaultTableModel(nombreColumna, arregloCliente.size());
+            int conuntRow = 0;
+            for (int i = 0; i < arregloCliente.size(); i++) {
+                tm.setValueAt(arregloCliente.get(i).getNombre_titular(), conuntRow, 0);
+                tm.setValueAt(arregloCliente.get(i).getNombre_cliente(), conuntRow, 1);
+                tm.setValueAt(arregloCliente.get(i).getDireccion(), conuntRow, 2);
+                tm.setValueAt(arregloCliente.get(i).getTelefono(), conuntRow, 3);
+                tm.setValueAt(arregloCliente.get(i).getEmail(), conuntRow, 4);
+                conuntRow++;
+            }
+        } else {
+            String nombreColumna[] = {"Cliente"};
+            tm = new DefaultTableModel(nombreColumna, 1);
+            tm.setValueAt("No existen Clientes para mostrar", 0, 0);
+        }
+        return tm;
+    }
+
+    public ListModel mostrarClienteServicios(int id_cliente) {
+        String donde = "id_cliente = " + id_cliente;
+        resultSet = seleccionarResultSet("v_cliente_servicio_all", donde);
+        arregloClienteServicio = new ArrayList<>();
+        ArrayList<String> a = new ArrayList<>(); //creo un arreglo de String para guardar los servicios (para poder incluirlo en el jList)
+
+        try {
+            while (resultSet.next()) {
+                arregloClienteServicio.add(new ClienteServicio(resultSet.getInt("id_cliente"), resultSet.getString("nombre_cliente"), resultSet.getInt("id_servicio"), resultSet.getString("descripcion")));
+                a.add(resultSet.getString("descripcion"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JList jl = new JList(a.toArray());//Creo el JList con los valores del arreglo que tiene los servicio del cliente
+        //Retorno ListModel con los tipos de servicios
+        this.mostrarServicios();
+        return jl.getModel();
+    }
+
+    public boolean asignarClienteServicio(int id_cliente, int id_servicio) {
+        return this.insertar("t_cliente_servicio", "id_cliente, id_servicio", +id_cliente + "," + id_servicio);
+    }
+
+    public boolean eliminarClienteServicio(int id_cliente, int id_servicio) {
+        String donde = "id_cliente = " + id_cliente + " AND id_servicio = " + id_servicio;
+        return this.eliminarRegistro("t_cliente_servicio", donde);
+    }
+
+    /**
+     * Método para crear los datos del Combo titulares
+     *
+     * @param tabla
+     * @return
+     */
+    public ComboBoxModel titularesCombobox(String tabla) {
+        ComboBoxModel cbm;
+        resultSet = seleccionarResultSet(tabla);
+        arregloTitulares = new ArrayList<>();
+
+        ArrayList arreglo1 = new ArrayList();
+        arreglo1.add("Seleccionar");
+
+        try {
+            while (resultSet.next()) {
+                arreglo1.add(resultSet.getString("titular") + "  |  " + resultSet.getString("descripcion"));
+                Date fechaIN = utilfecha.convierteStringADate(resultSet.getString("fecha_inicio_contrato"), "yyyy-MM-dd");
+                String FeIN = utilfecha.convierteDateAString(fechaIN, "d/MM/yyyy");
+                arregloTitulares.add(new Titulares(resultSet.getInt("id_titular"), resultSet.getString("titular"), resultSet.getString("descripcion"), resultSet.getString("cuenta_bancaria"), resultSet.getString("codigo_reup"), resultSet.getString("direccion"), resultSet.getString("telefono"), resultSet.getString("fax"), resultSet.getString("email"), resultSet.getInt("no_contrato"), FeIN, resultSet.getInt("vigencia_contrato"), resultSet.getInt("id_organismo"), resultSet.getString("tipo_moneda"), resultSet.getString("nombre_organismo")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cbm = new DefaultComboBoxModel(arreglo1.toArray());
+
+        return cbm;
+    }
+
+    public boolean agregarServMetradoSobreCons(int id_servicio, int id_sobreconsumo) {
+        return this.insertar("t_servicio_sobrecons", "id_servicio, id_sobreconsumo", +id_servicio + "," + id_sobreconsumo);
+    }
+    
+    public boolean gregarServMetradoSobreCons(int id_servicio, int id_sobreconsumo){
+        String donde = "id_servicio = " + id_servicio + " AND id_sobreconsumo = " + id_sobreconsumo;
+        return this.eliminarRegistro("t_servicio_sobrecons", donde);
+    }
+
+    public TableModel mostrarServMetradoSobreCons() {
+        resultSet = seleccionarResultSet("v_servicio_sobrecons_all");
+        arregloServicioSobreC = new ArrayList<>();
+        
+        try {
+            while (resultSet.next()) {
+                int id_servicio = resultSet.getInt("id_servicio");
+                String servicio = resultSet.getString("servicio");
+                double precio_cuc_s = resultSet.getDouble("precio_cuc_s");
+                double precio_cup_s = resultSet.getDouble("precio_cup_s");
+                int id_sobreconsumo = resultSet.getInt("id_sobreconsumo");
+                String sobreconsumo = resultSet.getString("sobreconsumo");
+                double precio_cuc_sc = resultSet.getDouble("precio_cuc_sc");
+                double precio_cup_sc = resultSet.getDouble("precio_cup_sc");
+                arregloServicioSobreC.add(new ServicioSobreConsumo(id_servicio, servicio, precio_cuc_s, precio_cup_s, id_sobreconsumo, sobreconsumo, precio_cuc_sc, precio_cup_sc));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        TableModel tm;
+        if (arregloServicioSobreC.size() > 0) {
+            String nombreColumna[] = {"Servicio", "Precio cuc", "Precio cup", "Sobre-Consumo", "Precio cuc", "Precio cup"};
+            tm = new DefaultTableModel(nombreColumna, arregloServicioSobreC.size());            
+            int conuntRow = 0;
+            for (int i = 0; i < arregloServicioSobreC.size(); i++) {
+                tm.setValueAt(arregloServicioSobreC.get(i).getServicio(), conuntRow, 0);                
+                tm.setValueAt(arregloServicioSobreC.get(i).getPrecio_cuc_s(), conuntRow, 1);
+                tm.setValueAt(arregloServicioSobreC.get(i).getPrecio_cup_s(), conuntRow, 2);
+                tm.setValueAt(arregloServicioSobreC.get(i).getSobreconsumo(), conuntRow, 3);
+                tm.setValueAt(arregloServicioSobreC.get(i).getPrecio_cuc_sc(), conuntRow, 4);
+                tm.setValueAt(arregloServicioSobreC.get(i).getPrecio_cup_sc(), conuntRow, 5);
+                conuntRow++;
+            }
+        } else {
+            String nombreColumna[] = {"Servicios Metrados | Sobre - Consumo Asociado"};
+            tm = new DefaultTableModel(nombreColumna, 1);
+            tm.setValueAt("No existen relaciones para mostrar", 0, 0);
         }
         return tm;
     }
@@ -564,10 +785,10 @@ public class modelo extends SQLite_conexion {
         }
         return hash;
     }
-    
-    public void llenarArregloOrganismo(){
+
+    public void llenarArregloOrganismo() {
         resultSet = seleccionarResultSet("t_organismo");
-        arregloOrganismos = new ArrayList();        
+        arregloOrganismos = new ArrayList();
 
         try {
             while (resultSet.next()) {

@@ -8,5 +8,11 @@
     <barraInformes>true</barraInformes>
     <barraCierreMes>true</barraCierreMes>
     <barraCobros>true</barraCobros>
+	<nombres>nombre del comercial</nombres>
+	<apellidos>apellidos del comercial</apellidos>
+	<email>comercial.gvca@eaagvca.hidro.cu</email>
+	<empresa>Empresa Acueducto y Alcantarilado Guardalavaca</empresa>
+	<length>ca14ca</length>
+    <ins>0574ea</ins>
   </configuracion>
 </root>

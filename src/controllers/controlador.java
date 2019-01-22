@@ -2,11 +2,13 @@ package controllers;
 
 import configuracion.config;
 import factestatal.ficheros.About;
+import factestatal.ficheros.Clientes;
 import factestatal.ficheros.DatosEmpresa;
 import factestatal.ficheros.DetallesDeControl;
 import factestatal.ficheros.Servicios;
 import factestatal.ficheros.TipoServicios;
 import factestatal.ficheros.Titulares;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
@@ -14,14 +16,21 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
@@ -30,10 +39,14 @@ import models.DetallesControl;
 import models.Empresa;
 import models.Usuario;
 import models.modelo;
+import myclass.herramientas;
 import myclass.utilfecha;
 import views.factestatal.Autenticar;
 import views.factestatal.Principal;
 import views.factestatal.ficheros.AgregarActualizarTitular;
+import views.factestatal.ficheros.ClientesServicios;
+import views.factestatal.ficheros.Licencia;
+import views.factestatal.ficheros.ServiMetradoSobreCons;
 import views.factestatal.ficheros.Users;
 import views.factestatal.ficheros.cambiarPassword;
 
@@ -54,12 +67,16 @@ public class controlador implements ActionListener {
     private cambiarPassword cP;
     private Users users;
     private About about;
+    private Licencia licencia;
     private DatosEmpresa datosEmpresa;
     private DetallesDeControl detallesControl;
     private TipoServicios tipoServicio;
     private Servicios servicio;
     private Titulares titulares;
     private AgregarActualizarTitular titularesAgregarActualizar;
+    private Clientes clientes;
+    private ClientesServicios cs;
+    private ServiMetradoSobreCons serviMetradoSobreCons;
 
     //Variables de modelos
     public Usuario usuario;
@@ -73,11 +90,12 @@ public class controlador implements ActionListener {
     public int id_ueb; // Id de la UEB con la que se esta trabando, este id se carga de (Achivo de configuracion XML  de configuracion)
     public int idServicio; // Id del servicio a modificar o seleccionado
     public int idTitular; // Id del titular a modificar o seleccionado
+    public int idCliente; // Id del cliente a modificar o seleccionado
     public boolean barraImportarExportar; // Carga de (Achivo de configuracion XML  de configuracion)
     public boolean barraAcciones; // Carga de (Achivo de configuracion XML  de configuracion)
     public boolean barraInformes; // Carga de (Achivo de configuracion XML  de configuracion)
     public boolean barraCierreMes; // Carga de (Achivo de configuracion XML  de configuracion)
-    public boolean barraCobros; // Carga de (Achivo de configuracion XML  de configuracion)
+    public boolean barraCobros; // Carga de (Achivo de configuracion XML  de configuracion)    
     File ficheroSeleccionado;
     Empresa e;
 
@@ -106,7 +124,7 @@ public class controlador implements ActionListener {
         this.barraAcciones = conf.isBarraAcciones();
         this.barraInformes = conf.isBarraInformes();
         this.barraCierreMes = conf.isBarraCierreMes();
-        this.barraCobros = conf.isBarraCobros();        
+        this.barraCobros = conf.isBarraCobros();
 
         //cargar barra de herramienta
         if (barraImportarExportar) {
@@ -154,7 +172,7 @@ public class controlador implements ActionListener {
         switch (comando) {
             case "Autenticar":
                 if (this.validarUsuario(this.viewA.usuarioTextField.getText(), this.viewA.passwordTextField.getText())) {
-                    this.usuario = this.model.Autenticar(this.viewA.usuarioTextField.getText(), this.viewA.passwordTextField.getText());
+                    this.usuario = this.model.getUsuario();
                     this.view.usuarioAutenticadoLabel.setText(" " + this.viewA.usuarioTextField.getText());
                     this.iniciar();
                 } else {
@@ -178,6 +196,9 @@ public class controlador implements ActionListener {
                 break;
             case "barraCobros": //Mostrar u Ocultar barra de Cobros
                 this.mostrarOcultarBarraCobros();
+                break;
+            case "botonCliente":
+                this.formClientes();
                 break;
             case "about":
                 this.formAcerca(); // Mostrar jInternalFrame Acerca
@@ -265,6 +286,54 @@ public class controlador implements ActionListener {
             case "eliminarTitulares": //Accion para eliminar titulares                
                 this.titularesAcction("eliminar");
                 break;
+            case "clientesForm": //Accion para mostrar jinternal frame clientes
+                this.formClientes();
+                break;
+            case "nuevoCliente": //Accion para limpiar formulario para agregar un nuevo cliente
+                this.clientesAcction("nuevoCliente");
+                break;
+            case "agregarActualizarCliente": //Accion para agregar o actualizar un cliente
+                this.clientesAcction("agregarActualizarCliente");
+                break;
+            case "modificarCliente": //Accion para llenar campos del fomulario con el cliente seleccionado
+                this.clientesAcction("modificarCliente");
+                break;
+            case "eliminarCliente": //Accion para eliminar clientes                
+                this.clientesAcction("eliminarCliente");
+                break;
+            case "asignarClientesServicios":
+                this.clientesAcction("serviciosDelCliente");
+                break;
+            case "asignarServiciosClientes": //Accion para asignar servicios a clientes
+                this.clientesAcction("asignarSevicios");
+                break;
+            case "eliminarServiciosClientes": //Accion para eliminar servicios a clientes
+                this.clientesAcction("eliminarSevicios");
+                break;
+            case "serviMetradoSobConsForm": //Accion para eliminar servicios a clientes
+                this.formServiMetradoSobreCons();
+                break;
+            case "agregarMetradoSobreC": //Accion para eliminar servicios a clientes
+                this.servMetradoSobreConsAcction("agregarMetSobCons");
+                break;
+            case "eliminarMetradoSobreC": //Accion para eliminar servicios a clientes
+                this.servMetradoSobreConsAcction("eliminarMetSobCons");
+                break;
+            case "licenciaForm": //Accion para mostrar jinternal frame licencia
+                this.formLicencia();
+                break;
+            case "generarSemillaLicencia": //Acciona para ...
+                this.licAcction("generarSemilla");
+                break;
+            case "guardarSemillaLicencia": //Acciona para ...
+                this.licAcction("guardarSemilla");
+                break;
+            case "cargarLic": //Acciona para ...
+                this.licAcction("cargar");
+                break;
+            case "validarLic": //Acciona para ...
+                this.licAcction("validar");
+                break;
             case "formDetallesControl": // Accion para mostrar jInternarFrame Detalles de control
                 this.formDetallesControl();
                 break;
@@ -303,14 +372,18 @@ public class controlador implements ActionListener {
         this.view.barraInformesMenuItem.setActionCommand("barraInformes");//Menú -View- Mostrar u Ocultar barra
         this.view.barraCierreMesMenuItem.setActionCommand("barraCierreMes");//Menú -View- Mostrar u Ocultar barra
         this.view.barraCobrosMenuItem.setActionCommand("barraCobros");//Menú -View- Mostrar u Ocultar barra
+        this.view.clientesButton.setActionCommand("botonCliente"); //Clientes
         this.view.datosEmpresaMenuItem.setActionCommand("datosEmpresaForm"); //Datos de Empresa
         this.view.tipoServiciosMenuItem.setActionCommand("tipoServiciosForm"); //TipoServicios
         this.view.serviciosMenuItem.setActionCommand("servicioForm"); //Servicios
         this.view.titularesMenuItem.setActionCommand("titularesForm"); //Titulares
+        this.view.clientesMenuItem.setActionCommand("clientesForm"); //Clientes
+        this.view.relacionSMMenuItem.setActionCommand("serviMetradoSobConsForm"); //ServiMetradoSobreConsumo
         this.view.detallesControlMenuItem.setActionCommand("formDetallesControl"); //Formulario Detalles de Control
         this.view.usersMenuItem.setActionCommand("Usuario"); //Gestionar Usuario
         this.view.cambiarContrasennaMenuItem.setActionCommand("Cambiar password"); //Cambiar contraseña                
         this.view.aboutMenuItem.setActionCommand("about"); // Acerca de nosotros
+        this.view.licenciaMenuItem.setActionCommand("licenciaForm"); // Formulario de para la licencia
         //Se pone a escuchar las acciones del usuario
         this.view.exitMenuItem.addActionListener(this); //Salir del sistema 
         this.view.barraImportarExportarMenuItem.addActionListener(this);//Menú -View- Mostrar u Ocultar barra 
@@ -318,14 +391,18 @@ public class controlador implements ActionListener {
         this.view.barraInformesMenuItem.addActionListener(this);//Menú -View- Mostrar u Ocultar barra
         this.view.barraCierreMesMenuItem.addActionListener(this);//Menú -View- Mostrar u Ocultar barra
         this.view.barraCobrosMenuItem.addActionListener(this);//Menú -View- Mostrar u Ocultar barra
+        this.view.clientesButton.addActionListener(this); //Clientes
         this.view.datosEmpresaMenuItem.addActionListener(this); //Datos Empresa
         this.view.tipoServiciosMenuItem.addActionListener(this); //TipoServicios
         this.view.serviciosMenuItem.addActionListener(this); //Servicios
         this.view.titularesMenuItem.addActionListener(this); //Titulares
+        this.view.clientesMenuItem.addActionListener(this); //Clientes
+        this.view.relacionSMMenuItem.addActionListener(this); //ServiMetradoSobreConsumo
         this.view.detallesControlMenuItem.addActionListener(this); //DetallesControl
         this.view.usersMenuItem.addActionListener(this); //Gestionar Usuario
         this.view.cambiarContrasennaMenuItem.addActionListener(this); //Cambiar contraseñas        
         this.view.aboutMenuItem.addActionListener(this); // Acerca de nosotros
+        this.view.licenciaMenuItem.addActionListener(this); // Formulario de para la licencia
     }
 
     /**
@@ -554,6 +631,76 @@ public class controlador implements ActionListener {
     }
 
     /**
+     * Método para controlar el formulario <b>Clientes</b>
+     */
+    public void formClientes() {
+        this.clientes = new Clientes();
+        this.clientes.setTitle("Clientes...");
+
+        if (!restaurarFormulario(this.clientes.getTitle())) {
+            this.view.desktopPane.add(this.clientes);
+            this.clientes.setLocation(centradoXY(this.clientes));
+            this.clientes.setVisible(true);
+            this.clientesAcction("visualizar");
+            //Se agrega las acciones al formulario de Usuario        
+            this.clientes.nuevoButton.setActionCommand("nuevoCliente");
+            this.clientes.agregarButton.setActionCommand("agregarActualizarCliente");
+            this.clientes.modificarButton.setActionCommand("modificarCliente");
+            this.clientes.eliminarButton.setActionCommand("eliminarCliente");
+            this.clientes.asignarServiciosButton.setActionCommand("asignarClientesServicios");
+            //Se pone a la escucha de las acciones del Usuario            
+            this.clientes.nuevoButton.addActionListener(this);
+            this.clientes.agregarButton.addActionListener(this);
+            this.clientes.modificarButton.addActionListener(this);
+            this.clientes.eliminarButton.addActionListener(this);
+            this.clientes.asignarServiciosButton.addActionListener(this);
+        }
+    }
+
+    /**
+     * Método para controlar el formulario <b>formClientesServicios</b>
+     *
+     * @param fila_seleccionada
+     */
+    public void formClientesServicios(int fila_seleccionada) {
+        this.cs = new ClientesServicios();
+        this.cs.serviciosComboBox.setModel(this.model.servicioCombobox("v_servicio_all"));
+        this.idCliente = this.model.arregloCliente.get(fila_seleccionada).getId_cliente();
+        this.cs.serviciosList.setModel(this.model.mostrarClienteServicios(this.idCliente));
+        this.cs.nombreClienteTextField.setText(this.model.arregloCliente.get(fila_seleccionada).getNombre_titular() + " | " + this.model.arregloCliente.get(fila_seleccionada).getNombre_cliente());
+
+        //Se agrega las acciones al formulario de Usuario        
+        this.cs.asignarServiciosButton.setActionCommand("asignarServiciosClientes");
+        this.cs.eliminarServiciosButton.setActionCommand("eliminarServiciosClientes");
+        //Se pone a la escucha de las acciones del Usuario            
+        this.cs.asignarServiciosButton.addActionListener(this);
+        this.cs.eliminarServiciosButton.addActionListener(this);
+
+        JOptionPane.showInternalMessageDialog(this.clientes, this.cs, "Asignar Servicios al Cliente", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Método para controlar el formulario <b>ServiMetradoSobreCons</b>
+     */
+    public void formServiMetradoSobreCons() {
+        this.serviMetradoSobreCons = new ServiMetradoSobreCons();
+        this.serviMetradoSobreCons.setTitle("Relacion de Servicios Metrados - Sobre Consumo...");
+
+        if (!restaurarFormulario(this.serviMetradoSobreCons.getTitle())) {
+            this.view.desktopPane.add(this.serviMetradoSobreCons);
+            this.serviMetradoSobreCons.setLocation(centradoXY(this.serviMetradoSobreCons));
+            this.serviMetradoSobreCons.setVisible(true);
+            this.servMetradoSobreConsAcction("visualizar");
+            //Se agrega las acciones al formulario de Usuario        
+            this.serviMetradoSobreCons.AgregarButton.setActionCommand("agregarMetradoSobreC");
+            this.serviMetradoSobreCons.EliminarButton.setActionCommand("eliminarMetradoSobreC");
+            //Se pone a la escucha de las acciones del Usuario            
+            this.serviMetradoSobreCons.AgregarButton.addActionListener(this);
+            this.serviMetradoSobreCons.EliminarButton.addActionListener(this);
+        }
+    }
+
+    /**
      * Método para controlar el formulario <b>About</b>
      */
     public void formAcerca() {
@@ -561,6 +708,47 @@ public class controlador implements ActionListener {
         this.view.desktopPane.add(about);
         about.setLocation(centradoXY(about));
         about.setVisible(true);
+    }
+
+    /**
+     * Método para controlar el formulario <b>Licencia</b>
+     */
+    public void formLicencia() {
+        licencia = new Licencia();
+        this.licencia.setTitle("Licencia...");
+        this.licencia.semillaTextArea.setEditable(false);
+        this.licencia.semillaTextArea.setBackground(Color.lightGray);
+        this.licencia.licenciaTextArea.setEditable(false);
+        this.licencia.licenciaTextArea.setBackground(Color.lightGray);
+        File archSem = new File("config/" + conf.getLength());
+        File archLi = new File("config/" + conf.getIns());
+        this.licencia.semillaTextArea.setText(this.leerTxt(archSem));
+        if (!this.validarLic(archSem, archLi)) {
+            this.cambiarEstado(false);
+        } else {
+            this.licencia.setClosable(true);
+            this.licencia.cargarButton.setEnabled(false);
+            this.licencia.validarButton.setEnabled(false);
+        }
+        this.licencia.nombresTextField.setText(conf.getNombres());
+        this.licencia.apellidosTextField.setText(conf.getApellidos());
+        this.licencia.emailFormattedTextField.setText(conf.getEmail());
+        this.licencia.empresaTextField.setText(conf.getEmpresa());
+
+        this.view.desktopPane.add(licencia);
+        this.licencia.setLocation(centradoXY(licencia));
+        this.licencia.setVisible(true);
+
+        //Se agrega las acciones al formulario de Usuario        
+        this.licencia.generarButton.setActionCommand("generarSemillaLicencia");
+        this.licencia.guardarButton.setActionCommand("guardarSemillaLicencia");
+        this.licencia.cargarButton.setActionCommand("cargarLic");
+        this.licencia.validarButton.setActionCommand("validarLic");
+        //Se pone a la escucha de las acciones del Usuario
+        this.licencia.generarButton.addActionListener(this);
+        this.licencia.guardarButton.addActionListener(this);
+        this.licencia.cargarButton.addActionListener(this);
+        this.licencia.validarButton.addActionListener(this);
     }
 
     //-----------------------------------------------------------------------------------
@@ -1150,7 +1338,6 @@ public class controlador implements ActionListener {
                 } else {
                     JOptionPane.showMessageDialog(this.servicio, "Seleccione un usuario para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                idServicio = -1;
                 this.serviciosAcction("visualizar");
                 break;
             case "modificar":
@@ -1159,13 +1346,22 @@ public class controlador implements ActionListener {
                 if (idServicio > 0) {
                     this.servicio.descripcionTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getDescripcion());
                     this.servicio.unidadMedidaTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getUnidad_medida());
-
-                    this.servicio.tipoServicioComboBox.setModel(this.model.tipoServicioCombobox("t_tipo_servicio"));
-
+                    // Para ubicar el servicio seleccionado
+                    int fila_sel = 0;
+                    for (int i = 0; i < this.model.arregloTipoServ.size(); i++) {
+                        if (this.model.arregloTipoServ.get(i).getId_tipo_srvicio() == this.model.arregloServicio.get(fila_seleccionada).getId_tipo_servicio()) {
+                            fila_sel = i + 1;
+                            break;
+                        }
+                    }
+                    this.servicio.tipoServicioComboBox.setSelectedIndex(fila_sel);
+                    //
                     this.servicio.cucTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getPrecio_cuc());
                     this.servicio.cupTextField.setText(this.model.arregloServicio.get(fila_seleccionada).getPrecio_cup());
                 }
+                break;
             default:
+                idServicio = -1;
                 this.servicio.visualizarServiciosTable.setModel(this.model.mostrarServicios());
                 this.servicio.tipoServicioComboBox.setModel(this.model.tipoServicioCombobox("t_tipo_servicio"));
                 break;
@@ -1442,6 +1638,590 @@ public class controlador implements ActionListener {
     }
 
     /**
+     * Método para el trabajo con el formulario de <b>TipoServicios</b>
+     *
+     * @param accion String con la accion a realizar
+     */
+    private void clientesAcction(String accion) {
+        int fila_seleccionada;
+        fila_seleccionada = this.clientes.clientesTable.getSelectedRow();
+
+        switch (accion) {
+            case "nuevoCliente":
+                this.limpiarFormularioClientes();
+                break;
+            case "agregarActualizarCliente":
+                // Capturar datos del formulario                
+                String nombre_cliente = this.clientes.nombreClienteTextField.getText();
+                String direccion = this.clientes.direccionTextField.getText();
+                int titularSelected = this.clientes.titularComboBox.getSelectedIndex();
+                int id_titular = 0;
+                if (titularSelected > 0) {
+                    for (int i = 0; i < this.model.arregloTitulares.size(); i++) {
+                        if (this.model.arregloTitulares.get(i).getId_titular() == this.model.arregloTitulares.get(titularSelected - 1).getId_titular()) {
+                            id_titular = this.model.arregloTitulares.get(i).getId_titular();
+                            break;
+                        }
+                    }
+                }
+                String telefono = this.clientes.telefonoFormattedTextField.getText();
+                String email = this.clientes.correoElectronicoFormattedTextField.getText();
+                boolean alcantarillado = this.clientes.alcantarilladoCheckBox.isSelected();
+                boolean presupuestado = this.clientes.presupuestadoCheckBox.isSelected();
+                boolean subsidio = this.clientes.subsidioCheckBox.isSelected();
+                // Si el id del cliente es -1 es que no hay cliente seleccionado para modificar por lo que entra a agregar
+                if (idCliente == -1) {
+                    this.agregarCliente(nombre_cliente, direccion, id_titular, telefono, email, alcantarillado, presupuestado, subsidio);
+                } else {
+                    this.actualizarCliente(idCliente, nombre_cliente, direccion, id_titular, telefono, email, alcantarillado, presupuestado, subsidio);
+                }
+                break;
+            case "modificarCliente":
+                if (fila_seleccionada != -1) {
+                    idCliente = this.model.arregloCliente.get(fila_seleccionada).getId_cliente();
+                    this.rellenarCamposActualizarCliente(fila_seleccionada);
+                }
+                break;
+            case "eliminarCliente":
+                if (fila_seleccionada != -1) {
+                    idCliente = this.model.arregloCliente.get(fila_seleccionada).getId_cliente();
+                    int acc = JOptionPane.showConfirmDialog(this.clientes, "Estas seguro de eliminar a " + this.model.arregloCliente.get(fila_seleccionada).getNombre_cliente(), "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (acc == 0) {
+                        if (this.model.eliminarCliente(idCliente)) {
+                            JOptionPane.showMessageDialog(this.clientes, "Se ha eliminado el Cliente correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this.clientes, "Error al intentar eliminar el Cliente", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this.clientes, "Seleccione un Cliente para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                this.clientesAcction("visualizar");
+                break;
+            case "serviciosDelCliente":
+                if (fila_seleccionada != -1) {
+                    this.formClientesServicios(fila_seleccionada);
+                } else {
+                    JOptionPane.showMessageDialog(this.clientes, "Seleccione un Cliente", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            case "asignarSevicios":
+                int sSelected = this.cs.serviciosComboBox.getSelectedIndex();
+                int id_serv = 0;
+                if (sSelected > 0) {
+                    for (int i = 0; i < this.model.arregloServicio.size(); i++) {
+                        if (this.model.arregloServicio.get(i).getId_servicio() == this.model.arregloServicio.get(sSelected - 1).getId_servicio()) {
+                            id_serv = this.model.arregloServicio.get(i).getId_servicio();
+                            break;
+                        }
+                    }
+                }
+                if (id_serv > 0 && this.idCliente != -1) {
+                    if (this.model.asignarClienteServicio(this.idCliente, id_serv)) {
+                        JOptionPane.showMessageDialog(this.cs, "Servicio Asignado al Cliente Correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this.cs, "Error al intentar asignar el servicio", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this.clientes, "Seleccione un servicio a Asignar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                this.cs.serviciosComboBox.setSelectedIndex(0);
+                this.cs.serviciosList.setModel(this.model.mostrarClienteServicios(this.idCliente));
+                break;
+            case "eliminarSevicios":
+                int servSelected = this.cs.serviciosList.getSelectedIndex();
+                System.out.println("Sevicio seleccionado: " + servSelected);
+                int id_servi = 0;
+                if (servSelected != -1) {
+                    for (int i = 0; i < this.model.arregloClienteServicio.size(); i++) {
+                        if (this.model.arregloClienteServicio.get(i).getId_servicio() == this.model.arregloClienteServicio.get(servSelected).getId_servicio()) {
+                            id_servi = this.model.arregloClienteServicio.get(i).getId_servicio();
+                            break;
+                        }
+                    }
+                    int acc = JOptionPane.showConfirmDialog(this.cs, "¿Estas seguro de eliminar el servicio al cliente?", "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (acc == 0) {
+                        System.out.println(" " + this.idCliente + " " + id_servi);
+                        if (this.model.eliminarClienteServicio(this.idCliente, id_servi)) {
+                            JOptionPane.showMessageDialog(this.cs, "Se ha eliminado el servicio para el cliente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this.cs, "Error al intentar eliminar el Servicio al Cliente", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this.cs, "No ha seleccionado servicios para eliminar al cliente", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                this.cs.serviciosComboBox.setSelectedIndex(0);
+                this.cs.serviciosList.setModel(this.model.mostrarClienteServicios(this.idCliente));
+                break;
+            default:
+                this.limpiarFormularioClientes();
+                idCliente = -1; // Si no se pone esto cuando buelba a intentar 
+                this.clientes.titularComboBox.setModel(this.model.titularesCombobox("v_titulares_all"));
+                this.clientes.clientesTable.setModel(this.model.mostrarCliente());
+                break;
+        }
+    }
+
+    public void actualizarCliente(int id_cliente, String nombre_cliente, String direccion, int id_titular, String telefono, String email, boolean alcantarillado, boolean presupuestado, boolean subsidio) {
+        this.msg = "";
+        if (nombre_cliente.isEmpty()) {
+            this.msg += "Nombre del Cliente: Campo Nulo \n";
+        }
+        if (direccion.isEmpty()) {
+            this.msg += "Direccion: Campo Nulo \n";
+        }
+        if (id_titular == 0) {
+            this.msg += "Titular: Seleccione un <b>Titular</b> \n";
+        }
+        if (!telefono.isEmpty() && telefono.length() != 9) {
+            this.msg += "Teléfono: No es número de teléfono valida \n";
+        }
+        if (!email.isEmpty() && !herramientas.validarEmailFuerte(email)) {
+            this.msg += "Correo Electronico: No es una direccion de correo valida \n";
+        }
+        if (!this.msg.isEmpty()) {
+            JOptionPane.showMessageDialog(this.servicio, msg, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (this.model.actualizarCliente(id_cliente, nombre_cliente, direccion, id_titular, telefono, email, alcantarillado, presupuestado, subsidio)) {
+                JOptionPane.showMessageDialog(this.servicio, "Se ha actualizado el cliente correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                this.clientesAcction("visualizar");
+            } else {
+                this.msg = "Error al intentar agregar el cliente";
+            }
+
+        }
+    }
+
+    public void agregarCliente(String nombre_cliente, String direccion, int id_titular, String telefono, String email, boolean alcantarillado, boolean presupuestado, boolean subsidio) {
+        this.msg = "";
+        if (nombre_cliente.isEmpty()) {
+            this.msg += "Nombre del Cliente: Campo Nulo \n";
+        }
+        if (direccion.isEmpty()) {
+            this.msg += "Direccion: Campo Nulo \n";
+        }
+        if (id_titular == 0) {
+            this.msg += "Titular: Seleccione un <b>Titular</b> \n";
+        }
+        if (!telefono.isEmpty() && telefono.length() != 9) {
+            this.msg += "Teléfono: No es número de teléfono valida \n";
+        }
+        if (!email.isEmpty() && !herramientas.validarEmailFuerte(email)) {
+            this.msg += "Correo Electronico: No es una direccion de correo valida \n";
+        }
+        if (!this.msg.isEmpty()) {
+            JOptionPane.showMessageDialog(this.servicio, msg, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (!this.msg.isEmpty()) {
+                JOptionPane.showMessageDialog(this.servicio, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                if (this.model.agregarCliente(nombre_cliente, direccion, id_titular, telefono, email, alcantarillado, presupuestado, subsidio)) {
+                    JOptionPane.showMessageDialog(this.servicio, "Se ha agregado el cliente correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                    this.clientesAcction("visualizar");
+                } else {
+                    this.msg = "Error al intentar agregar el cliente \n";
+                    JOptionPane.showMessageDialog(this.servicio, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+
+    }
+
+    public void limpiarFormularioClientes() {
+        this.clientes.nombreClienteTextField.setText("");
+        this.clientes.direccionTextField.setText("");
+        this.clientes.titularComboBox.setSelectedIndex(0);
+        this.clientes.telefonoFormattedTextField.setText("");
+        this.clientes.correoElectronicoFormattedTextField.setText("");
+        this.clientes.alcantarilladoCheckBox.setSelected(true);
+        this.clientes.presupuestadoCheckBox.setSelected(false);
+        this.clientes.subsidioCheckBox.setSelected(false);
+    }
+
+    public void rellenarCamposActualizarCliente(int fila_seleccionada) {
+        this.clientes.nombreClienteTextField.setText(this.model.arregloCliente.get(fila_seleccionada).getNombre_cliente());
+        this.clientes.direccionTextField.setText(this.model.arregloCliente.get(fila_seleccionada).getDireccion());
+        // Para ubicar el titular que esta seleccionado
+        int fila_sel = 0;
+        for (int i = 0; i < this.model.arregloTitulares.size(); i++) {
+            if (this.model.arregloTitulares.get(i).getId_titular() == this.model.arregloCliente.get(fila_seleccionada).getId_titular()) {
+                fila_sel = i + 1;
+                break;
+            }
+        }
+        this.clientes.titularComboBox.setSelectedIndex(fila_sel);
+        //
+        this.clientes.telefonoFormattedTextField.setText(this.model.arregloCliente.get(fila_seleccionada).getTelefono());
+        this.clientes.correoElectronicoFormattedTextField.setText(this.model.arregloCliente.get(fila_seleccionada).getEmail());
+        // Para selecionar si posee Alcantarillado o no        
+        if (this.model.arregloCliente.get(fila_seleccionada).isAlcantarillado()) {
+            this.clientes.alcantarilladoCheckBox.setSelected(true);
+        } else {
+            this.clientes.alcantarilladoCheckBox.setSelected(false);
+        }
+        //
+        // Para selecionar si es presupuestado o no
+        if (this.model.arregloCliente.get(fila_seleccionada).isPresupuestado()) {
+            this.clientes.presupuestadoCheckBox.setSelected(true);
+        } else {
+            this.clientes.presupuestadoCheckBox.setSelected(false);
+        }
+        //
+        // Para selecionar si es subsidio o no
+        if (this.model.arregloCliente.get(fila_seleccionada).isSubsidio()) {
+            this.clientes.subsidioCheckBox.setSelected(true);
+        } else {
+            this.clientes.subsidioCheckBox.setSelected(false);
+        }
+        //
+    }
+
+    /**
+     * Método para el trabajo con el formulario de <b>servMetradoSobreCons</b>
+     *
+     * Este Método se encarga de realizar las acciones que se soliciten en el
+     * formulario servMetradoSobreCons
+     *
+     * @param accion String con la accion a realizar
+     */
+    private void servMetradoSobreConsAcction(String accion) {
+        int fila_seleccionada;
+        int servicioSel = this.serviMetradoSobreCons.servicioComboBox.getSelectedIndex();
+        int sobreConsumoSel = this.serviMetradoSobreCons.sobreConsumoComboBox.getSelectedIndex();
+
+        switch (accion) {
+            case "agregarMetSobCons":
+                this.agregarServicioSobreCons(servicioSel, sobreConsumoSel);
+                break;
+            case "eliminarMetSobCons":
+                fila_seleccionada = this.serviMetradoSobreCons.ServMetSobConTable.getSelectedRow();
+                if (fila_seleccionada > -1) {
+                    this.eliminarServicioSobreCons(fila_seleccionada);
+                } else {
+                    JOptionPane.showMessageDialog(this.serviMetradoSobreCons, "Selecione una relacion para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            default:
+                //this.serviMetradoSobreCons.servicioComboBox.setSelectedIndex(0);
+                //this.serviMetradoSobreCons.sobreConsumoComboBox.setSelectedIndex(0);
+                this.serviMetradoSobreCons.servicioComboBox.setModel(this.model.servicioCombobox("v_servicio_all"));
+                this.serviMetradoSobreCons.sobreConsumoComboBox.setModel(this.model.servicioCombobox("v_servicio_all"));
+                this.serviMetradoSobreCons.ServMetSobConTable.setModel(this.model.mostrarServMetradoSobreCons());
+                break;
+        }
+    }
+
+    public void eliminarServicioSobreCons(int fila_seleccionada) {
+        int id_servicio = 0;
+        int id_sobreconsumo = 0;
+        for (int i = 0; i < this.model.arregloServicioSobreC.size(); i++) {
+            if (this.model.arregloServicioSobreC.get(i).getId_servicio() == this.model.arregloServicioSobreC.get(fila_seleccionada).getId_servicio()) {
+                id_servicio = this.model.arregloServicioSobreC.get(i).getId_servicio();
+                id_sobreconsumo = this.model.arregloServicioSobreC.get(i).getId_sobreconsumo();
+            }
+        }
+        if (this.model.gregarServMetradoSobreCons(id_servicio, id_sobreconsumo)) {
+            JOptionPane.showMessageDialog(this.serviMetradoSobreCons, "Se ha eliminado la relacion entre Servicios Metrados y Sobre-Consumos", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+            this.servMetradoSobreConsAcction("visualizar");
+        } else {
+            this.msg = "Error al intentar eliminar la relación \n";
+            JOptionPane.showMessageDialog(this.serviMetradoSobreCons, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void agregarServicioSobreCons(int servicioSel, int sobreConsumoSel) {
+        this.msg = "";
+        // Capturar datos del formulario                                
+        int id_servicio = 0;
+        int id_sobreconsumo = 0;
+        if (servicioSel > 0) {
+            for (int i = 0; i < this.model.arregloServicio.size(); i++) {
+                if (this.model.arregloServicio.get(i).getId_servicio() == this.model.arregloServicio.get(servicioSel - 1).getId_servicio()) {
+                    id_servicio = this.model.arregloServicio.get(i).getId_servicio();
+                    break;
+                }
+            }
+        } else {
+            this.msg += "Seleccione un Servicio \n";
+        }
+        if (sobreConsumoSel > 0) {
+            for (int i = 0; i < this.model.arregloServicio.size(); i++) {
+                if (this.model.arregloServicio.get(i).getId_servicio() == this.model.arregloServicio.get(sobreConsumoSel - 1).getId_servicio()) {
+                    id_sobreconsumo = this.model.arregloServicio.get(i).getId_servicio();
+                    break;
+                }
+            }
+        } else {
+            this.msg += "Seleccione un Sobre-Consumo \n";
+        }
+        if (!this.msg.isEmpty()) {
+            JOptionPane.showMessageDialog(this.serviMetradoSobreCons, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (this.model.agregarServMetradoSobreCons(id_servicio, id_sobreconsumo)) {
+                JOptionPane.showMessageDialog(this.serviMetradoSobreCons, "Se ha agregado la relacion entre Servicios Metrados y Sobre-Consumos", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                this.servMetradoSobreConsAcction("visualizar");
+            } else {
+                this.msg = "Error al intentar agregar la relación \n";
+                JOptionPane.showMessageDialog(this.serviMetradoSobreCons, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void validarSemilla(String nombres, String apellidos, String email, String empresa) {
+        this.msg = "";
+        if (nombres.isEmpty()) {
+            this.msg += "Nombre: Campo Nulo \n";
+        }
+        if (apellidos.isEmpty()) {
+            this.msg += "Apellidos: Campo Nulo \n";
+        }
+        if (email.isEmpty()) {
+            this.msg += "email: Campo nulo \n";
+        } else if (!herramientas.validarEmailFuerte(email)) {
+            this.msg += "email: No es una direccion de correo valida \n";
+        }
+        if (empresa.isEmpty()) {
+            this.msg += "empresa: Campo Nulo \n";
+        }
+        if (!this.msg.isEmpty()) {
+            JOptionPane.showMessageDialog(this.servicio, msg, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String textoSemilla = nombres + apellidos + email + empresa;
+            byte[] name = textoSemilla.getBytes();
+            String semilla = java.util.UUID.nameUUIDFromBytes(name).toString();
+            this.licencia.semillaTextArea.setText(semilla);
+        }
+    }
+
+    public void crearSemilla(File archivoSemilla, String Semilla) {
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try {
+            fichero = new FileWriter(archivoSemilla);
+            pw = new PrintWriter(fichero);
+            pw.println(Semilla);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Nuevamente aprovechamos el finally para 
+                // asegurarnos que se cierra el fichero.
+                if (null != fichero) {
+                    fichero.close();
+                    JOptionPane.showMessageDialog(this.licencia, "Archivo de licencia creado correctamente", "Archivo Creado...", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+    }
+
+    public void guardarSemilla(String textSemilla) {
+        try {
+            // La variable length contiene el nombre del archivo semilla
+            if (conf.getLength().isEmpty()) {
+                conf.setLength(java.util.UUID.randomUUID().toString().substring(0, 6));
+            }
+            String direccion = "config/" + conf.getLength();
+            File Semilla = new File(direccion);
+            if (Semilla.exists()) {
+                File f = Semilla;
+                f.delete();
+            }
+            FileWriter fichero = null;
+            PrintWriter pw = null;
+            fichero = new FileWriter(Semilla);
+            pw = new PrintWriter(fichero);
+            pw.println(textSemilla);
+            fichero.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(controlador.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void guardarLic(String textLic) {
+        try {
+            // La variable Ins contiene el nombre del archivo licencia
+            if (conf.getIns().isEmpty()) {
+                conf.setIns(java.util.UUID.randomUUID().toString().substring(0, 6));
+            }
+            String direccion = "config/" + conf.getIns();
+            File Lic = new File(direccion);
+            if (Lic.exists()) {
+                File f = Lic;
+                f.delete();
+            }
+            FileWriter fichero = null;
+            PrintWriter pw = null;
+            fichero = new FileWriter(Lic);
+            pw = new PrintWriter(fichero);
+            pw.println(textLic);
+            fichero.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(controlador.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public String leerTxt(File archivoTxt) {
+        String texto = "";
+        if (archivoTxt != null) {
+            String cadena;
+            FileReader f = null;
+            try {
+                f = new FileReader(archivoTxt);
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(controlador.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+
+            BufferedReader b = new BufferedReader(f);
+
+            try {
+                while ((cadena = b.readLine()) != null) {
+                    texto += cadena;
+
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(controlador.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return texto;
+    }
+
+    public boolean validarLic(File archivoSem, File archivoLic) {
+        String textoSem = leerTxt(archivoSem);
+        String txtLlavePersonal = "Numlock".trim();
+        Date hoy = new Date();
+        Date fechaVig;
+        String Fis;
+        String textoLic = leerTxt(archivoLic);
+        byte[] name;
+        String licg;
+        boolean val = false;
+        for (int i = 0; i <= 365; i++) {
+            fechaVig = utilfecha.sumaDias(hoy, i);
+            Fis = utilfecha.convierteDateAString(fechaVig, "yyyy-MM-dd");
+            String txtLic = textoSem + txtLlavePersonal + Fis.trim();
+            name = txtLic.getBytes();
+            licg = java.util.UUID.nameUUIDFromBytes(name).toString();
+            if (licg.equals(textoLic)) {
+                val = true;
+                break;
+            }
+        }
+        return val;
+    }
+
+    /**
+     * Método para el trabajo con el formulario de <b>TipoServicios</b>
+     *
+     * @param accion String con la accion a realizar
+     */
+    private void licAcction(String accion) {
+        File archivoLicencia = null;
+        switch (accion) {
+            case "generarSemilla":
+                String nombres = this.licencia.nombresTextField.getText().trim();
+                String apellidos = this.licencia.apellidosTextField.getText().trim();
+                String email = this.licencia.emailFormattedTextField.getText().trim();
+                String empresa = this.licencia.empresaTextField.getText().trim();
+                this.validarSemilla(nombres, apellidos, email, empresa);
+                break;
+            case "guardarSemilla":
+                if (this.licencia.semillaTextArea.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this.licencia, "Es necesario generar la semilla", "Alerta...", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JFileChooser sem = new JFileChooser();
+                    FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.sem", "sem");
+                    sem.setFileFilter(filtro);
+                    sem.setAcceptAllFileFilterUsed(false);
+                    sem.setDialogTitle("Guardar Licencia");
+                    int accionl = sem.showSaveDialog(this.licencia);
+                    if (accionl == JFileChooser.APPROVE_OPTION) {
+                        archivoLicencia = sem.getSelectedFile();
+                        String direccion = "";
+                        String[] nombre = archivoLicencia.getName().trim().split("\\.");
+                        if (nombre[nombre.length - 1].equals("sem")) {
+                            direccion = archivoLicencia.getPath();
+                        } else {
+                            direccion = archivoLicencia.getPath() + ".sem";
+                        }
+                        File Semilla = new File(direccion);
+                        if (!Semilla.exists()) {
+                            this.crearSemilla(Semilla, this.licencia.semillaTextArea.getText());
+                        } else {
+                            int acc = JOptionPane.showConfirmDialog(this.licencia, "Ya existe un archivo con ese nombre, deceas remplazarlo", "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                            if (acc == 0) {
+                                File f = archivoLicencia;
+                                f.delete();
+                                crearSemilla(Semilla, this.licencia.semillaTextArea.getText());
+                            }
+                        }
+                    }
+                }
+                break;
+            case "cargar":
+                JFileChooser lic = new JFileChooser();
+                FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.lic", "lic");
+                lic.setFileFilter(filtro);
+                lic.setAcceptAllFileFilterUsed(false);
+                lic.showOpenDialog(this.licencia);
+                archivoLicencia = lic.getSelectedFile();
+                String textoLice = "";
+                if (archivoLicencia != null) {
+                    String cadena;
+                    FileReader f = null;
+                    try {
+                        f = new FileReader(archivoLicencia);
+
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(controlador.class
+                                .getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    BufferedReader b = new BufferedReader(f);
+
+                    try {
+                        while ((cadena = b.readLine()) != null) {
+                            textoLice += cadena;
+                            this.licencia.licenciaTextArea.setText(textoLice);
+
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(controlador.class
+                                .getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                break;
+            case "validar":
+                File archSem = new File("config/" + conf.getLength());
+                if (this.validarLic(archSem, archivoLicencia)) {
+                    try {
+                        this.guardarSemilla(this.licencia.semillaTextArea.getText());
+                        this.guardarLic(this.licencia.licenciaTextArea.getText());
+                        this.cambiarEstado(true);
+                        this.cerrar(this.licencia);
+
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(controlador.class
+                                .getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(this.licencia, "Licencia invalida", "Error...", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+        }
+    }
+
+    /**
      * Método para el trabajo con el formulario del cambio de contraseña
      */
     private void cambiarPasswordAccion() {
@@ -1483,8 +2263,10 @@ public class controlador implements ActionListener {
             }
             try {
                 this.cerrar(this.cP);
+
             } catch (PropertyVetoException ex) {
-                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(controlador.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -1512,8 +2294,10 @@ public class controlador implements ActionListener {
         while (i < activos.length) {
             try {
                 cerrar(activos[i]);
+
             } catch (PropertyVetoException ex) {
-                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(controlador.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
             i++;
         }
@@ -1557,8 +2341,10 @@ public class controlador implements ActionListener {
                 activos[numactivo].setLocation(centradoXY(activos[numactivo]));// Pone el jInternalFrame en la posicion inicial
                 activos[numactivo].setSelected(true);// Pone el jInternalFrame como selecionado
                 activos[numactivo].pack();//Pone el jInternalFrame Restaurado si esta minimizado
+
             } catch (PropertyVetoException ex) {
-                Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(controlador.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
             return true;
         } else {
@@ -1639,5 +2425,21 @@ public class controlador implements ActionListener {
             this.conf.setBarraCobros(true);
             this.barraCierreMes = conf.barraCierreMes;
         }
+    }
+
+    /**
+     * Método para cambiar el estado de todos los componentes de la Vista
+     * principal
+     */
+    private void cambiarEstado(boolean estado) {
+        this.view.fileMenu.setEnabled(estado);
+        this.view.verMenu.setEnabled(estado);
+        this.view.ficherosMenu.setEnabled(estado);
+        this.view.produccionMenu.setEnabled(estado);
+        this.view.informesMenu.setEnabled(estado);
+        this.view.datosCierreMenu.setEnabled(estado);
+        this.view.cobrosMenu.setEnabled(estado);
+        this.view.prodMenu.setEnabled(estado);
+        this.view.contenedorToolBar.setVisible(estado);
     }
 }

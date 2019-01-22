@@ -550,6 +550,7 @@
                 <Component class="javax.swing.JTextArea" name="direccionTextArea">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
                     <Property name="toolTipText" type="java.lang.String" value="Entre la direcci&#xf3;n donde se encuentra la empresa"/>
                   </Properties>

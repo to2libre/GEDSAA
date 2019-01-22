@@ -274,6 +274,7 @@ public class DatosEmpresa extends javax.swing.JInternalFrame {
         correoElectronicoTextField.setToolTipText("Entre Correo Electronico de la Empresa");
 
         direccionTextArea.setColumns(20);
+        direccionTextArea.setLineWrap(true);
         direccionTextArea.setRows(5);
         direccionTextArea.setToolTipText("Entre la dirección donde se encuentra la empresa");
         direccionScrollPane.setViewportView(direccionTextArea);

@@ -20,7 +20,7 @@ public class Principal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);// Centrar la ventana        
         
         // Cambiar por la direccion donde se tiene la imagen de fondo que se quiera en el software
-        Image img = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images/fondo.jpg"));
+        Image img = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images/fondo.jpg"));        
         this.desktopPane.setImagen(img);        
     }
 
@@ -138,6 +138,7 @@ public class Principal extends javax.swing.JFrame {
         ayudaMunu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
+        licenciaMenuItem = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -514,6 +515,10 @@ public class Principal extends javax.swing.JFrame {
         aboutMenuItem.setText("Sobre Nosotros");
         ayudaMunu.add(aboutMenuItem);
 
+        licenciaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/password.png"))); // NOI18N
+        licenciaMenuItem.setText("Licencia");
+        ayudaMunu.add(licenciaMenuItem);
+
         menuBar.add(ayudaMunu);
 
         setJMenuBar(menuBar);
@@ -595,7 +600,7 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JMenuItem clientesSinFacturarCUPMenuItem;
     private javax.swing.JMenu clientesSinFacturarMenu;
     public javax.swing.JMenuItem cobrosAFacturasMenuItem;
-    private javax.swing.JMenu cobrosMenu;
+    public javax.swing.JMenu cobrosMenu;
     public javax.swing.JToolBar cobrosToolBar;
     public javax.swing.JMenuItem comprobanteOperacionnesMenuItem;
     public javax.swing.JMenuItem consultaFacturasXCobroMenuItem;
@@ -604,12 +609,12 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JMenuItem consultasACobrosFacturasMenuItem;
     public javax.swing.JButton consultasAFacturasButton;
     public javax.swing.JMenuItem consultasAfacturasMenuItem;
-    private javax.swing.JToolBar contenedorToolBar;
+    public javax.swing.JToolBar contenedorToolBar;
     public javax.swing.JMenuItem contentMenuItem;
     public javax.swing.JMenuItem copiarDispositivoSalidaMenuItem;
     public javax.swing.JMenuItem copiarFicheroVieneBancoMenuItem;
     public javax.swing.JMenuItem crearFicheroBancoMenuItem;
-    private javax.swing.JMenu datosCierreMenu;
+    public javax.swing.JMenu datosCierreMenu;
     public javax.swing.JMenuItem datosEmpresaMenuItem;
     public myclass.JDescktopPaneImage desktopPane;
     public javax.swing.JMenuItem detallesControlMenuItem;
@@ -624,8 +629,8 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JMenuItem facturasMenuItem;
     public javax.swing.JMenuItem facturasRechazadasMenuItem;
     public javax.swing.JButton ficheroABancoButton;
-    private javax.swing.JMenu ficherosMenu;
-    private javax.swing.JMenu fileMenu;
+    public javax.swing.JMenu ficherosMenu;
+    public javax.swing.JMenu fileMenu;
     public javax.swing.JMenu herramientasMenu;
     public javax.swing.JMenuItem historicoDeFacturasMenuItem;
     private javax.swing.JMenu historicoMenu;
@@ -635,7 +640,7 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JMenuItem informeMetrosCUCMenuItem;
     public javax.swing.JMenuItem informeMetrosCUPMenuItem;
     private javax.swing.JMenu informeMetrosMenu;
-    private javax.swing.JMenu informesMenu;
+    public javax.swing.JMenu informesMenu;
     public javax.swing.JToolBar informesToolBar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -652,14 +657,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
+    public javax.swing.JMenuItem licenciaMenuItem;
     public javax.swing.JMenuItem listadoFacturasMenuItem;
     public javax.swing.JMenuItem listadoGrandesConsumidoresMenuItem;
     public javax.swing.JMenuItem listadoPorSectoresMenuItem;
     public javax.swing.JMenuItem listadoTitularesClientesMenuItem;
-    private javax.swing.JMenuBar menuBar;
+    public javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu mesYAcomuladoFacturasMenu;
-    private javax.swing.JMenu prodMenu;
-    private javax.swing.JMenu produccionMenu;
+    public javax.swing.JMenu prodMenu;
+    public javax.swing.JMenu produccionMenu;
     public javax.swing.JMenuItem registroCobrosMenuItem;
     public javax.swing.JMenuItem relacionSMMenuItem;
     public javax.swing.JMenuItem reporteEdadesMenuItem;
@@ -672,8 +678,8 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JMenuItem totalFacturadoPresupuestadoMenuItem;
     public javax.swing.JMenuItem usersMenuItem;
     public javax.swing.JLabel usuarioAutenticadoLabel;
-    private javax.swing.JToolBar usuarioToolBar;
-    private javax.swing.JMenu verMenu;
+    public javax.swing.JToolBar usuarioToolBar;
+    public javax.swing.JMenu verMenu;
     // End of variables declaration//GEN-END:variables
 
 }

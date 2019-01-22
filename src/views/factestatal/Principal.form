@@ -18,12 +18,18 @@
       </Properties>
     </Component>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="fileMenu">
           <Properties>
             <Property name="mnemonic" type="int" value="97"/>
             <Property name="text" type="java.lang.String" value="Archivo"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="importMenuItem">
               <Properties>
@@ -70,6 +76,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ver"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
           <SubComponents>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="barraImportarExportarMenuItem">
               <Properties>
@@ -123,6 +132,9 @@
             <Property name="mnemonic" type="int" value="102"/>
             <Property name="text" type="java.lang.String" value="Ficheros"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="datosEmpresaMenuItem">
               <Properties>
@@ -213,6 +225,9 @@
             <Property name="mnemonic" type="int" value="112"/>
             <Property name="text" type="java.lang.String" value="Producci&#xf3;n"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="relacionSMMenuItem">
               <Properties>
@@ -278,6 +293,9 @@
             <Property name="mnemonic" type="int" value="105"/>
             <Property name="text" type="java.lang.String" value="Informes"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="listadoFacturasMenuItem">
               <Properties>
@@ -445,6 +463,9 @@
             <Property name="mnemonic" type="int" value="100"/>
             <Property name="text" type="java.lang.String" value="Datos de Cierre"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="crearFicheroBancoMenuItem">
               <Properties>
@@ -511,6 +532,9 @@
             <Property name="mnemonic" type="int" value="99"/>
             <Property name="text" type="java.lang.String" value="Cobros"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="capturarFacturasXCobroMenuItem">
               <Properties>
@@ -608,6 +632,9 @@
             <Property name="mnemonic" type="int" value="114"/>
             <Property name="text" type="java.lang.String" value="Productividad"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Menu>
         <Menu class="javax.swing.JMenu" name="ayudaMunu">
           <Properties>
@@ -631,6 +658,17 @@
               <Properties>
                 <Property name="mnemonic" type="int" value="97"/>
                 <Property name="text" type="java.lang.String" value="Sobre Nosotros"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="licenciaMenuItem">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/iconos/password.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Licencia"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -691,6 +729,9 @@
         <Property name="floatable" type="boolean" value="false"/>
         <Property name="rollover" type="boolean" value="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
@@ -915,6 +956,9 @@
         <Property name="floatable" type="boolean" value="false"/>
         <Property name="rollover" type="boolean" value="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>

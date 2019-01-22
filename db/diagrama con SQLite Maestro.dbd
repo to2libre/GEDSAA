@@ -1,368 +1,401 @@
 <XMLDiagram>
-<TDBADiagramController Locked="0">
-<Elements>
-<TDBADiagramObject id="1" propertiesclass="TDiagramMetaTableProperties" objectname="t_cliente">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="510" top="400" width="200" height="153"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="2" propertiesclass="TDiagramMetaTableProperties" objectname="t_organismo">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="510" top="20" width="200" height="97"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="3" propertiesclass="TDiagramMetaTableProperties" objectname="t_rol">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="730" top="10" width="200" height="69"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="4" propertiesclass="TDiagramMetaTableProperties" objectname="t_session">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="730" top="220" width="200" height="66"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="5" propertiesclass="TDiagramMetaTableProperties" objectname="t_tipo_servicio">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="30" top="410" width="200" height="69"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="6" propertiesclass="TDiagramMetaTableProperties" objectname="t_titular">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="510" top="140" width="200" height="237"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="8" propertiesclass="TDiagramMetaTableProperties" objectname="t_usuario">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="730" top="100" width="200" height="97"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="7" propertiesclass="TDiagramForeignKeyProperties" objectname="t_usuario.Foreign_key01">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="128" top="128" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="780" y="140"/>
-<Point x="760" y="30"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="9" propertiesclass="TDiagramForeignKeyProperties" objectname="t_titular.Foreign_key01">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="144" top="144" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="590" y="200"/>
-<Point x="580" y="60"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="12" propertiesclass="TDiagramForeignKeyProperties" objectname="t_session.Foreign_key01">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="192" top="192" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="800" y="270"/>
-<Point x="790" y="150"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="13" propertiesclass="TDiagramMetaTableProperties" objectname="t_metro">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="730" top="390" width="200" height="110"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="14" propertiesclass="TDiagramMetaTableProperties" objectname="t_metro_marca">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="730" top="300" width="200" height="69"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="15" propertiesclass="TDiagramMetaTableProperties" objectname="t_metro_modelo">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="950" top="300" width="200" height="69"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="16" propertiesclass="TDiagramForeignKeyProperties" objectname="t_metro.Foreign_key01">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="256" top="256" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="840" y="417"/>
-<Point x="770" y="300"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="17" propertiesclass="TDiagramForeignKeyProperties" objectname="t_metro.Foreign_key02">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="272" top="272" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="800" y="457"/>
-<Point x="1040" y="369"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDiagramRelation id="18" propertiesclass="TDiagramRelationProperties">
-<TDiagramRelationProperties sourceid="13" destinationid="1">
-<Relation>
-<Geometry left="0" top="0" width="0" height="0"/>
-<Glyph>
-<Geometry>
-<Point x="800" y="400"/>
-<Point x="650" y="460"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramRelationProperties>
-</TDiagramRelation>
-<TDBADiagramObject id="19" propertiesclass="TDiagramMetaTableProperties" objectname="t_metro_lectura">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="730" top="540" width="200" height="110"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="20" propertiesclass="TDiagramMetaTableProperties" objectname="t_anno">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="510" top="700" width="200" height="52"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="21" propertiesclass="TDiagramMetaTableProperties" objectname="t_mes">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="500" top="590" width="200" height="66"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="22" propertiesclass="TDiagramMetaTableProperties" objectname="t_mes_nombre">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="50" top="660" width="200" height="69"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="23" propertiesclass="TDiagramForeignKeyProperties" objectname="t_mes.Foreign_key01">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="368" top="368" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="580" y="620"/>
-<Point x="250" y="729"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="24" propertiesclass="TDiagramForeignKeyProperties" objectname="t_mes.Foreign_key02">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="384" top="384" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="560" y="600"/>
-<Point x="510" y="700"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="25" propertiesclass="TDiagramForeignKeyProperties" objectname="t_metro_lectura.Foreign_key01">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="400" top="400" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="810" y="567"/>
-<Point x="730" y="500"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="26" propertiesclass="TDiagramForeignKeyProperties" objectname="t_metro_lectura.Foreign_key02">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="416" top="416" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="840" y="607"/>
-<Point x="700" y="590"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDiagramNote id="27" propertiesclass="TDiagramNoteProperties">
-<TDiagramNoteProperties>
-<Glyph>
-<Geometry left="750" top="680" width="140" height="80"/>
-</Glyph>
-<Text>
-t_mes:
-El último registro es el del mes en el que se está trabajando</Text>
-</TDiagramNoteProperties>
-</TDiagramNote>
-<TDiagramNoteLink id="28" propertiesclass="TDiagramNoteLinkProperties">
-<TDiagramNoteLinkProperties sourceid="27" destinationid="21">
-<Relation>
-<Geometry left="0" top="0" width="0" height="0"/>
-<Glyph>
-<Geometry>
-<Point x="750" y="680"/>
-<Point x="700" y="656"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramNoteLinkProperties>
-</TDiagramNoteLink>
-<TDBADiagramObject id="29" propertiesclass="TDiagramMetaTableProperties" objectname="t_empresa">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="280" top="10" width="200" height="230"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="30" propertiesclass="TDiagramMetaTableProperties" objectname="t_ueb">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="280" top="270" width="200" height="90"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="31" propertiesclass="TDiagramForeignKeyProperties" objectname="t_ueb.Foreign_key01">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="496" top="496" width="200" height="100"/>
-<Glyph>
-<Geometry/>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="32" propertiesclass="TDiagramMetaTableProperties" objectname="t_ueb_titular">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="280" top="380" width="200" height="66"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="33" propertiesclass="TDiagramForeignKeyProperties" objectname="t_ueb_titular.Foreign_key01">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="528" top="528" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="480" y="410"/>
-<Point x="510" y="140"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="34" propertiesclass="TDiagramForeignKeyProperties" objectname="t_ueb_titular.Foreign_key02">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="544" top="544" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="420" y="410"/>
-<Point x="400" y="360"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="35" propertiesclass="TDiagramForeignKeyProperties" objectname="t_organismo.Foreign_key01">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="560" top="560" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="570" y="60"/>
-<Point x="420" y="145"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="36" propertiesclass="TDiagramMetaTableProperties" objectname="t_detalles_control">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="20" top="250" width="220" height="140"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="37" propertiesclass="TDiagramForeignKeyProperties" objectname="t_detalles_control.Foreign_key01">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="592" top="592" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="60" y="288"/>
-<Point x="350" y="300"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="10" propertiesclass="TDiagramMetaTableProperties" objectname="t_servicio">
-<TDiagramMetaTableProperties>
-<Glyph>
-<Geometry left="40" top="520" width="200" height="120"/>
-</Glyph>
-</TDiagramMetaTableProperties>
-</TDBADiagramObject>
-<TDBADiagramObject id="11" propertiesclass="TDiagramForeignKeyProperties" objectname="t_servicio.Foreign_key02">
-<TDiagramForeignKeyProperties>
-<Relation>
-<Geometry left="592" top="592" width="200" height="100"/>
-<Glyph>
-<Geometry>
-<Point x="170" y="560"/>
-<Point x="90" y="450"/>
-</Geometry>
-</Glyph>
-</Relation>
-</TDiagramForeignKeyProperties>
-</TDBADiagramObject>
-</Elements>
-<Surface zoom="100" scrollx="10" scrolly="80"/>
-</TDBADiagramController>
+  <TDBADiagramController Locked="0">
+    <Elements>
+      <TDBADiagramObject id="1" propertiesclass="TDiagramMetaTableProperties" objectname="t_anno">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="10" top="478" width="200" height="52"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="2" propertiesclass="TDiagramMetaTableProperties" objectname="t_cliente">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="906" top="693" width="200" height="167"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="3" propertiesclass="TDiagramMetaTableProperties" objectname="t_cliente_servicio">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="1130" top="931" width="200" height="66"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="4" propertiesclass="TDiagramMetaTableProperties" objectname="t_detalles_control">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="1130" top="101" width="200" height="125"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="5" propertiesclass="TDiagramMetaTableProperties" objectname="t_empresa">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="1354" top="10" width="200" height="307"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="6" propertiesclass="TDiagramMetaTableProperties" objectname="t_mes">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="234" top="745" width="200" height="63"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="7" propertiesclass="TDiagramMetaTableProperties" objectname="t_mes_nombre">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="234" top="470" width="200" height="69"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="8" propertiesclass="TDiagramMetaTableProperties" objectname="t_metro">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="458" top="721" width="200" height="111"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="9" propertiesclass="TDiagramMetaTableProperties" objectname="t_metro_lectura">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="346" top="909" width="200" height="111"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="10" propertiesclass="TDiagramMetaTableProperties" objectname="t_metro_marca">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="458" top="470" width="200" height="69"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="11" propertiesclass="TDiagramMetaTableProperties" objectname="t_metro_modelo">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="682" top="470" width="200" height="69"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="12" propertiesclass="TDiagramMetaTableProperties" objectname="t_organismo">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="906" top="107" width="200" height="111"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="13" propertiesclass="TDiagramMetaTableProperties" objectname="t_rol">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="1578" top="742" width="200" height="69"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="14" propertiesclass="TDiagramMetaTableProperties" objectname="t_servicio">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="1354" top="722" width="200" height="108"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="15" propertiesclass="TDiagramMetaTableProperties" objectname="t_session">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="1802" top="931" width="200" height="66"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="16" propertiesclass="TDiagramMetaTableProperties" objectname="t_tipo_servicio">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="1354" top="470" width="200" height="69"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="17" propertiesclass="TDiagramMetaTableProperties" objectname="t_titular">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="906" top="365" width="200" height="279"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="18" propertiesclass="TDiagramMetaTableProperties" objectname="t_ueb">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="1130" top="463" width="200" height="83"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="19" propertiesclass="TDiagramMetaTableProperties" objectname="t_ueb_titular">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="1130" top="743" width="200" height="66"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="20" propertiesclass="TDiagramMetaTableProperties" objectname="t_usuario">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="1578" top="915" width="200" height="97"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="21" propertiesclass="TDiagramForeignKeyProperties" objectname="t_cliente.Foreign_key01">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="336" top="336" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1010" y="780"/>
+                <Point x="1010" y="500"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="22" propertiesclass="TDiagramForeignKeyProperties" objectname="t_cliente_servicio.fk_id_cliente">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="352" top="352" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1230" y="960"/>
+                <Point x="1010" y="780"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="23" propertiesclass="TDiagramForeignKeyProperties" objectname="t_cliente_servicio.fk_id_servicio">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="368" top="368" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1230" y="960"/>
+                <Point x="1450" y="780"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="24" propertiesclass="TDiagramForeignKeyProperties" objectname="t_detalles_control.Foreign_key01">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="384" top="384" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1230" y="160"/>
+                <Point x="1230" y="500"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="25" propertiesclass="TDiagramForeignKeyProperties" objectname="t_mes.Foreign_key01">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="400" top="400" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="330" y="780"/>
+                <Point x="330" y="500"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="26" propertiesclass="TDiagramForeignKeyProperties" objectname="t_mes.Foreign_key02">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="416" top="416" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="330" y="780"/>
+                <Point x="110" y="500"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="27" propertiesclass="TDiagramForeignKeyProperties" objectname="t_metro.Foreign_key01">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="432" top="432" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="560" y="780"/>
+                <Point x="560" y="500"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="28" propertiesclass="TDiagramForeignKeyProperties" objectname="t_metro.Foreign_key02">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="448" top="448" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="560" y="780"/>
+                <Point x="780" y="500"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="29" propertiesclass="TDiagramForeignKeyProperties" objectname="t_metro_lectura.Foreign_key01">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="464" top="464" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="450" y="960"/>
+                <Point x="560" y="780"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="30" propertiesclass="TDiagramForeignKeyProperties" objectname="t_metro_lectura.Foreign_key02">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="480" top="480" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="450" y="960"/>
+                <Point x="330" y="780"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="31" propertiesclass="TDiagramForeignKeyProperties" objectname="t_servicio.Foreign_key01">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="496" top="496" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1450" y="780"/>
+                <Point x="1450" y="500"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="32" propertiesclass="TDiagramForeignKeyProperties" objectname="t_titular.Foreign_key01">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="512" top="512" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1010" y="500"/>
+                <Point x="1010" y="160"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="33" propertiesclass="TDiagramForeignKeyProperties" objectname="t_ueb.Foreign_key01">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="528" top="528" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1230" y="500"/>
+                <Point x="1230" y="160"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="34" propertiesclass="TDiagramForeignKeyProperties" objectname="t_ueb.Foreign_key02">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="544" top="544" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1230" y="500"/>
+                <Point x="1450" y="160"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="35" propertiesclass="TDiagramForeignKeyProperties" objectname="t_ueb_titular.Foreign_key01">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="560" top="560" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1230" y="780"/>
+                <Point x="1010" y="500"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="36" propertiesclass="TDiagramForeignKeyProperties" objectname="t_ueb_titular.Foreign_key02">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="576" top="576" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1230" y="780"/>
+                <Point x="1230" y="500"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="37" propertiesclass="TDiagramForeignKeyProperties" objectname="t_usuario.Foreign_key01">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="592" top="592" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1680" y="960"/>
+                <Point x="1680" y="780"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="38" propertiesclass="TDiagramMetaTableProperties" objectname="t_servicio_sobrecons">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="1350" top="930" width="200" height="49"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="39" propertiesclass="TDiagramForeignKeyProperties" objectname="t_servicio_sobrecons.fk_id_sobreconsumo">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="624" top="624" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1450" y="954"/>
+                <Point x="1450" y="780"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="40" propertiesclass="TDiagramForeignKeyProperties" objectname="t_servicio_sobrecons.fk_id_servicio">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="640" top="640" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1450" y="954"/>
+                <Point x="1450" y="780"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
+    </Elements>
+    <Surface zoom="104.190995577977" scrollx="952" scrolly="436"/>
+  </TDBADiagramController>
 </XMLDiagram>
