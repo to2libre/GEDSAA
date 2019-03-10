@@ -20,8 +20,8 @@ public class Principal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);// Centrar la ventana        
         
         // Cambiar por la direccion donde se tiene la imagen de fondo que se quiera en el software
-        Image img = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images/fondo.jpg"));        
-        this.desktopPane.setImagen(img);        
+        Image img = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images/fondo.jpg"));                
+        this.desktopPane.setImagen(img);                        
     }
 
     @Override

@@ -395,7 +395,27 @@
           </Relation>
         </TDiagramForeignKeyProperties>
       </TDBADiagramObject>
+      <TDBADiagramObject id="41" propertiesclass="TDiagramMetaTableProperties" objectname="t_servicio_alcantarillado">
+        <TDiagramMetaTableProperties>
+          <Glyph>
+            <Geometry left="1570" top="560" width="200" height="80"/>
+          </Glyph>
+        </TDiagramMetaTableProperties>
+      </TDBADiagramObject>
+      <TDBADiagramObject id="42" propertiesclass="TDiagramForeignKeyProperties" objectname="t_servicio_alcantarillado.fk_id_servicio">
+        <TDiagramForeignKeyProperties>
+          <Relation>
+            <Geometry left="672" top="672" width="200" height="100"/>
+            <Glyph>
+              <Geometry>
+                <Point x="1670" y="600"/>
+                <Point x="1450" y="780"/>
+              </Geometry>
+            </Glyph>
+          </Relation>
+        </TDiagramForeignKeyProperties>
+      </TDBADiagramObject>
     </Elements>
-    <Surface zoom="104.190995577977" scrollx="952" scrolly="436"/>
+    <Surface zoom="104.190995577977" scrollx="1025" scrolly="400"/>
   </TDBADiagramController>
 </XMLDiagram>

@@ -35,6 +35,7 @@ public class modelo extends SQLite_conexion {
     public ArrayList<Cliente> arregloCliente;
     public ArrayList<ClienteServicio> arregloClienteServicio;
     public ArrayList<ServicioSobreConsumo> arregloServicioSobreC;
+    public ArrayList<ServIncluAlcan> arregloServiAlc;
 
     /**
      * Constructor de la clase <b>modelo</b>
@@ -696,8 +697,8 @@ public class modelo extends SQLite_conexion {
     public boolean agregarServMetradoSobreCons(int id_servicio, int id_sobreconsumo) {
         return this.insertar("t_servicio_sobrecons", "id_servicio, id_sobreconsumo", +id_servicio + "," + id_sobreconsumo);
     }
-    
-    public boolean gregarServMetradoSobreCons(int id_servicio, int id_sobreconsumo){
+
+    public boolean eliminarServMetradoSobreCons(int id_servicio, int id_sobreconsumo) {
         String donde = "id_servicio = " + id_servicio + " AND id_sobreconsumo = " + id_sobreconsumo;
         return this.eliminarRegistro("t_servicio_sobrecons", donde);
     }
@@ -705,7 +706,7 @@ public class modelo extends SQLite_conexion {
     public TableModel mostrarServMetradoSobreCons() {
         resultSet = seleccionarResultSet("v_servicio_sobrecons_all");
         arregloServicioSobreC = new ArrayList<>();
-        
+
         try {
             while (resultSet.next()) {
                 int id_servicio = resultSet.getInt("id_servicio");
@@ -725,23 +726,68 @@ public class modelo extends SQLite_conexion {
         TableModel tm;
         if (arregloServicioSobreC.size() > 0) {
             String nombreColumna[] = {"Servicio", "Precio cuc", "Precio cup", "Sobre-Consumo", "Precio cuc", "Precio cup"};
-            tm = new DefaultTableModel(nombreColumna, arregloServicioSobreC.size());            
+            tm = new DefaultTableModel(nombreColumna, arregloServicioSobreC.size());
             int conuntRow = 0;
-            for (int i = 0; i < arregloServicioSobreC.size(); i++) {
+            for (int i = 0; i < arregloServicioSobreC.size(); i++) {                
                 tm.setValueAt(arregloServicioSobreC.get(i).getServicio(), conuntRow, 0);                
                 tm.setValueAt(arregloServicioSobreC.get(i).getPrecio_cuc_s(), conuntRow, 1);
                 tm.setValueAt(arregloServicioSobreC.get(i).getPrecio_cup_s(), conuntRow, 2);
                 tm.setValueAt(arregloServicioSobreC.get(i).getSobreconsumo(), conuntRow, 3);
                 tm.setValueAt(arregloServicioSobreC.get(i).getPrecio_cuc_sc(), conuntRow, 4);
                 tm.setValueAt(arregloServicioSobreC.get(i).getPrecio_cup_sc(), conuntRow, 5);
-                conuntRow++;
+                conuntRow++;                
             }
         } else {
             String nombreColumna[] = {"Servicios Metrados | Sobre - Consumo Asociado"};
             tm = new DefaultTableModel(nombreColumna, 1);
             tm.setValueAt("No existen relaciones para mostrar", 0, 0);
+        }        
+        return tm;
+    }
+
+    public TableModel mostrarServicioIncAlc() {
+        resultSet = seleccionarResultSet("v_servicio_alcant_all");
+
+        this.arregloServiAlc = new ArrayList<>();
+
+        try {
+            while (resultSet.next()) {
+                this.arregloServiAlc.add(new ServIncluAlcan(resultSet.getInt("id_servicio"), resultSet.getString("descripcion"), resultSet.getDouble("precio_cuc"), resultSet.getDouble("precio_cup")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        TableModel tm;
+        if (this.arregloServiAlc.size() > 0) {
+            String nombreColumna[] = {"Servicio", "Precio CUC", "Precio CUP"};
+            tm = new DefaultTableModel(nombreColumna, this.arregloServiAlc.size());
+            int conuntRow = 0;
+            for (int i = 0; i < this.arregloServiAlc.size(); i++) {
+                tm.setValueAt(this.arregloServiAlc.get(i).getServicio(), conuntRow, 0);
+                tm.setValueAt(this.arregloServiAlc.get(i).getPrecio_cuc(), conuntRow, 1);
+                tm.setValueAt(this.arregloServiAlc.get(i).getPrecio_cup(), conuntRow, 2);
+                conuntRow++;
+            }
+        } else {
+            String nombreColumna[] = {"Servicio que Incluyen Alcantarillado"};
+            tm = new DefaultTableModel(nombreColumna, 1);
+            tm.setValueAt("No existen Servicios para mostrar", 0, 0);
         }
         return tm;
+    }
+
+    public boolean agregarServicioIncAlc(int id_servicio, double precio_cuc, double precio_cup) {
+        return this.insertar("t_servicio_alcantarillado", "id_servicio, precio_cuc, precio_cup", +id_servicio + ", " + precio_cuc + ", " + precio_cup);
+    }
+    
+    public boolean modificarServicioIncAlc(int id_servicio, double precio_cuc, double precio_cup) {        
+        return this.actualizar("t_servicio_alcantarillado", "id_servicio=" + id_servicio + ", precio_cuc=" + precio_cuc + ", precio_cup=" + precio_cup + "", "id_servicio = " + id_servicio);
+    }
+    
+    public boolean eliminarServicioIncAlc(int id_servicio) {
+        String donde = "id_servicio = " + id_servicio;
+        return this.eliminarRegistro("t_servicio_alcantarillado", donde);
     }
 
     /**

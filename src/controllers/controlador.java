@@ -28,11 +28,10 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import models.DetallesControl;
@@ -47,6 +46,7 @@ import views.factestatal.ficheros.AgregarActualizarTitular;
 import views.factestatal.ficheros.ClientesServicios;
 import views.factestatal.ficheros.Licencia;
 import views.factestatal.ficheros.ServiMetradoSobreCons;
+import views.factestatal.ficheros.ServiciosIncluAlcantarillado;
 import views.factestatal.ficheros.Users;
 import views.factestatal.ficheros.cambiarPassword;
 
@@ -77,6 +77,7 @@ public class controlador implements ActionListener {
     private Clientes clientes;
     private ClientesServicios cs;
     private ServiMetradoSobreCons serviMetradoSobreCons;
+    private ServiciosIncluAlcantarillado serviciosIncluAlcantarillado;
 
     //Variables de modelos
     public Usuario usuario;
@@ -319,6 +320,21 @@ public class controlador implements ActionListener {
             case "eliminarMetradoSobreC": //Accion para eliminar servicios a clientes
                 this.servMetradoSobreConsAcction("eliminarMetSobCons");
                 break;
+            case "servicioInclAlcantaForm":
+                this.formServiciosIncluAlcantarillado();
+                break;
+            case "nuevoServIncAlc":
+                this.serviciosIncluAlcantarilladoAcction("nuevoServIncAlc");
+                break;
+            case "agregarServIncAlc":
+                this.serviciosIncluAlcantarilladoAcction("agregarActualizarServIncAlc");
+                break;
+            case "modificarServIncAlc":
+                this.serviciosIncluAlcantarilladoAcction("modificarServIncAlc");
+                break;
+            case "eliminarServIncAlc": //Accion para eliminar Servicios que inclullen alcantarillado                
+                this.serviciosIncluAlcantarilladoAcction("eliminarServIncAlc");
+                break;
             case "licenciaForm": //Accion para mostrar jinternal frame licencia
                 this.formLicencia();
                 break;
@@ -379,6 +395,7 @@ public class controlador implements ActionListener {
         this.view.titularesMenuItem.setActionCommand("titularesForm"); //Titulares
         this.view.clientesMenuItem.setActionCommand("clientesForm"); //Clientes
         this.view.relacionSMMenuItem.setActionCommand("serviMetradoSobConsForm"); //ServiMetradoSobreConsumo
+        this.view.servicioInclAlcMenuItem.setActionCommand("servicioInclAlcantaForm"); // Servicios que inclullen alcantarillado
         this.view.detallesControlMenuItem.setActionCommand("formDetallesControl"); //Formulario Detalles de Control
         this.view.usersMenuItem.setActionCommand("Usuario"); //Gestionar Usuario
         this.view.cambiarContrasennaMenuItem.setActionCommand("Cambiar password"); //Cambiar contraseña                
@@ -398,6 +415,7 @@ public class controlador implements ActionListener {
         this.view.titularesMenuItem.addActionListener(this); //Titulares
         this.view.clientesMenuItem.addActionListener(this); //Clientes
         this.view.relacionSMMenuItem.addActionListener(this); //ServiMetradoSobreConsumo
+        this.view.servicioInclAlcMenuItem.addActionListener(this); // Servicios que inclullen alcantarillado
         this.view.detallesControlMenuItem.addActionListener(this); //DetallesControl
         this.view.usersMenuItem.addActionListener(this); //Gestionar Usuario
         this.view.cambiarContrasennaMenuItem.addActionListener(this); //Cambiar contraseñas        
@@ -697,6 +715,31 @@ public class controlador implements ActionListener {
             //Se pone a la escucha de las acciones del Usuario            
             this.serviMetradoSobreCons.AgregarButton.addActionListener(this);
             this.serviMetradoSobreCons.EliminarButton.addActionListener(this);
+        }
+    }
+
+    /**
+     * Método para controlar el formulario <b>ServiMetradoSobreCons</b>
+     */
+    public void formServiciosIncluAlcantarillado() {
+        this.serviciosIncluAlcantarillado = new ServiciosIncluAlcantarillado();
+        this.serviciosIncluAlcantarillado.setTitle("Servicios que inclullen Alcantarillado...");
+
+        if (!restaurarFormulario(this.serviciosIncluAlcantarillado.getTitle())) {
+            this.view.desktopPane.add(this.serviciosIncluAlcantarillado);
+            this.serviciosIncluAlcantarillado.setLocation(centradoXY(this.serviciosIncluAlcantarillado));
+            this.serviciosIncluAlcantarillado.setVisible(true);
+            this.serviciosIncluAlcantarilladoAcction("visualizar");
+            //Se agrega las acciones al formulario de Usuario        
+            this.serviciosIncluAlcantarillado.NuevoButton.setActionCommand("nuevoServIncAlc");
+            this.serviciosIncluAlcantarillado.AgregarActualizarButton.setActionCommand("agregarServIncAlc");
+            this.serviciosIncluAlcantarillado.ModificarButton.setActionCommand("modificarServIncAlc");
+            this.serviciosIncluAlcantarillado.EliminarButton.setActionCommand("eliminarServIncAlc");
+            //Se pone a la escucha de las acciones del Usuario            
+            this.serviciosIncluAlcantarillado.NuevoButton.addActionListener(this);
+            this.serviciosIncluAlcantarillado.AgregarActualizarButton.addActionListener(this);
+            this.serviciosIncluAlcantarillado.ModificarButton.addActionListener(this);
+            this.serviciosIncluAlcantarillado.EliminarButton.addActionListener(this);
         }
     }
 
@@ -1908,6 +1951,10 @@ public class controlador implements ActionListener {
                 this.serviMetradoSobreCons.servicioComboBox.setModel(this.model.servicioCombobox("v_servicio_all"));
                 this.serviMetradoSobreCons.sobreConsumoComboBox.setModel(this.model.servicioCombobox("v_servicio_all"));
                 this.serviMetradoSobreCons.ServMetSobConTable.setModel(this.model.mostrarServMetradoSobreCons());
+                this.serviMetradoSobreCons.ServMetSobConTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+                this.serviMetradoSobreCons.ServMetSobConTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+                this.serviMetradoSobreCons.ServMetSobConTable.getColumnModel().getColumn(4).setPreferredWidth(20);
+                this.serviMetradoSobreCons.ServMetSobConTable.getColumnModel().getColumn(5).setPreferredWidth(20);
                 break;
         }
     }
@@ -1921,7 +1968,7 @@ public class controlador implements ActionListener {
                 id_sobreconsumo = this.model.arregloServicioSobreC.get(i).getId_sobreconsumo();
             }
         }
-        if (this.model.gregarServMetradoSobreCons(id_servicio, id_sobreconsumo)) {
+        if (this.model.eliminarServMetradoSobreCons(id_servicio, id_sobreconsumo)) {
             JOptionPane.showMessageDialog(this.serviMetradoSobreCons, "Se ha eliminado la relacion entre Servicios Metrados y Sobre-Consumos", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
             this.servMetradoSobreConsAcction("visualizar");
         } else {
@@ -1966,6 +2013,149 @@ public class controlador implements ActionListener {
                 JOptionPane.showMessageDialog(this.serviMetradoSobreCons, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+
+    private void serviciosIncluAlcantarilladoAcction(String accion) {
+        int fila_seleccionada;
+        int servicioSel = this.serviciosIncluAlcantarillado.ServicioComboBox.getSelectedIndex();
+
+        switch (accion) {
+            case "nuevoServIncAlc":
+                fila_seleccionada = -1;
+                this.limpiarFormularioServIncAlc();
+                break;
+            case "agregarActualizarServIncAlc":
+                String precio_cuc = this.serviciosIncluAlcantarillado.PrecioCucFormattedTextField.getText();
+                String precio_cup = this.serviciosIncluAlcantarillado.PrecioCupFormattedTextField.getText();
+                fila_seleccionada = this.serviciosIncluAlcantarillado.RelacionServAlcTable.getSelectedRow();
+                if (fila_seleccionada == -1) {
+                    this.agregarServicioInclAlcant(servicioSel, precio_cuc, precio_cup);
+                } else {
+                    this.actualizarServicioInclAlcant(servicioSel, precio_cuc, precio_cup);
+                }
+                break;
+            case "modificarServIncAlc":
+                fila_seleccionada = this.serviciosIncluAlcantarillado.RelacionServAlcTable.getSelectedRow();
+                if (fila_seleccionada > -1) {
+                    this.modificarServicioInclAlcant(fila_seleccionada);
+                } else {
+                    JOptionPane.showMessageDialog(this.serviciosIncluAlcantarillado, "Seleccione un relacion de Servicio sobreconsumo", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            case "eliminarServIncAlc":
+                fila_seleccionada = this.serviciosIncluAlcantarillado.RelacionServAlcTable.getSelectedRow();
+                if (fila_seleccionada > -1) {
+                    this.eliminarServicioInclAlcant(fila_seleccionada);
+                } else {
+                    JOptionPane.showMessageDialog(this.serviciosIncluAlcantarillado, "Seleccione un Sobreconsumo", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            default:
+                fila_seleccionada = -1;
+                limpiarFormularioServIncAlc();
+                break;
+        }
+    }
+    public void actualizarServicioInclAlcant(int servicioSel, String precio_cuc, String precio_cup) {
+         this.msg = "";
+        // Capturar datos del formulario         
+        int id_servicio = 0;
+        if (servicioSel > 0) {
+            for (int i = 0; i < this.model.arregloServicio.size(); i++) {
+                if (this.model.arregloServicio.get(i).getId_servicio() == this.model.arregloServicio.get(servicioSel - 1).getId_servicio()) {
+                    id_servicio = this.model.arregloServicio.get(i).getId_servicio();
+                    break;
+                }
+            }
+        } else {
+            this.msg += "Seleccione un Servicio \n";
+        }
+        if ("".equals(this.serviciosIncluAlcantarillado.PrecioCucFormattedTextField.getText())) {
+            this.msg += "Precio CUC: Campo requerido \n";
+        }
+        if ("".equals(this.serviciosIncluAlcantarillado.PrecioCupFormattedTextField.getText())) {
+            this.msg += "Precio CUP: Campo requerido \n";
+        }
+        if (!this.msg.isEmpty()) {
+            JOptionPane.showMessageDialog(this.serviciosIncluAlcantarillado, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (this.model.modificarServicioIncAlc(id_servicio, Double.parseDouble(precio_cuc), Double.parseDouble(precio_cup))) {
+                JOptionPane.showMessageDialog(this.serviciosIncluAlcantarillado, "Se ha actualizado la relacion entre Servicios Metrados y Sobre-Consumos", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                this.serviciosIncluAlcantarilladoAcction("visualizar");
+                this.serviciosIncluAlcantarillado.ServicioComboBox.setEnabled(true);
+            } else {
+                this.msg = "Error al intentar actualizar la relación \n";
+                JOptionPane.showMessageDialog(this.serviciosIncluAlcantarillado, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void agregarServicioInclAlcant(int servicioSel, String precio_cuc, String precio_cup) {
+        this.msg = "";
+        // Capturar datos del formulario         
+        int id_servicio = 0;
+        if (servicioSel > 0) {
+            for (int i = 0; i < this.model.arregloServicio.size(); i++) {
+                if (this.model.arregloServicio.get(i).getId_servicio() == this.model.arregloServicio.get(servicioSel - 1).getId_servicio()) {
+                    id_servicio = this.model.arregloServicio.get(i).getId_servicio();
+                    break;
+                }
+            }
+        } else {
+            this.msg += "Seleccione un Servicio \n";
+        }
+        if ("".equals(this.serviciosIncluAlcantarillado.PrecioCucFormattedTextField.getText())) {
+            this.msg += "Precio CUC: Campo requerido \n";
+        }
+        if ("".equals(this.serviciosIncluAlcantarillado.PrecioCupFormattedTextField.getText())) {
+            this.msg += "Precio CUP: Campo requerido \n";
+        }
+        if (!this.msg.isEmpty()) {
+            JOptionPane.showMessageDialog(this.serviciosIncluAlcantarillado, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (this.model.agregarServicioIncAlc(id_servicio, Double.parseDouble(precio_cuc), Double.parseDouble(precio_cup))) {
+                JOptionPane.showMessageDialog(this.serviciosIncluAlcantarillado, "Se ha agregado la relacion entre Servicios Metrados y Sobre-Consumos", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                this.serviciosIncluAlcantarilladoAcction("visualizar");
+            } else {
+                this.msg = "Error al intentar agregar la relación \n";
+                JOptionPane.showMessageDialog(this.serviciosIncluAlcantarillado, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void eliminarServicioInclAlcant(int fila_seleccionada) {
+        int id_servicio = 0;
+        for (int i = 0; i < this.model.arregloServiAlc.size(); i++) {
+            if (this.model.arregloServicio.get(i).getId_servicio() == this.model.arregloServiAlc.get(fila_seleccionada).getId_servicio()) {
+                id_servicio = this.model.arregloServiAlc.get(i).getId_servicio();
+            }
+        }
+        if (this.model.eliminarServicioIncAlc(id_servicio)) {
+            JOptionPane.showMessageDialog(this.serviciosIncluAlcantarillado, "Se ha eliminado el cobro de alcantarillado al servicio seleccionado", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+            this.serviciosIncluAlcantarilladoAcction("visualizar");
+        } else {
+            this.msg = "Error al intentar eliminar la relación \n";
+            JOptionPane.showMessageDialog(this.serviciosIncluAlcantarillado, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void modificarServicioInclAlcant(int fila_seleccionada) {
+        for (int i = 0; i < this.model.arregloServicio.size(); i++) {
+            if (this.model.arregloServicio.get(i).getId_servicio() == this.model.arregloServiAlc.get(fila_seleccionada).getId_servicio()) {
+                this.serviciosIncluAlcantarillado.PrecioCucFormattedTextField.setText(String.valueOf(this.model.arregloServiAlc.get(fila_seleccionada).getPrecio_cuc()));
+                this.serviciosIncluAlcantarillado.PrecioCupFormattedTextField.setText(String.valueOf(this.model.arregloServiAlc.get(fila_seleccionada).getPrecio_cup()));
+                this.serviciosIncluAlcantarillado.ServicioComboBox.setSelectedIndex(i + 1);
+                this.serviciosIncluAlcantarillado.ServicioComboBox.setEnabled(false);
+            }
+        }
+    }
+
+    public void limpiarFormularioServIncAlc() {
+        this.serviciosIncluAlcantarillado.PrecioCucFormattedTextField.setText("");
+        this.serviciosIncluAlcantarillado.PrecioCupFormattedTextField.setText("");
+        this.serviciosIncluAlcantarillado.ServicioComboBox.setSelectedIndex(0);
+        this.serviciosIncluAlcantarillado.ServicioComboBox.setModel(this.model.servicioCombobox("t_servicio"));
+        this.serviciosIncluAlcantarillado.RelacionServAlcTable.setModel(this.model.mostrarServicioIncAlc());
     }
 
     public void validarSemilla(String nombres, String apellidos, String email, String empresa) {
