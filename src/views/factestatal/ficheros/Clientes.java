@@ -50,6 +50,7 @@ public class Clientes extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         clientesTable = new javax.swing.JTable();
         asignarServiciosButton = new javax.swing.JButton();
+        asignarNormaButton = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -193,6 +194,8 @@ public class Clientes extends javax.swing.JInternalFrame {
 
         asignarServiciosButton.setText("Asignar Servicios");
 
+        asignarNormaButton.setText("Asignar Normas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -208,7 +211,8 @@ public class Clientes extends javax.swing.JInternalFrame {
                             .addComponent(agregarButton)
                             .addComponent(modificarButton)
                             .addComponent(eliminarButton)
-                            .addComponent(asignarServiciosButton))
+                            .addComponent(asignarServiciosButton)
+                            .addComponent(asignarNormaButton))
                         .addGap(0, 52, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -228,7 +232,9 @@ public class Clientes extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(eliminarButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(asignarServiciosButton)))
+                        .addComponent(asignarServiciosButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(asignarNormaButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -241,6 +247,7 @@ public class Clientes extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton agregarButton;
     public javax.swing.JCheckBox alcantarilladoCheckBox;
+    public javax.swing.JButton asignarNormaButton;
     public javax.swing.JButton asignarServiciosButton;
     public javax.swing.JTable clientesTable;
     public javax.swing.JFormattedTextField correoElectronicoFormattedTextField;

@@ -2,21 +2,6 @@
 
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.JMenuItem" name="jMenuItem2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jMenuItem2"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JMenuItem" name="jMenuItem5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jMenuItem5"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JMenuItem" name="jMenuItem10">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jMenuItem10"/>
-      </Properties>
-    </Component>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -149,6 +134,41 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator12">
+            </MenuItem>
+            <Menu class="javax.swing.JMenu" name="metrosMenu">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gestionar Metros"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="marcasMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Marcas de Metro"/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="modelosMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modelos de Metros"/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="metrosMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Metros"/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator13">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="tipoServiciosMenuItem">
               <Properties>
@@ -970,6 +990,19 @@
         <Component class="javax.swing.JLabel" name="usuarioAutenticadoLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value=" User Name"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value=" | Trabajando en periodo: "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="mesAnno">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="mes del anno"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

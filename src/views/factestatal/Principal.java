@@ -39,9 +39,6 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
         contenedorToolBar = new javax.swing.JToolBar();
         importarExportarToolBar = new javax.swing.JToolBar();
         importarButton = new javax.swing.JButton();
@@ -62,6 +59,8 @@ public class Principal extends javax.swing.JFrame {
         usuarioToolBar = new javax.swing.JToolBar();
         jLabel1 = new javax.swing.JLabel();
         usuarioAutenticadoLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        mesAnno = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         importMenuItem = new javax.swing.JMenuItem();
@@ -75,6 +74,12 @@ public class Principal extends javax.swing.JFrame {
         barraCobrosMenuItem = new javax.swing.JCheckBoxMenuItem();
         ficherosMenu = new javax.swing.JMenu();
         datosEmpresaMenuItem = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
+        metrosMenu = new javax.swing.JMenu();
+        marcasMenuItem = new javax.swing.JMenuItem();
+        modelosMenuItem = new javax.swing.JMenuItem();
+        metrosMenuItem = new javax.swing.JMenuItem();
+        jSeparator13 = new javax.swing.JPopupMenu.Separator();
         tipoServiciosMenuItem = new javax.swing.JMenuItem();
         serviciosMenuItem = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -139,12 +144,6 @@ public class Principal extends javax.swing.JFrame {
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
         licenciaMenuItem = new javax.swing.JMenuItem();
-
-        jMenuItem2.setText("jMenuItem2");
-
-        jMenuItem5.setText("jMenuItem5");
-
-        jMenuItem10.setText("jMenuItem10");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GEDSAA");
@@ -257,6 +256,12 @@ public class Principal extends javax.swing.JFrame {
         usuarioAutenticadoLabel.setText(" User Name");
         usuarioToolBar.add(usuarioAutenticadoLabel);
 
+        jLabel2.setText(" | Trabajando en periodo: ");
+        usuarioToolBar.add(jLabel2);
+
+        mesAnno.setText("mes del anno");
+        usuarioToolBar.add(mesAnno);
+
         fileMenu.setMnemonic('a');
         fileMenu.setText("Archivo");
 
@@ -307,6 +312,21 @@ public class Principal extends javax.swing.JFrame {
         datosEmpresaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/datos_empresa.png"))); // NOI18N
         datosEmpresaMenuItem.setText("Datos de la Empresa");
         ficherosMenu.add(datosEmpresaMenuItem);
+        ficherosMenu.add(jSeparator12);
+
+        metrosMenu.setText("Gestionar Metros");
+
+        marcasMenuItem.setText("Marcas de Metro");
+        metrosMenu.add(marcasMenuItem);
+
+        modelosMenuItem.setText("Modelos de Metros");
+        metrosMenu.add(modelosMenuItem);
+
+        metrosMenuItem.setText("Metros");
+        metrosMenu.add(metrosMenuItem);
+
+        ficherosMenu.add(metrosMenu);
+        ficherosMenu.add(jSeparator13);
 
         tipoServiciosMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         tipoServiciosMenuItem.setText("Tipos de Servicios");
@@ -643,12 +663,12 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JMenu informesMenu;
     public javax.swing.JToolBar informesToolBar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
+    private javax.swing.JPopupMenu.Separator jSeparator12;
+    private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -662,8 +682,13 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JMenuItem listadoGrandesConsumidoresMenuItem;
     public javax.swing.JMenuItem listadoPorSectoresMenuItem;
     public javax.swing.JMenuItem listadoTitularesClientesMenuItem;
+    public javax.swing.JMenuItem marcasMenuItem;
     public javax.swing.JMenuBar menuBar;
+    public javax.swing.JLabel mesAnno;
     private javax.swing.JMenu mesYAcomuladoFacturasMenu;
+    private javax.swing.JMenu metrosMenu;
+    public javax.swing.JMenuItem metrosMenuItem;
+    public javax.swing.JMenuItem modelosMenuItem;
     public javax.swing.JMenu prodMenu;
     public javax.swing.JMenu produccionMenu;
     public javax.swing.JMenuItem registroCobrosMenuItem;

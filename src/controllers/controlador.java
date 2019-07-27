@@ -25,15 +25,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import models.ClienteNormaConsumo;
 import models.DetallesControl;
 import models.Empresa;
 import models.Usuario;
@@ -43,8 +44,10 @@ import myclass.utilfecha;
 import views.factestatal.Autenticar;
 import views.factestatal.Principal;
 import views.factestatal.ficheros.AgregarActualizarTitular;
+import views.factestatal.ficheros.ClienteNorma;
 import views.factestatal.ficheros.ClientesServicios;
 import views.factestatal.ficheros.Licencia;
+import views.factestatal.ficheros.MetrosMarca;
 import views.factestatal.ficheros.ServiMetradoSobreCons;
 import views.factestatal.ficheros.ServiciosIncluAlcantarillado;
 import views.factestatal.ficheros.Users;
@@ -78,6 +81,8 @@ public class controlador implements ActionListener {
     private ClientesServicios cs;
     private ServiMetradoSobreCons serviMetradoSobreCons;
     private ServiciosIncluAlcantarillado serviciosIncluAlcantarillado;
+    private ClienteNorma clienteNorma;
+    private MetrosMarca metrosMarca;
 
     //Variables de modelos
     public Usuario usuario;
@@ -89,6 +94,8 @@ public class controlador implements ActionListener {
     config conf;
     public String codigo_reup; //codigo reup de la empresa que esta seleccionada (configurado en el xml de configuracion)
     public int id_ueb; // Id de la UEB con la que se esta trabando, este id se carga de (Achivo de configuracion XML  de configuracion)
+    public int mes;
+    public int anno;
     public int idServicio; // Id del servicio a modificar o seleccionado
     public int idTitular; // Id del titular a modificar o seleccionado
     public int idCliente; // Id del cliente a modificar o seleccionado
@@ -119,8 +126,10 @@ public class controlador implements ActionListener {
         // Leer el fichero de configuración
         this.conf = new config(); //Clase para la lectura y escritura del archivo de configuración
         this.conf.leerXml(); //Método para leer el archivo de configuración
-        this.codigo_reup = conf.getCodigo_reup(); //Guardo el codigo reup en la variable ocn mismo nonbre
+        this.codigo_reup = conf.getCodigo_reup(); //Guardo el codigo reup en la variable con mismo nonbre
         this.id_ueb = conf.getId_ueb(); //Guardo el id_ueb en la variable con mismo nombre
+        this.mes = conf.getMes();
+        this.anno = conf.getAnno();
         this.barraImportarExportar = conf.isBarraImportarExportar();
         this.barraAcciones = conf.isBarraAcciones();
         this.barraInformes = conf.isBarraInformes();
@@ -173,9 +182,14 @@ public class controlador implements ActionListener {
         switch (comando) {
             case "Autenticar":
                 if (this.validarUsuario(this.viewA.usuarioTextField.getText(), this.viewA.passwordTextField.getText())) {
-                    this.usuario = this.model.getUsuario();
-                    this.view.usuarioAutenticadoLabel.setText(" " + this.viewA.usuarioTextField.getText());
-                    this.iniciar();
+                    try {
+                        this.usuario = this.model.getUsuario();
+                        this.view.usuarioAutenticadoLabel.setText(" " + this.viewA.usuarioTextField.getText());
+                        this.view.mesAnno.setText(" " + this.model.getMesTrabajo(this.mes, this.anno) + " del " + this.model.getAnnoTrabajo(this.anno));
+                        this.iniciar();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this.view, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -263,6 +277,18 @@ public class controlador implements ActionListener {
             case "eliminarTipoServicio": //Accion para eliminar tipo de Servicio                
                 this.tipoServiosAcction("eliminar");
                 break;
+            case "marcasForm": //Accion para mostrar jinternal frame MetrosMarca
+                this.formMetrosMarca();
+                break;
+            case "agrearActualizarMetrosMarca": //Accion para agrear o modificar marcas
+                this.metrosMarcaAcction("agregarActualizar");
+                break;
+            case "modificarMetrosMarca": //Accion para modificar la marca
+                this.metrosMarca.marcaTextField.setText((String) this.metrosMarca.marcasList.getSelectedValue());
+                break;
+            case "eliminarMetrosMarca": //Accion para eliminar tipo de Servicio                
+                this.metrosMarcaAcction("eliminar");
+                break;
             case "servicioForm": //Mostrar jInternalFrame Servicios
                 this.formServicio();
                 break;
@@ -335,6 +361,15 @@ public class controlador implements ActionListener {
             case "eliminarServIncAlc": //Accion para eliminar Servicios que inclullen alcantarillado                
                 this.serviciosIncluAlcantarilladoAcction("eliminarServIncAlc");
                 break;
+            case "asignarNormaCliente":
+                this.clientesAcction("normaCliente");
+                break;
+            case "asignarActualizarClienteNorma":
+                this.clientesAcction("asigActClientNorma");
+                break;
+            case "limpiarClienteNorma":
+                this.clientesAcction("limpiarNormaCliente");
+                break;
             case "licenciaForm": //Accion para mostrar jinternal frame licencia
                 this.formLicencia();
                 break;
@@ -391,6 +426,9 @@ public class controlador implements ActionListener {
         this.view.clientesButton.setActionCommand("botonCliente"); //Clientes
         this.view.datosEmpresaMenuItem.setActionCommand("datosEmpresaForm"); //Datos de Empresa
         this.view.tipoServiciosMenuItem.setActionCommand("tipoServiciosForm"); //TipoServicios
+        this.view.marcasMenuItem.setActionCommand("marcasForm"); //Marcas
+        this.view.modelosMenuItem.setActionCommand("modelosForm"); //Modelos
+        this.view.metrosMenuItem.setActionCommand("metrosForm"); //Metros
         this.view.serviciosMenuItem.setActionCommand("servicioForm"); //Servicios
         this.view.titularesMenuItem.setActionCommand("titularesForm"); //Titulares
         this.view.clientesMenuItem.setActionCommand("clientesForm"); //Clientes
@@ -411,6 +449,9 @@ public class controlador implements ActionListener {
         this.view.clientesButton.addActionListener(this); //Clientes
         this.view.datosEmpresaMenuItem.addActionListener(this); //Datos Empresa
         this.view.tipoServiciosMenuItem.addActionListener(this); //TipoServicios
+        this.view.marcasMenuItem.addActionListener(this); //Marcas
+        this.view.modelosMenuItem.addActionListener(this); //Modelos
+        this.view.metrosMenuItem.addActionListener(this); //Metros
         this.view.serviciosMenuItem.addActionListener(this); //Servicios
         this.view.titularesMenuItem.addActionListener(this); //Titulares
         this.view.clientesMenuItem.addActionListener(this); //Clientes
@@ -576,6 +617,26 @@ public class controlador implements ActionListener {
         }
     }
 
+    public void formMetrosMarca() {
+        this.metrosMarca = new MetrosMarca();
+        this.metrosMarca.setTitle("Marcas...");
+
+        if (!restaurarFormulario(this.metrosMarca.getTitle())) {
+            this.view.desktopPane.add(this.metrosMarca);
+            this.metrosMarca.setLocation(centradoXY(this.metrosMarca));
+            this.metrosMarca.setVisible(true);
+            this.metrosMarcaAcction("visualizar");
+            //Se agrega las acciones al formulario de Usuario        
+            this.metrosMarca.agragarActualizarButton.setActionCommand("agrearActualizarMetrosMarca");
+            this.metrosMarca.modificarButton.setActionCommand("modificarMetrosMarca");
+            this.metrosMarca.eliminarButton.setActionCommand("eliminarMetrosMarca");
+            //Se pone a la escucha de las acciones del Usuario
+            this.metrosMarca.agragarActualizarButton.addActionListener(this);
+            this.metrosMarca.modificarButton.addActionListener(this);
+            this.metrosMarca.eliminarButton.addActionListener(this);
+        }
+    }
+
     /**
      * Método para controlar el formulario <b>Servicio</b>
      */
@@ -666,12 +727,14 @@ public class controlador implements ActionListener {
             this.clientes.modificarButton.setActionCommand("modificarCliente");
             this.clientes.eliminarButton.setActionCommand("eliminarCliente");
             this.clientes.asignarServiciosButton.setActionCommand("asignarClientesServicios");
+            this.clientes.asignarNormaButton.setActionCommand("asignarNormaCliente");
             //Se pone a la escucha de las acciones del Usuario            
             this.clientes.nuevoButton.addActionListener(this);
             this.clientes.agregarButton.addActionListener(this);
             this.clientes.modificarButton.addActionListener(this);
             this.clientes.eliminarButton.addActionListener(this);
             this.clientes.asignarServiciosButton.addActionListener(this);
+            this.clientes.asignarNormaButton.addActionListener(this);
         }
     }
 
@@ -695,6 +758,42 @@ public class controlador implements ActionListener {
         this.cs.eliminarServiciosButton.addActionListener(this);
 
         JOptionPane.showInternalMessageDialog(this.clientes, this.cs, "Asignar Servicios al Cliente", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Formulario para la norma de clientes
+     *
+     * @param fila_seleccionada
+     */
+    public void formClienteNorma(int fila_seleccionada) {
+        this.clienteNorma = new ClienteNorma();
+
+        this.idCliente = this.model.arregloCliente.get(fila_seleccionada).getId_cliente();
+        this.clienteNorma.ClienteTextField.setText(this.model.arregloCliente.get(fila_seleccionada).getNombre_titular() + " | " + this.model.arregloCliente.get(fila_seleccionada).getNombre_cliente());
+
+        //Se agrega las acciones al formulario ClienteNorma
+        this.clienteNorma.asignarActualizarButton.setActionCommand("asignarActualizarClienteNorma");
+        this.clienteNorma.limpiarButton.setActionCommand("limpiarClienteNorma");
+        //Se pone a la escucha de las acciones del Usuario
+        this.clienteNorma.asignarActualizarButton.addActionListener(this);
+        this.clienteNorma.limpiarButton.addActionListener(this);
+        this.model.mostrarClienteNorma(this.idCliente, this.anno);
+        if (!this.model.arregloClienteNorma.isEmpty()) {
+            this.clienteNorma.Ene.setText(String.valueOf(((ClienteNormaConsumo) this.model.arregloClienteNorma.get(0)).getEne()));
+            this.clienteNorma.Feb.setText(String.valueOf(((ClienteNormaConsumo) this.model.arregloClienteNorma.get(0)).getFeb()));
+            this.clienteNorma.Mar.setText(String.valueOf(((ClienteNormaConsumo) this.model.arregloClienteNorma.get(0)).getMar()));
+            this.clienteNorma.Abr.setText(String.valueOf(((ClienteNormaConsumo) this.model.arregloClienteNorma.get(0)).getAbr()));
+            this.clienteNorma.May.setText(String.valueOf(((ClienteNormaConsumo) this.model.arregloClienteNorma.get(0)).getMay()));
+            this.clienteNorma.Jun.setText(String.valueOf(((ClienteNormaConsumo) this.model.arregloClienteNorma.get(0)).getJun()));
+            this.clienteNorma.Jul.setText(String.valueOf(((ClienteNormaConsumo) this.model.arregloClienteNorma.get(0)).getJul()));
+            this.clienteNorma.Ago.setText(String.valueOf(((ClienteNormaConsumo) this.model.arregloClienteNorma.get(0)).getAgo()));
+            this.clienteNorma.Sep.setText(String.valueOf(((ClienteNormaConsumo) this.model.arregloClienteNorma.get(0)).getSep()));
+            this.clienteNorma.Oct.setText(String.valueOf(((ClienteNormaConsumo) this.model.arregloClienteNorma.get(0)).getOct()));
+            this.clienteNorma.Nov.setText(String.valueOf(((ClienteNormaConsumo) this.model.arregloClienteNorma.get(0)).getNov()));
+            this.clienteNorma.Dic.setText(String.valueOf(((ClienteNormaConsumo) this.model.arregloClienteNorma.get(0)).getDic()));
+        }
+
+        JOptionPane.showInternalMessageDialog(this.clientes, this.clienteNorma, "Asignar Norma al Cliente...", JOptionPane.PLAIN_MESSAGE);
     }
 
     /**
@@ -992,7 +1091,7 @@ public class controlador implements ActionListener {
             case "modificar":
                 String nombre_empresa = this.datosEmpresa.nombreEmpresaTextField.getText();
                 this.codigo_reup = this.datosEmpresa.codigoReupFormattedTextField.getText();
-                codigo_reup = codigo_reup.replace(".", "");
+                this.codigo_reup = this.codigo_reup.replace(".", "");
                 String titular_cuenta_cup = this.datosEmpresa.titularCuentaCUPTextField.getText();
                 String titular_cuenta_cuc = this.datosEmpresa.titularCuentaCUCTextField.getText();
                 String cuenta_cup = this.datosEmpresa.cuentaBancariaCUPTextField.getText();
@@ -1145,6 +1244,7 @@ public class controlador implements ActionListener {
                     File f = new File("logos_temp/" + ficheroSeleccionado.getName());
                     f.deleteOnExit();
                 }
+                this.codigo_reup = codigo_reup;
                 JOptionPane.showMessageDialog(this.users, "Se ha actualizado la empresa correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
                 try {
                     this.cerrar(this.datosEmpresa);
@@ -1239,17 +1339,17 @@ public class controlador implements ActionListener {
                 this.tipoServiosAcction("visualizar");
                 break;
             case "eliminar":
-                if (!selectString.isEmpty()) {
+                if (selectString != null) {
                     int acc = JOptionPane.showConfirmDialog(this.users, "Estas seguro de eliminar a " + selectString, "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (acc == 0) {
                         if (this.model.eliminarTipoServicio(selectString)) {
-                            JOptionPane.showMessageDialog(this.users, "Se ha eliminado el Tipo d Servicio correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(this.users, "Se ha eliminado el Tipo de Servicio correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
                         } else {
                             JOptionPane.showMessageDialog(this.users, "Error al intentar eliminar el Tipo de Servicio", "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this.users, "Seleccione un usuario para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this.users, "Seleccione un Tipo de Servicio para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 this.tipoServiosAcction("visualizar");
                 break;
@@ -1329,6 +1429,51 @@ public class controlador implements ActionListener {
                 this.msg = "Error al intentar actualizar el servicio";
                 JOptionPane.showMessageDialog(this.servicio, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+
+    private void metrosMarcaAcction(String accion) {
+        String selectString = (String) this.metrosMarca.marcasList.getSelectedValue();
+
+        switch (accion) {
+            case "agregarActualizar":
+                String marca = this.metrosMarca.marcaTextField.getText();
+                this.msg = "";
+                if (marca.isEmpty()) {
+                    this.msg += "Marca: Campo Nulo \n";
+                }
+                if (!msg.isEmpty()) {
+                    JOptionPane.showMessageDialog(this.metrosMarca, msg, "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    if (this.model.agregarMetrosMarca(marca, selectString)) {
+                        JOptionPane.showMessageDialog(this.metrosMarca, "Se han actualizado la marca correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        this.msg = "Error al intentar actualizar la marca del metro \n";
+                        this.msg += "Puede que exista una marca con ese nombre o exista problema con la Base de Datos.";
+                        JOptionPane.showMessageDialog(this.metrosMarca, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                this.metrosMarcaAcction("visualizar");
+                break;
+            case "eliminar":
+                if (selectString != null) {
+                    int acc = JOptionPane.showConfirmDialog(this.metrosMarca, "Estas seguro de eliminar a " + selectString, "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (acc == 0) {
+                        if (this.model.eliminarMetrosMarca(selectString)) {
+                            JOptionPane.showMessageDialog(this.metrosMarca, "Se ha eliminado la marca correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this.metrosMarca, "Error al intentar eliminar la marca", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this.users, "Seleccione una marca para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                this.metrosMarcaAcction("visualizar");
+                break;
+            default:
+                this.metrosMarca.marcaTextField.setText("");
+                this.metrosMarca.marcasList.setModel(this.model.getMetrosMarca());
+                break;
         }
     }
 
@@ -1771,6 +1916,19 @@ public class controlador implements ActionListener {
                 this.cs.serviciosComboBox.setSelectedIndex(0);
                 this.cs.serviciosList.setModel(this.model.mostrarClienteServicios(this.idCliente));
                 break;
+            case "normaCliente":
+                if (fila_seleccionada != -1) {
+                    this.formClienteNorma(fila_seleccionada);
+                } else {
+                    JOptionPane.showMessageDialog(this.clientes, "Seleccione un Cliente", "Error", JOptionPane.NO_OPTION);
+                }
+                break;
+            case "asigActClientNorma":
+                asignarClienteNorma();
+                break;
+            case "limpiarNormaCliente":
+                limpiarFormClienteNorma();
+                break;
             case "eliminarSevicios":
                 int servSelected = this.cs.serviciosList.getSelectedIndex();
                 System.out.println("Sevicio seleccionado: " + servSelected);
@@ -1803,6 +1961,68 @@ public class controlador implements ActionListener {
                 this.clientes.titularComboBox.setModel(this.model.titularesCombobox("v_titulares_all"));
                 this.clientes.clientesTable.setModel(this.model.mostrarCliente());
                 break;
+        }
+    }
+
+    public void asignarClienteNorma() {
+        String ene = this.clienteNorma.Ene.getText();
+        String feb = this.clienteNorma.Feb.getText();
+        String mar = this.clienteNorma.Mar.getText();
+        String abr = this.clienteNorma.Abr.getText();
+        String may = this.clienteNorma.May.getText();
+        String jun = this.clienteNorma.Jun.getText();
+        String jul = this.clienteNorma.Jul.getText();
+        String ago = this.clienteNorma.Ago.getText();
+        String sep = this.clienteNorma.Sep.getText();
+        String oct = this.clienteNorma.Oct.getText();
+        String nov = this.clienteNorma.Nov.getText();
+        String dic = this.clienteNorma.Dic.getText();
+        this.msg = "";
+        if (ene.isEmpty()) {
+            this.msg += "Enero: Campo Nulo \n";
+        }
+        if (feb.isEmpty()) {
+            this.msg += "Febrero: Campo Nulo \n";
+        }
+        if (mar.isEmpty()) {
+            this.msg += "Marzo: Campo Nulo \n";
+        }
+        if (abr.isEmpty()) {
+            this.msg += "Abril: Campo Nulo \n";
+        }
+        if (may.isEmpty()) {
+            this.msg += "Mayo: Campo Nulo \n";
+        }
+        if (jun.isEmpty()) {
+            this.msg += "Junio: Campo Nulo \n";
+        }
+        if (jul.isEmpty()) {
+            this.msg += "Julio: Campo Nulo \n";
+        }
+        if (ago.isEmpty()) {
+            this.msg += "Agosto: Campo Nulo \n";
+        }
+        if (sep.isEmpty()) {
+            this.msg += "Septiembre: Campo Nulo \n";
+        }
+        if (oct.isEmpty()) {
+            this.msg += "Octubre: Campo Nulo \n";
+        }
+        if (nov.isEmpty()) {
+            this.msg += "Noviembre: Campo Nulo \n";
+        }
+        if (dic.isEmpty()) {
+            this.msg += "Diciembre: Campo Nulo \n";
+        }
+        if (!this.msg.isEmpty()) {
+            JOptionPane.showMessageDialog(this.servicio, msg, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (this.model.asignarClienteNorma(this.idCliente, this.anno, Double.parseDouble(ene), Double.parseDouble(feb), Double.parseDouble(mar), Double.parseDouble(abr), Double.parseDouble(may), Double.parseDouble(jun), Double.parseDouble(jul), Double.parseDouble(ago), Double.parseDouble(sep), Double.parseDouble(oct), Double.parseDouble(nov), Double.parseDouble(dic))) {
+                JOptionPane.showMessageDialog(this.servicio, "Normas del cliente asignada correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                this.msg = "Error al intentar agregar el cliente";
+            }
+
         }
     }
 
@@ -1869,6 +2089,21 @@ public class controlador implements ActionListener {
             }
         }
 
+    }
+
+    public void limpiarFormClienteNorma() {
+        this.clienteNorma.Ene.setText("");
+        this.clienteNorma.Feb.setText("");
+        this.clienteNorma.Mar.setText("");
+        this.clienteNorma.Abr.setText("");
+        this.clienteNorma.May.setText("");
+        this.clienteNorma.Jun.setText("");
+        this.clienteNorma.Jul.setText("");
+        this.clienteNorma.Ago.setText("");
+        this.clienteNorma.Sep.setText("");
+        this.clienteNorma.Oct.setText("");
+        this.clienteNorma.Nov.setText("");
+        this.clienteNorma.Dic.setText("");
     }
 
     public void limpiarFormularioClientes() {
@@ -2056,8 +2291,9 @@ public class controlador implements ActionListener {
                 break;
         }
     }
+
     public void actualizarServicioInclAlcant(int servicioSel, String precio_cuc, String precio_cup) {
-         this.msg = "";
+        this.msg = "";
         // Capturar datos del formulario         
         int id_servicio = 0;
         if (servicioSel > 0) {

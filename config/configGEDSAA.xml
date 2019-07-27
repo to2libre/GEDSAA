@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <configuracion>
-    <codigo_reup>48159263</codigo_reup>
+  <configuracion>    
+	<codigo_reup>11311931</codigo_reup>
     <id_ueb>1</id_ueb>
+	<mes>7</mes>
+	<anno>1</anno>
     <barraImportarExportar>true</barraImportarExportar>
     <barraAcciones>true</barraAcciones>
     <barraInformes>true</barraInformes>

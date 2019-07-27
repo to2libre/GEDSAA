@@ -25,6 +25,8 @@ public class config {
     File xmlFileUser;
     public String codigo_reup;
     public int id_ueb;
+    public int mes; // Especifica el mes del periodo de trabajo
+    public int anno; // Especifica el año del periodo de trabajo
     public boolean barraImportarExportar; // Carga de (Achivo de configuracion XML  de configuracion)
     public boolean barraAcciones; // Carga de (Achivo de configuracion XML  de configuracion)
     public boolean barraInformes; // Carga de (Achivo de configuracion XML  de configuracion)
@@ -83,6 +85,8 @@ public class config {
 
             codigo_reup = ((Element) list.get(0)).getChildText("codigo_reup");
             id_ueb = Integer.parseInt(((Element) list.get(0)).getChildText("id_ueb"));
+            mes = Integer.parseInt(((Element) list.get(0)).getChildText("mes"));
+            anno = Integer.parseInt(((Element) list.get(0)).getChildText("anno"));
             barraImportarExportar = Boolean.valueOf(((Element) list.get(0)).getChildText("barraImportarExportar"));
             barraAcciones = Boolean.valueOf(((Element) list.get(0)).getChildText("barraAcciones"));
             barraInformes = Boolean.valueOf(((Element) list.get(0)).getChildText("barraInformes"));
@@ -109,6 +113,10 @@ public class config {
             codigo_reup1.setText(this.codigo_reup);
             Element id_ueb1 = new Element("id_ueb");
             id_ueb1.setText(String.valueOf(this.id_ueb));
+            Element mes1 = new Element("mes");
+            mes1.setText(String.valueOf(this.mes));
+            Element anno1 = new Element("anno");
+            anno1.setText(String.valueOf(this.anno));
             Element barraImportarExportar1 = new Element("barraImportarExportar");
             barraImportarExportar1.setText(String.valueOf(this.barraImportarExportar));
             Element barraAcciones1 = new Element("barraAcciones");
@@ -135,6 +143,8 @@ public class config {
             LinkedList contenido = new LinkedList();
             contenido.add(codigo_reup1);
             contenido.add(id_ueb1);
+            contenido.add(mes1);
+            contenido.add(anno1);
             contenido.add(barraImportarExportar1);
             contenido.add(barraAcciones1);
             contenido.add(barraInformes1);
@@ -175,6 +185,14 @@ public class config {
         this.id_ueb = id_ueb;
     }
 
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public void setAnno(int anno) {
+        this.anno = anno;
+    }    
+    
     public void setBarraAcciones(boolean barraAcciones) {
         this.barraAcciones = barraAcciones;
         escribirXML();
@@ -234,6 +252,14 @@ public class config {
         return id_ueb;
     }
 
+    public int getMes() {
+        return mes;
+    }
+
+    public int getAnno() {
+        return anno;
+    }    
+    
     public String getCodigo_reup() {
         return codigo_reup;
     }

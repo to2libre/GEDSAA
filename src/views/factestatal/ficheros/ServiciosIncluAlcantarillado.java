@@ -47,6 +47,7 @@ public class ServiciosIncluAlcantarillado extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconos/servicios_alcantarillado.png"))); // NOI18N
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar | Actualizar"));
 

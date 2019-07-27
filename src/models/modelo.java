@@ -36,11 +36,43 @@ public class modelo extends SQLite_conexion {
     public ArrayList<ClienteServicio> arregloClienteServicio;
     public ArrayList<ServicioSobreConsumo> arregloServicioSobreC;
     public ArrayList<ServIncluAlcan> arregloServiAlc;
+    public ArrayList<Object> arregloClienteNorma;
+    public ArrayList<MetroMarca> arregloMetrosMarca;
 
     /**
      * Constructor de la clase <b>modelo</b>
      */
     public modelo() {
+    }
+
+    public int getAnnoTrabajo(int anno) {
+        resultSet = seleccionarResultSet("t_anno", "id_anno = " + anno);
+
+        ArrayList a = new ArrayList();
+
+        try {
+            while (resultSet.next()) {
+                a.add(resultSet.getInt("anno"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return (int) a.get(0);
+    }
+
+    public String getMesTrabajo(int mes, int anno) throws SQLException {
+        resultSet = seleccionarResultSet("v_mes_all", "id_mes = " + mes + " AND id_anno = " + anno+ ";");
+        ArrayList a = new ArrayList();
+        try {
+            while (resultSet.next()) {
+                a.add(resultSet.getString("nombre_mes"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return a.get(0).toString();
+
     }
 
     /**
@@ -326,6 +358,52 @@ public class modelo extends SQLite_conexion {
      */
     public boolean eliminarTipoServicio(String selectString) {
         return eliminarRegistro("t_tipo_servicio", "id_tipo_servicio = " + buscarTipoServicio(selectString));
+    }
+    
+    public ListModel getMetrosMarca() {
+        resultSet = seleccionarResultSet("t_metro_marca"); //Selecciono los datos de la tabla marca
+        arregloMetrosMarca = new ArrayList<>(); //creo el objeto para guardar las marcas        
+        ArrayList<String> a = new ArrayList<>(); //creo un arreglo de String para guardar llas marcas(para poder incluirlo en el jList)
+        // Llenando los arreglos
+        try {
+            while (resultSet.next()) {
+                arregloMetrosMarca.add(new MetroMarca(resultSet.getInt("id_metro_marca"), resultSet.getString("marca")));
+                a.add(resultSet.getString("marca"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JList jl = new JList(a.toArray());//Creo el JList con los valores del arreglo que tiene las marcas
+        //Retorno ListModel con las marcas
+        return jl.getModel();
+    }
+    
+    public int buscarMetrosMarca(String marca) {
+        for (int i = 0; i < arregloMetrosMarca.size(); i++) {
+            if (arregloMetrosMarca.get(i).getMarca().toUpperCase().equals(marca.toUpperCase())) {
+                return arregloMetrosMarca.get(i).getId_metro_marca();
+            }
+        }
+        return -1;
+    }
+    public boolean agregarMetrosMarca(String marca, String selectString) {
+        if (selectString == null) {
+            if (buscarMetrosMarca(marca) != -1) {
+                return false;
+            } else {
+                return insertar("t_metro_marca", "marca", "'" + marca + "'");
+            }
+        } else {
+            if (buscarMetrosMarca(marca) != -1) {
+                return false;
+            } else {
+                return actualizar("t_metro_marca", "marca = '" + marca + "'", "id_metro_marca = " + buscarMetrosMarca(selectString));
+            }
+        }
+    }
+    
+    public boolean eliminarMetrosMarca(String selectString) {
+        return eliminarRegistro("t_metro_marca", "id_metro_marca = " + buscarMetrosMarca(selectString));
     }
 
     /**
@@ -665,6 +743,30 @@ public class modelo extends SQLite_conexion {
         return this.eliminarRegistro("t_cliente_servicio", donde);
     }
 
+    public boolean asignarClienteNorma(int id_cliente, int anno, double ene, double feb, double mar, double abr, double may, double jun, double jul, double ago, double sep, double oct, double nov, double dic) {
+        this.mostrarClienteNorma(id_cliente, anno);
+        if (this.arregloClienteNorma.isEmpty()) {
+            return this.insertar("t_cliente_norma_consumo", "id_cliente, id_anno, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic", +id_cliente + "," + anno + "," + ene + "," + feb + "," + mar + "," + abr + "," + may + "," + jun + "," + jul + "," + ago + "," + sep + "," + oct + "," + nov + "," + dic);
+        } else {
+            return this.actualizar("t_cliente_norma_consumo", "ene = " + ene + ", feb=" + feb + ", mar=" + mar + ", abr=" + abr + ", may=" + may + ", jun=" + jun + ", jul=" + jul + ", ago=" + ago + ", sep=" + sep + ", oct=" + oct + ", nov=" + nov + ", dic=" + dic, "id_cliente = " + id_cliente + " AND id_anno = " + anno);
+        }
+    }
+
+    public ArrayList<Object> mostrarClienteNorma(int id_cliente, int anno) {
+        String donde = "id_cliente = " + id_cliente + " AND id_anno = " + anno;
+        resultSet = seleccionarResultSet("t_cliente_norma_consumo", donde);
+        arregloClienteNorma = new ArrayList<>();
+
+        try {
+            while (resultSet.next()) {
+                arregloClienteNorma.add(new ClienteNormaConsumo(resultSet.getInt("id_cliente"), resultSet.getInt("id_anno"), resultSet.getDouble("ene"), resultSet.getDouble("feb"), resultSet.getDouble("mar"), resultSet.getDouble("abr"), resultSet.getDouble("may"), resultSet.getDouble("jun"), resultSet.getDouble("jul"), resultSet.getDouble("ago"), resultSet.getDouble("sep"), resultSet.getDouble("oct"), resultSet.getDouble("nov"), resultSet.getDouble("dic")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arregloClienteNorma;
+    }
+
     /**
      * Método para crear los datos del Combo titulares
      *
@@ -728,20 +830,20 @@ public class modelo extends SQLite_conexion {
             String nombreColumna[] = {"Servicio", "Precio cuc", "Precio cup", "Sobre-Consumo", "Precio cuc", "Precio cup"};
             tm = new DefaultTableModel(nombreColumna, arregloServicioSobreC.size());
             int conuntRow = 0;
-            for (int i = 0; i < arregloServicioSobreC.size(); i++) {                
-                tm.setValueAt(arregloServicioSobreC.get(i).getServicio(), conuntRow, 0);                
+            for (int i = 0; i < arregloServicioSobreC.size(); i++) {
+                tm.setValueAt(arregloServicioSobreC.get(i).getServicio(), conuntRow, 0);
                 tm.setValueAt(arregloServicioSobreC.get(i).getPrecio_cuc_s(), conuntRow, 1);
                 tm.setValueAt(arregloServicioSobreC.get(i).getPrecio_cup_s(), conuntRow, 2);
                 tm.setValueAt(arregloServicioSobreC.get(i).getSobreconsumo(), conuntRow, 3);
                 tm.setValueAt(arregloServicioSobreC.get(i).getPrecio_cuc_sc(), conuntRow, 4);
                 tm.setValueAt(arregloServicioSobreC.get(i).getPrecio_cup_sc(), conuntRow, 5);
-                conuntRow++;                
+                conuntRow++;
             }
         } else {
             String nombreColumna[] = {"Servicios Metrados | Sobre - Consumo Asociado"};
             tm = new DefaultTableModel(nombreColumna, 1);
             tm.setValueAt("No existen relaciones para mostrar", 0, 0);
-        }        
+        }
         return tm;
     }
 
@@ -780,11 +882,11 @@ public class modelo extends SQLite_conexion {
     public boolean agregarServicioIncAlc(int id_servicio, double precio_cuc, double precio_cup) {
         return this.insertar("t_servicio_alcantarillado", "id_servicio, precio_cuc, precio_cup", +id_servicio + ", " + precio_cuc + ", " + precio_cup);
     }
-    
-    public boolean modificarServicioIncAlc(int id_servicio, double precio_cuc, double precio_cup) {        
+
+    public boolean modificarServicioIncAlc(int id_servicio, double precio_cuc, double precio_cup) {
         return this.actualizar("t_servicio_alcantarillado", "id_servicio=" + id_servicio + ", precio_cuc=" + precio_cuc + ", precio_cup=" + precio_cup + "", "id_servicio = " + id_servicio);
     }
-    
+
     public boolean eliminarServicioIncAlc(int id_servicio) {
         String donde = "id_servicio = " + id_servicio;
         return this.eliminarRegistro("t_servicio_alcantarillado", donde);
