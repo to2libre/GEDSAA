@@ -48,6 +48,7 @@ import views.factestatal.ficheros.ClienteNorma;
 import views.factestatal.ficheros.ClientesServicios;
 import views.factestatal.ficheros.Licencia;
 import views.factestatal.ficheros.MetrosMarca;
+import views.factestatal.ficheros.MetrosModelos;
 import views.factestatal.ficheros.ServiMetradoSobreCons;
 import views.factestatal.ficheros.ServiciosIncluAlcantarillado;
 import views.factestatal.ficheros.Users;
@@ -83,6 +84,7 @@ public class controlador implements ActionListener {
     private ServiciosIncluAlcantarillado serviciosIncluAlcantarillado;
     private ClienteNorma clienteNorma;
     private MetrosMarca metrosMarca;
+    private MetrosModelos metrosMedelos;
 
     //Variables de modelos
     public Usuario usuario;
@@ -99,6 +101,7 @@ public class controlador implements ActionListener {
     public int idServicio; // Id del servicio a modificar o seleccionado
     public int idTitular; // Id del titular a modificar o seleccionado
     public int idCliente; // Id del cliente a modificar o seleccionado
+    public int idMetrosModelos; //Id del modelo a modificar o seleccionado
     public boolean barraImportarExportar; // Carga de (Achivo de configuracion XML  de configuracion)
     public boolean barraAcciones; // Carga de (Achivo de configuracion XML  de configuracion)
     public boolean barraInformes; // Carga de (Achivo de configuracion XML  de configuracion)
@@ -300,6 +303,18 @@ public class controlador implements ActionListener {
                 break;
             case "modificarServicio": //Accion de modificar un servicio
                 this.serviciosAcction("modificar");
+                break;
+            case "modelosForm": //Mostrar jInternalFrame Servicios
+                this.formMetrosModelos();
+                break;
+            case "agrearActualizarMetrosModelos": // Acción de agregar o modificar un srvicio
+                this.metrosModelosAcction("agregarModifiar");
+                break;
+            case "eliminarMetrosModelos": //Accion de eliminar un servicio
+                this.metrosModelosAcction("eliminar");
+                break;
+            case "modificarMetrosModelos": //Accion de modificar un servicio
+                this.metrosModelosAcction("modificar");
                 break;
             case "titularesForm": //Accion para mostrar jinternal frame titulares
                 this.formTitulares();
@@ -842,6 +857,28 @@ public class controlador implements ActionListener {
         }
     }
 
+    public void formMetrosModelos() {
+        this.metrosMedelos = new MetrosModelos();
+        this.metrosMedelos.setTitle("Modelos...");
+
+        if (!restaurarFormulario(this.metrosMedelos.getTitle())) {
+            this.view.desktopPane.add(this.metrosMedelos);
+            this.metrosMedelos.setLocation(centradoXY(this.metrosMedelos));
+            this.metrosMedelos.setVisible(true);
+            this.metrosModelosAcction("visualizar");
+            //Se agrega las acciones al formulario de Usuario        
+            this.metrosMedelos.modeloTextField.setActionCommand("agrearActualizarMetrosModelos");
+            this.metrosMedelos.agregarActualizarButton.setActionCommand("agrearActualizarMetrosModelos");
+            this.metrosMedelos.eliminarButton.setActionCommand("eliminarMetrosModelos");
+            this.metrosMedelos.modificarButton.setActionCommand("modificarMetrosModelos");
+            //Se pone a la escucha de las acciones del Usuario
+            this.metrosMedelos.modeloTextField.addActionListener(this);
+            this.metrosMedelos.agregarActualizarButton.addActionListener(this);
+            this.metrosMedelos.eliminarButton.addActionListener(this);
+            this.metrosMedelos.modificarButton.addActionListener(this);
+        }
+    }
+
     /**
      * Método para controlar el formulario <b>About</b>
      */
@@ -1360,6 +1397,51 @@ public class controlador implements ActionListener {
         }
     }
 
+    private void metrosMarcaAcction(String accion) {
+        String selectString = (String) this.metrosMarca.marcasList.getSelectedValue();
+
+        switch (accion) {
+            case "agregarActualizar":
+                String marca = this.metrosMarca.marcaTextField.getText();
+                this.msg = "";
+                if (marca.isEmpty()) {
+                    this.msg += "Marca: Campo Nulo \n";
+                }
+                if (!msg.isEmpty()) {
+                    JOptionPane.showMessageDialog(this.metrosMarca, msg, "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    if (this.model.agregarMetrosMarca(marca, selectString)) {
+                        JOptionPane.showMessageDialog(this.metrosMarca, "Se han actualizado la marca correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        this.msg = "Error al intentar actualizar la marca del metro \n";
+                        this.msg += "Puede que exista una marca con ese nombre o exista problema con la Base de Datos.";
+                        JOptionPane.showMessageDialog(this.metrosMarca, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                this.metrosMarcaAcction("visualizar");
+                break;
+            case "eliminar":
+                if (selectString != null) {
+                    int acc = JOptionPane.showConfirmDialog(this.metrosMarca, "Estas seguro de eliminar a " + selectString, "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (acc == 0) {
+                        if (this.model.eliminarMetrosMarca(selectString)) {
+                            JOptionPane.showMessageDialog(this.metrosMarca, "Se ha eliminado la marca correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this.metrosMarca, "Error al intentar eliminar la marca", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this.users, "Seleccione una marca para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                this.metrosMarcaAcction("visualizar");
+                break;
+            default:
+                this.metrosMarca.marcaTextField.setText("");
+                this.metrosMarca.marcasList.setModel(this.model.getMetrosMarca());
+                break;
+        }
+    }
+
     /**
      * Método para agregar servicio
      *
@@ -1429,51 +1511,6 @@ public class controlador implements ActionListener {
                 this.msg = "Error al intentar actualizar el servicio";
                 JOptionPane.showMessageDialog(this.servicio, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }
-    }
-
-    private void metrosMarcaAcction(String accion) {
-        String selectString = (String) this.metrosMarca.marcasList.getSelectedValue();
-
-        switch (accion) {
-            case "agregarActualizar":
-                String marca = this.metrosMarca.marcaTextField.getText();
-                this.msg = "";
-                if (marca.isEmpty()) {
-                    this.msg += "Marca: Campo Nulo \n";
-                }
-                if (!msg.isEmpty()) {
-                    JOptionPane.showMessageDialog(this.metrosMarca, msg, "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    if (this.model.agregarMetrosMarca(marca, selectString)) {
-                        JOptionPane.showMessageDialog(this.metrosMarca, "Se han actualizado la marca correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        this.msg = "Error al intentar actualizar la marca del metro \n";
-                        this.msg += "Puede que exista una marca con ese nombre o exista problema con la Base de Datos.";
-                        JOptionPane.showMessageDialog(this.metrosMarca, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                this.metrosMarcaAcction("visualizar");
-                break;
-            case "eliminar":
-                if (selectString != null) {
-                    int acc = JOptionPane.showConfirmDialog(this.metrosMarca, "Estas seguro de eliminar a " + selectString, "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if (acc == 0) {
-                        if (this.model.eliminarMetrosMarca(selectString)) {
-                            JOptionPane.showMessageDialog(this.metrosMarca, "Se ha eliminado la marca correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(this.metrosMarca, "Error al intentar eliminar la marca", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this.users, "Seleccione una marca para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                this.metrosMarcaAcction("visualizar");
-                break;
-            default:
-                this.metrosMarca.marcaTextField.setText("");
-                this.metrosMarca.marcasList.setModel(this.model.getMetrosMarca());
-                break;
         }
     }
 
@@ -1552,6 +1589,117 @@ public class controlador implements ActionListener {
                 idServicio = -1;
                 this.servicio.visualizarServiciosTable.setModel(this.model.mostrarServicios());
                 this.servicio.tipoServicioComboBox.setModel(this.model.tipoServicioCombobox("t_tipo_servicio"));
+                break;
+        }
+    }
+
+    public void agregarMetrosModelos(String modelo, int idMetroMarca) {
+        this.msg = "";
+        if (modelo.isEmpty()) {
+            this.msg += "Modelo: Campo Nulo \n";
+        }
+        if (idMetroMarca == 0) {
+            this.msg += "Marca"
+                    + ": Seleccionar una Marca \n";
+        }
+        if (!msg.isEmpty()) {
+            JOptionPane.showMessageDialog(this.metrosMedelos, msg, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int idMetMarca = this.model.arregloMetrosMarca.get(idMetroMarca - 1).getId_metro_marca();
+            if (this.model.agregarMetrosModelos(modelo, idMetMarca)) {
+                JOptionPane.showMessageDialog(this.metrosMedelos, "Se ha agregado el modelo correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                this.msg = "Error al intentar agregar el modelo \n Pueda que ya exista el Modelo";
+                JOptionPane.showMessageDialog(this.metrosMedelos, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void modificarMetrosModelos(String modelo, int idMetroMarca) {
+        this.msg = "";
+        if (modelo.isEmpty()) {
+            this.msg += "Modelo: Campo Nulo \n";
+        }
+        if (idMetroMarca == 0) {
+            this.msg += "Marca: Seleccionar una Marca \n";
+        }
+        if (!msg.isEmpty()) {
+            JOptionPane.showMessageDialog(this.metrosMedelos, msg, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int idMetMarca = this.model.arregloMetrosMarca.get(idMetroMarca - 1).getId_metro_marca();
+            if (this.model.actualizarMetrosModelos(this.idMetrosModelos, modelo, idMetMarca)) {
+                JOptionPane.showMessageDialog(this.metrosMedelos, "Se ha actualizado el modelo", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                this.msg = "Error al intentar actualizar el modelo";
+                JOptionPane.showMessageDialog(this.metrosMedelos, this.msg, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    /**
+     * Método para el trabajo con el formulario de <b>TipoServicios</b>
+     *
+     * @param accion String con la accion a realizar
+     */
+    private void metrosModelosAcction(String accion) {
+        int fila_seleccionada;
+        switch (accion) {
+            case "agregarModifiar":
+                // Capturar datos del formulario
+                int idMetrosMarca = this.metrosMedelos.marcaComboBox.getSelectedIndex();
+                String modelo = this.metrosMedelos.modeloTextField.getText();
+                // idMetrosModelos es igual a -1 para crearlo o es igual al id del usario para modificarlo o eliminarlo                
+                if (idMetrosModelos == -1) {
+                    this.agregarMetrosModelos(modelo, idMetrosMarca);
+                } else {
+                    this.modificarMetrosModelos(modelo, idMetrosMarca);
+                }
+                // Si se crea o se ctualiza el usuario entra
+                if (this.msg.isEmpty()) {
+                    // Limpiar todos los escaques del formulario                    
+                    this.metrosMedelos.modeloTextField.setText("");
+                    this.metrosMedelos.marcaComboBox.setSelectedIndex(0);
+                    // Refrescar los datos a mostrar en el formulario de visualización
+                    this.metrosModelosAcction("visualizar");
+                }
+                break;
+            case "eliminar":
+                fila_seleccionada = this.metrosMedelos.modelosTable.getSelectedRow();
+                if (fila_seleccionada > -1) {
+                    idMetrosModelos = this.model.arregloMetrosModelos.get(fila_seleccionada).getId_metro_modelo();
+                    int acc = JOptionPane.showConfirmDialog(this.metrosMedelos, "Estas seguro de eliminar a " + this.model.arregloMetrosModelos.get(fila_seleccionada).getModelo(), "¡Cuidado...!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (acc == 0) {
+                        if (this.model.eliminarMetrosModelos(idMetrosModelos)) {
+                            JOptionPane.showMessageDialog(this.metrosMedelos, "Se ha eliminado el Modelo correctamente", "Acción Completada", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this.metrosMedelos, "Error al intentar eliminar el Modelo", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this.metrosMedelos, "Seleccione un Modelo para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                this.metrosModelosAcction("visualizar");
+                break;
+            case "modificar":
+                fila_seleccionada = this.metrosMedelos.modelosTable.getSelectedRow();
+                idMetrosModelos = this.model.arregloMetrosModelos.get(fila_seleccionada).getId_metro_modelo();
+                if (idMetrosModelos > 0) {
+                    this.metrosMedelos.modeloTextField.setText(this.model.arregloMetrosModelos.get(fila_seleccionada).getModelo());
+                    // Para ubicar el servicio seleccionado
+                    int fila_sel = 0;
+                    for (int i = 0; i < this.model.arregloMetrosMarca.size(); i++) {
+                        if (this.model.arregloMetrosMarca.get(i).getId_metro_marca() == this.model.arregloMetrosModelos.get(fila_seleccionada).getId_marca()) {
+                            fila_sel = i + 1;
+                            break;
+                        }
+                    }
+                    this.metrosMedelos.marcaComboBox.setSelectedIndex(fila_sel);
+                }
+                break;
+            default:
+                idMetrosModelos = -1;
+                this.metrosMedelos.modelosTable.setModel(this.model.mostrarMetrosModelos());
+                this.metrosMedelos.marcaComboBox.setModel(this.model.metrosMarcasCombobox("t_metro_marca"));
                 break;
         }
     }

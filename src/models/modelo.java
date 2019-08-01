@@ -38,6 +38,7 @@ public class modelo extends SQLite_conexion {
     public ArrayList<ServIncluAlcan> arregloServiAlc;
     public ArrayList<Object> arregloClienteNorma;
     public ArrayList<MetroMarca> arregloMetrosMarca;
+    public ArrayList<MetroModelos> arregloMetrosModelos;
 
     /**
      * Constructor de la clase <b>modelo</b>
@@ -62,7 +63,7 @@ public class modelo extends SQLite_conexion {
     }
 
     public String getMesTrabajo(int mes, int anno) throws SQLException {
-        resultSet = seleccionarResultSet("v_mes_all", "id_mes = " + mes + " AND id_anno = " + anno+ ";");
+        resultSet = seleccionarResultSet("v_mes_all", "id_mes = " + mes + " AND id_anno = " + anno + ";");
         ArrayList a = new ArrayList();
         try {
             while (resultSet.next()) {
@@ -359,7 +360,7 @@ public class modelo extends SQLite_conexion {
     public boolean eliminarTipoServicio(String selectString) {
         return eliminarRegistro("t_tipo_servicio", "id_tipo_servicio = " + buscarTipoServicio(selectString));
     }
-    
+
     public ListModel getMetrosMarca() {
         resultSet = seleccionarResultSet("t_metro_marca"); //Selecciono los datos de la tabla marca
         arregloMetrosMarca = new ArrayList<>(); //creo el objeto para guardar las marcas        
@@ -377,7 +378,7 @@ public class modelo extends SQLite_conexion {
         //Retorno ListModel con las marcas
         return jl.getModel();
     }
-    
+
     public int buscarMetrosMarca(String marca) {
         for (int i = 0; i < arregloMetrosMarca.size(); i++) {
             if (arregloMetrosMarca.get(i).getMarca().toUpperCase().equals(marca.toUpperCase())) {
@@ -386,6 +387,7 @@ public class modelo extends SQLite_conexion {
         }
         return -1;
     }
+
     public boolean agregarMetrosMarca(String marca, String selectString) {
         if (selectString == null) {
             if (buscarMetrosMarca(marca) != -1) {
@@ -401,7 +403,7 @@ public class modelo extends SQLite_conexion {
             }
         }
     }
-    
+
     public boolean eliminarMetrosMarca(String selectString) {
         return eliminarRegistro("t_metro_marca", "id_metro_marca = " + buscarMetrosMarca(selectString));
     }
@@ -532,6 +534,70 @@ public class modelo extends SQLite_conexion {
     public boolean eliminarServicio(int id_servicio) {
         String donde = "id_servicio = " + id_servicio;
         return this.eliminarRegistro("t_servicio", donde);
+    }
+
+    public TableModel mostrarMetrosModelos() {
+        resultSet = seleccionarResultSet("v_metros_modelos_all");
+
+        arregloMetrosModelos = new ArrayList<>();
+
+        try {
+            while (resultSet.next()) {
+                arregloMetrosModelos.add(new MetroModelos(resultSet.getInt("id_metro_modelo"), resultSet.getString("modelo"), resultSet.getInt("id_marca"), resultSet.getString("marca")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        TableModel tm;
+        if (arregloMetrosModelos.size() > 0) {
+            String nombreColumna[] = {"Modelo", "Marca"};
+            tm = new DefaultTableModel(nombreColumna, arregloMetrosModelos.size());
+            int conuntRow = 0;
+            for (int i = 0; i < arregloMetrosModelos.size(); i++) {
+                tm.setValueAt(arregloMetrosModelos.get(i).getModelo(), conuntRow, 0);
+                tm.setValueAt(arregloMetrosModelos.get(i).getMarca(), conuntRow, 1);
+                conuntRow++;
+            }
+        } else {
+            String nombreColumna[] = {"Descripción"};
+            tm = new DefaultTableModel(nombreColumna, 1);
+            tm.setValueAt("No existen modelos para mostrar", 0, 0);
+        }
+        return tm;
+    }
+
+    public ComboBoxModel metrosMarcasCombobox(String tabla) {
+        ComboBoxModel cbm;
+
+        resultSet = seleccionarResultSet(tabla);
+        ArrayList arreglo1 = new ArrayList();
+        arreglo1.add("Seleccionar");
+
+        try {
+            while (resultSet.next()) {
+                arreglo1.add(resultSet.getString("marca"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cbm = new DefaultComboBoxModel(arreglo1.toArray());
+
+        getMetrosMarca(); // Esto es para refrescar llas marcas (guardarlos en array)
+        return cbm;
+    }
+
+    public boolean agregarMetrosModelos(String modelo, int idMetroMarca) {
+        return insertar("t_metro_modelo", "modelo, id_marca", "'" + modelo + "'," + idMetroMarca);
+    }
+
+    public boolean actualizarMetrosModelos(int id_metro_modelo, String modelo, int idMetroMarca) {
+        return this.actualizar("t_metro_modelo", "modelo = '" + modelo + "', id_marca = " + idMetroMarca, "id_metro_modelo = " + id_metro_modelo);
+    }
+    
+    public boolean eliminarMetrosModelos(int id_metro_modelo) {
+        String donde = "id_metro_modelo = " + id_metro_modelo;
+        return this.eliminarRegistro("t_metro_modelo", donde);
     }
 
     /**
