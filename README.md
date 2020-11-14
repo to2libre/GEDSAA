@@ -12,5 +12,5 @@ Librerias necesarias para su correcto funcionamiento
 * sqlite-dialect-0.1.0
 * jdom-2.0.6
 
-## Autor
-Sistema realizado por carlos860920
+## Autores
+to2libre
