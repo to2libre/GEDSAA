@@ -1,4 +1,7 @@
 ![GEDSAA](logos/default.png)
+
+![GitHub License](https://img.shields.io/github/license/to2libre/gedsaa) ![GitHub contributors](https://img.shields.io/github/contributors/to2libre/gedsaa)
+
 # GEDSAA
 Gestión Empresarial de Servicios de Acueductos y Alcantarillados, es un sistema para la facturación de acuductos para el <b>Sector Estatal</b>.
 
